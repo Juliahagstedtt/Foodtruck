@@ -1,43 +1,10 @@
-header {
-    background-color: rgb(235, 232, 232);
-    color: rgb(187, 187, 187);
-    padding: 0;
-    text-align: start;
-    width: 100%;
-}
-.menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    width: 100%;
-    padding: 10px 20px;
-}
-.menu p {
-    margin: 0;
-    font-size: 15px;
-}
-
-
 h1 {
     color: white;
     margin: 15px;
-    margin-top: 60px;
+    margin-top: 110px;
 }
 
-.container-1 {
-    color: rgb(255, 255, 255);
-    background-color: rgba(29, 27, 27, 0.849);
-    padding: 10px;
-    border-radius: 5px;
-    display: block;
-    max-width: 450px;
-    width: calc(95% - 20px);
-    box-sizing: border-box;
-    margin-left: 20px;
-    margin-right: auto;
-}
-
-.container-2, .container-3, .container-4 {
+.container-1, .container-2, .container-3, .container-4, .container-5, .container-6, .container-7 {
     color: rgb(255, 255, 255);
     background-color: rgb(95, 91, 91);
     padding: 10px;
@@ -49,35 +16,39 @@ h1 {
     box-sizing: border-box;
     margin-left: 20px;
     margin-right: auto;
-    box-sizing: border-box;
+    box-shadow: 2px 2px 4px solid black;
 }
-.container-1, .container-2, .container-3, .container-4 p {
+.container-1 p, .container-2 p, .container-3 p, .container-4 p, .container-5 p {
     font-size: 16px;
 }
 
+.container-1:hover, .container-2:hover, .container-3:hover, .container-4:hover, .container-5:hover {
+    background-color: black;
+    color: white;
+}
+
 body {
-    background-color: rgb(67, 126, 101);
+    background-color: #489078;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.shopping-bag {
+/* .shopping-bag {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 5px;
+    right: 5px;
     bottom: 70px;
     font-size: 50px;
     margin-top: 50px;
+    width: 75px;
+    color: rgb(58, 57, 57);
 }
 
 .shopping-bag:hover {
-    background-color: hotpink;
+    background-color: rgb(221, 214, 218);
     color: white;
-}
-
-
-
+} */
 
 .ingredients {
     color: rgb(233, 232, 232);
