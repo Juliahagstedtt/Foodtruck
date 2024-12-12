@@ -5,21 +5,26 @@ body {
     padding: 0;
 }
 
-main {
-    margin-top: 50px;
+.cart-icon img {
+    width: 75px;
+    height: 76px;
+    margin: 10px;
+    display: inline-block;
 }
-
 
 #menu-container {
-    background-color: #489078;
-}
-#menu-container {
-    background-image: url('images/background.jpg');
-    background-size: cover;
-    background-position: center;
+ width: 30%;
 }
 
-header {
-display: flex;
-justify-content: flex-end;
+#cart-container {
+    width: 30%;
+}
+
+#eta-container {
+width: 30%;
+}
+
+#receipt-container {
+width: 30%;
+margin-top: 20px;
 }
