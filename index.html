@@ -6,76 +6,38 @@
     <title>Foodtruck: Yum yum gim me sum</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" type="module"></script>
-    <script src="Apikey.js" type="module"></script>
+    <script src="api.js" type="module"></script>
     <!-- Bild på en korg/shopping väska icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 </head>
-<header>
-    <section class="menu">
-        <p>menu</p>
-        <p>cart</p>
-        <p>eta</p>
-    </section>
-</header>
-
 <body>
-    <section class="shopping-bag">
-        <a href="#cart"><i class="fa-light fa-bag-shopping"></i></a>
+<header>
+    <button id="view-cart-btn" class="cart-icon">
+        <img src="images/cart btn.jpg" alt="Varukorgsikon">    
+    </button>
+</header>
+<main>
+    <section id="menu-container">
+        <img src="images/menu.jpg" alt="Menybild" class="menu-image">
     </section>
 
-    <div> <h1>MENY</h1></div>
+    <section id="cart-container">
+        <img src="images/items.jpg" alt="Varukorg" class="cart-image">
 
-    <section class="container-1">
-        <div class="text-content">
-            <p>KARLSTAD.............................................9 SEK</p>
-            <p class="ingredients"> kantarell, scarlottenlök, morot, bladpersilja </p>
-        </div>
+        <img src="images/cart-footer.jpg" alt="Betalning" class="payment">
     </section>
 
-    <section class="container-2">
-        <p>BANGKOK..............................................9 SEK</p>
-        <p class="ingredients"> morot, salladslök, chili, kokos, lime, koriander </p>
-        <br>
-
-        <p>HO CHI MINH.........................................9 SEK</p>
-        <p class="ingredients"> kål, salladslök, chili, vitlök, ingefära, tofu </p>
-        <br>
-
-        <p>PARIS.....................................................9 SEK</p>
-        <p class="ingredients"> kål, chevré, honung, basilika, valnötspasta </p>
-        <br>
-
-        <p>OAXACA.................................................9 SEK</p>
-        <p class="ingredients"> majs, tomat, rostade ärtor, vitlök, lime </p>
-
-    </section>
-    <section class="container-3">
-        <div class="text-content">
-            <p>DIPSÅS................................................19 SEK</p>
-            <div class="options-dip"> 
-                <p> sweet chili</p>
-                <p> wonton std</p>
-                <p>sweet & sour</p>
-                <p>hot mangos</p>
-                <p>chili mayo</p>
-                <p>gucamole</p>
-            </div>
-        </div>
+    <section id="eta-container">
+        <img src="images/boxtop.jpg" alt="Matbox" class="food-holder">
+        <img src="images/content.jpg" alt="Innehåll" class="content-image">
+        <img src="images/footer.jpg" alt="eta-fot" class="footer-image">
     </section>
 
-    <section class="container-4">
-            <div class="text-content">
-                <p>DRICKA................................................19 SEK</p>
-                <div class="options-drink"> 
-                    <p>Fanta Orange</p>
-                    <p>Fanta exotic</p>
-                    <p>Coca Cola</p>
-                    <p>Sprite</p>
-                    <p>LOKA Granatäpple</p>
-                    <p>LOKA Citrus</p>
-                </div>
-            </div>
+    <section id="receipt-container">
+        <img src="" alt="">
     </section>
+
+</main>
 </body>
 </html>
