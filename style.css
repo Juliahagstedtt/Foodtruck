@@ -1,25 +1,3 @@
-/* h1 {
-    color: white;
-    margin: 15px;
-    margin-top: 110px;
-} */
-
-/* .menu-image {
-    width: 100%;
-    max-width: 400px;
-    margin: 0;
-    display: block;
-} */
-
-#menu-contauner {
-    background-color: #489078;
-}
-#menu-container {
-    background-image: url('images/background.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
 body {
     background-color: #489078;
     font-family: Arial, sans-serif;
@@ -31,80 +9,17 @@ main {
     margin-top: 50px;
 }
 
-/* .container-1, .container-2, .container-3, .container-4, .container-5, .container-6, .container-7 {
-    color: rgb(255, 255, 255);
-    background-color: rgb(95, 91, 91);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    display: block;
-    width: calc(95% - 20px);
-    max-width: 450px;
-    box-sizing: border-box;
-    margin-left: 20px;
-    margin-right: auto;
-    box-shadow: 2px 2px 4px solid black;
+
+#menu-container {
+    background-color: #489078;
 }
-.container-1 p, .container-2 p, .container-3 p, .container-4 p, .container-5 p {
-    font-size: 16px;
+#menu-container {
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-.container-1:hover, .container-2:hover, .container-3:hover, .container-4:hover, .container-5:hover {
-    background-color: black;
-    color: white;
+header {
+display: flex;
+justify-content: flex-end;
 }
-
-
-.view-cart-btn {
-    position: fixed;
-    top: 5px;
-    right: 5px;
-    bottom: 70px;
-    font-size: 50px;
-    margin-top: 50px;
-    width: 75px;
-}
-
-.shopping-bag:hover {
-    background-color: rgb(221, 214, 218);
-    color: white;
-}
-
-
-
-.ingredients {
-    color: rgb(233, 232, 232);
-    font-size: 13px;   
-    padding: 5px;
-    border-radius: 5px;
-}
-
-
-
-.options-dip, .options-drink {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
-}
-
-.options-dip p, .options-drink p {
-    background-color: rgba(126, 121, 121, 0.753);
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: auto;
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.options-dip p:hover, .options-drink p:hover {
-    background-color: rgba(0, 0, 0, 0.685);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-}
- */
