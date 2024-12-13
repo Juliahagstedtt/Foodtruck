@@ -6,36 +6,56 @@
     <title>Foodtruck: Yum yum gim me sum</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" type="module"></script>
-    <script src="api.js" type="module"></script>
-    <!-- Bild på en korg/shopping väska icon -->
+    <script src="api.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
 <header>
-    <button id="view-cart-btn" class="cart-icon">
+    <button id="cart-bag" class="cart-icon">
         <img src="images/cart btn.jpg" alt="Varukorgsikon">    
     </button>
 </header>
 <main>
+    <!-- Menyn -->
     <section id="menu-container">
-        <div id="menu"></div> 
+        <h2>MENY</h2>
+        <div id="menu" class="menu-items">
+            <button id="menu-button">Menu!</button>   
+            <p>Julia Hagstedt</p>
+            <p>Julia@hotmail.com</p>
+        </div> 
     </section>
 
+    <!-- Korg -->
     <section id="cart-container">
-        <div id="order-summary"></div> 
+        <h2>Cart</h2>
+        <div class="cart-items">
+            
+        </div> 
+        <div class="cart-total">
+
+        </div>
+        <button id="order-button">TAKE MY MONEY!</button>
     </section>
 
-
+<!-- Eta -->
     <section id="eta-container">
-        <div id="eta"></div>
+        <h2>Eta</h2>
+        <div class="eta"></div>
+
+        <button id="new-order-button">SE KVITTO</button>
+        <button id="new-order-button">GÖR EN NY BESTÄLLNING</button>
     </section>
 
+    <!-- Kvitto -->
     <section id="receipt-container">
-        <div id="receipt"></div>
+        <h2>Kvitto</h2>
+        <div id="receipt-details">
+
+        </div>
+        <button id="new-order-button">GÖR EN NY BESTÄLLNING</button>
     </section>
-
-
 </main>
 </body>
 </html>

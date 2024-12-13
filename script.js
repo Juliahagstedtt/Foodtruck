@@ -1,5 +1,5 @@
 async function fetchMenu() {
-    const apiKey = 'yum-BHRyCR5Lgznl28Tr'; // Ersätt med din API-nyckel
+    const apiKey = 'yum-BHRyCR5Lgznl28Tr'; 
     const response = await fetch("https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu", {
         method: "GET",
         headers: {
@@ -7,11 +7,12 @@ async function fetchMenu() {
         }
     });
     const data = await response.json();
-    console.log(data); 
-    displayMenu(data); 
+    console.log(data);
+    menuItems = data.menuItems; 
+    displayMenu(menuItems); 
 }
 
-
+let menuItems = [];
 function displayMenu(data) {
     const menuItems = data.menuItems; 
     menuItems.forEach(item => {
@@ -22,9 +23,8 @@ function displayMenu(data) {
             <p>Pris: ${item.price} SEK</p>
             <button onclick="addToCart(${item.id})">Lägg till i varukorg</button>
         `;
-        document.getElementById("menu-container").appendChild(itemElement);
-        console.log(data);  // Se vad API:et returnerar
-
+        document.getElementById("menu").appendChild(itemElement);
+        console.log(data); 
     });
 }
 
@@ -40,13 +40,16 @@ function updateCart() {
     const cartContainer = document.getElementById('cart-container');
     cartContainer.innerHTML = '';
 
-    cart.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.innerHTML = '
-        <h4>${item.name}</h4>
-        <p>Pris: ${item.price}SEK</p>
-        ';
-        cartContainer.appendChild(cartItem);
-    });
+    // cart.forEach(item => {
+    //     const cartItem = document.createElement('div');
+    //     cartItem.innerHTML = '
+    //     <h4>${item.name}</h4>
+    //     <p>Pris: ${item.price}SEK</p>
+    //     ';
+    //     cartContainer.appendChild(cartItem);
+    // });
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    const totalElement = document.getElementById('order-summary');
+    totalElement.innerHTML = 'Total: ${total} SEK';
 }
 

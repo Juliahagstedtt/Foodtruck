@@ -1,30 +1,150 @@
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
 body {
-    background-color: #489078;
     font-family: Arial, sans-serif;
+    background-color: #489078;
+
     margin: 0;
     padding: 0;
 }
 
+h2 {
+    color: white;
+    margin: 0;
+}
+/* Main */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 20px;
+}
+/* Header */
+header button {
+    width: auto;
+    color: #ffffff;
+    background-color: #489078;
+    border: none;
+    font-size: 16px;
+}
+/* Korg icon */
 .cart-icon img {
     width: 75px;
     height: 76px;
     margin: 10px;
     display: inline-block;
+    border-radius: 1px;
+    margin-left: 300px;
 }
 
-#menu-container {
- width: 30%;
+/* Meny container */
+#menu {
+    width: 100%;
+    background-color: #605858;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 11px;
+    padding: 10px;
+    display: block;
+    max-width: 450px;
+    box-sizing: border-box;
+    margin-top: 70px;
+} 
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+}
+.menu-items div {
+    background-color: #605858;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+.menu-items h2 {
+    margin: 0;
+    font-size: 15px;
+}
+.menu-items p {
+    margin: 5px 0;
+    font-size: 14px;
 }
 
+/* Knappar */
+button {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.767);
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: hotpink;
+}
+
+/* korg container */
 #cart-container {
-    width: 30%;
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
 }
-
+/* eta container */
 #eta-container {
-width: 30%;
+    width: 80%;
+    height: auto;
+    background-color: #605858;
+    color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
 }
 
+/* Kvitto */
 #receipt-container {
-width: 30%;
-margin-top: 20px;
+    width: 80%;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #605858;
+    color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 20px;
+    padding: 15px;
 }
+
+@media (max-width: 768px) {
+    #menu {
+        max-width: ;
+    }
+}
+
+
+@media (max-width: 390px) {
+    
+}
+
+
+
+
+
