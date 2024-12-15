@@ -7,14 +7,13 @@ padding: 0;
 body {
     font-family: Arial, sans-serif;
     background-color: #489078;
-
     margin: 0;
     padding: 0;
 }
 
 h2 {
-    color: white;
-    margin: 0;
+    margin-bottom: 10px;
+    font-size: 1.5em;
 }
 /* Main */
 main {
@@ -44,7 +43,7 @@ header button {
 
 /* Meny container */
 #menu {
-    width: 100%;
+    width: 80%;
     background-color: #605858;
     color: white;
     border-radius: 10px;
@@ -55,6 +54,7 @@ header button {
     max-width: 450px;
     box-sizing: border-box;
     margin-top: 70px;
+    height: 200px;
 } 
 .menu-items {
     display: flex;
@@ -70,7 +70,7 @@ header button {
     border-radius: 10px;
     text-align: center;
     width: 100%;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 5px rgba(236, 234, 234, 0.1);
 
 }
 .menu-items h2 {
@@ -88,7 +88,7 @@ button {
     background-color: rgba(0, 0, 0, 0.767);
     color: white;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 1px;
     font-size: 16px;
     padding: 10px 20px;
     border: none;
@@ -96,7 +96,8 @@ button {
 }
 
 button:hover {
-    background-color: hotpink;
+    background-color: rgb(199, 199, 199);
+    font-size: 15px;
 }
 
 /* korg container */
@@ -108,6 +109,11 @@ button:hover {
     margin: 20px;
     padding: 20px;
 }
+.cart-button {
+    background-color: #ffffff;
+    margin: 25px;
+}
+
 /* eta container */
 #eta-container {
     width: 80%;
@@ -115,9 +121,25 @@ button:hover {
     background-color: #605858;
     color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 20px;
     padding: 20px;
+}
+
+.eta-img img{
+    width: 80%;
+}
+
+
+.eta-button {
+    box-shadow: 1px 1px 5px #ffffff;
+    background-color: #605858;
+    margin-bottom: 15px;
+    border-radius: 1px;
+    width: 100%;
+}
+.eta-button:hover {
+    background-color: #a88080;
 }
 
 /* Kvitto */
@@ -125,12 +147,23 @@ button:hover {
     width: 80%;
     margin-top: 20px;
     padding: 15px;
-    background-color: #605858;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin: 20px;
     padding: 15px;
+}
+
+.logo img {
+    align-items: center;
+}
+
+section cart, eta, receipt {
+    display: none;
+}
+section.active {
+    display: block;
 }
 
 @media (max-width: 768px) {
