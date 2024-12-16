@@ -5,46 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodtruck: Yum yum gim me sum</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <script src="script.js" type="module"></script>
     <script src="api.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="DOM.js"></script>
+
+
+
 
 </head>
 <body>
 <header>
     <div class="cart-box">
-        <button class="cart-bag-button">
+        <button class="cart-bag-button" data-view="cart-container">
             <span class="total-item">0</span>
            <img src="svg/cart.svg" alt="Varukorgsikon">    
         </button>
     </div>
- 
 </header>
 <main>
     <!-- Menyn -->
-    <section id="menu" class="menu-section">
+    <section class="menu-continer">
         <h2>MENY</h2>
-        <div id="menu-continer" >
-
-        </div> 
-        <div id="menu-continer-drink" >
-
-        </div> 
-        <div id="menu-continer-dip" >
-
-        </div> 
-
-        <div class="menu-items">
-            <div class=""
+        <div id="menu" class="menu-section">
+            <div class="container">
+                <div id="menu-continer">
+                    <!-- MENY -->
+                </div> 
+            </div>
+        </div>
+    
+        <div class="menu-dip">
+            <div class="menu-dip" data-type="menu-dip">
+                <!-- <p>Text</p> -->
+            </div> 
+        </div>
+    
+        <div class="menu-drink">
+            <div class="menu-items">
+                <div class="menu-drink" data-type="drink"></div>
+                <!-- <p>Text</p> -->
+            </div>
         </div>
     </section>
 
     <!-- Korg -->
-    <section id="cart-container" data-section="cart">
+    <section id="cart-container" class="view hidden">
         <div class="cart-box">
-            <button class="cart-button">
+            <button class="cart-button" data-view="menu">
                 <span class="total-item">0</span>
-               <img src="svg/cart.svg" alt="Varukorgsikon">    
+                <img src="svg/cart.svg" alt="Varukorgsikon">    
             </button>
         </div>
         <h2>Cart</h2>
@@ -52,30 +63,32 @@
             
         </div> 
         <div class="cart-total">
-
+            <p class="receipt-total">Totalt</p>
+            <p>inkl 20% moms</p>
         </div>
-        <button id="to-order-button">TAKE MY MONEY!</button>
+        <p class="total">120SEK</p>
+        <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
     </section>
 
 <!-- Eta -->
-    <section id="eta-container" data-section="eta">
-        <h2>Eta</h2>
+    <section id="eta-container" data-section="eta" class="view hidden">
+        <h2>Dina wontons Tillagas!</h2>
         <div class="eta-img">
-            <img src="images/boxtop.png" alt="wonton-box"
+            <img src="images/boxtop.png" alt="wonton-box">
         </div>
         <div class="eta"></div>
 
     
-          <button class="eta-button">SE KVITTO</button>        
+          <button class="eta-button" data-view="receipt-container">SE KVITTO</button>        
 
 
         <div class="new-order-button">
-            <button id="to-new-order-button">GÖR EN NY BESTÄLLNING</button>
+            <button id="to-new-order-button-eta" data-view="menu">GÖR EN NY BESTÄLLNING</button>
         </div>
     </section>
 
     <!-- Kvitto -->
-    <section id="receipt-container" data-section="receipt">
+    <section id="receipt-container" data-section="receipt" class="view hidden">
         <h2>Kvitto</h2>
         <div class="logo">
             <img src="svg/logo.svg" alt="yum yum give me sum logo">
@@ -83,7 +96,7 @@
 
             <div id="receipt-details">
         </div>
-        <button id="to-menu-button">GÖR EN NY BESTÄLLNING</button>
+        <button id="to-new-order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
     </section>
 </main>
 </body>
