@@ -1,12 +1,11 @@
 * {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #489078;
     height: 1000px;
     margin: 0;
     padding: 0;
@@ -16,6 +15,7 @@ h2 {
     margin-bottom: 10px;
     font-size: 1.5em;
 }
+
 /* Main */
 main {
     display: flex;
@@ -24,81 +24,121 @@ main {
     justify-content: space-around;
     padding: 10px;
 }
-/* Header */
-header button {
-    width: auto;
-    color: #ffffff;
-    background-color: #489078;
-    border: none;
-    font-size: 16px;
-}
-/* Korg icon */
 
-.cart-icon {
+/* Header */
+.cart-box {
     display: flex;
     justify-content: right;
-
+    outline: none;
 }
-.cart-icon img {
+
+.cart-bag-button {
+    background-color: transparent;
     width: 4rem;
     height: 4rem;
+    border: none;
+    font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    outline: none;
+    outline: none;
 }
 
-/* Meny container */
+.cart-bag-button img {
+    width: 4rem;
+    height: 4rem;
+    display: block;
+    outline: none;
+}
+
+ .cart-bag-button .total-item {
+    /* position: absolute; */
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.cart-bag-button:focus,
+.cart-bag-button:active {
+    outline: none; 
+    box-shadow: none; 
+}
+
+/* Meny */
 #menu {
+    background-color: #489078;
     width: 100%;
     max-width: 450px;
     flex-direction: column;
-    background-color: #605858;
     color: white;
-    border-radius: 2px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
     margin: auto;
     padding: 10px;
-    display: block;
     box-sizing: border-box;
     margin-top: 70px;
-    height: 200px;      /*Lägger till auto efteråt */
-} 
-.menu-items {
+    height: 100%;
+}
+
+/* Gemensam stil för containrar */
+.a-container, .b-container, .c-container {
+    background-color: #605858;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 15px;
-    align-items: center;
-    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
-.menu-items div {
-    background-color: #605858;
-    padding: 15px;
-    /* border-radius: 10px; */
-    text-align: center;
-    width: 100%;
-    box-shadow: 2px 2px 5px rgba(236, 234, 234, 0.1);
-
+.a-container.active, .b-container.active, .c-container.active {
+    background-color: #a88080; 
 }
 
-.menu-drink, .menu-dip {
+/* Specifik layout för a-container */
+.a-container {
+    width: 100%;
     background-color: #605858;
-    width: 300px;
-    height: 110px;
-    border-radius: 2px;
-    margin-top: 20px;}
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px
+}
 
-.menu-items h2 {
+
+.b-container, .c-container {
+    width: 100%;
+    background-color: #605858; 
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex; 
     margin: 0;
-    font-size: 15px;
-}
-.menu-items p {
-    margin: 5px 0;
-    font-size: 14px;
+    flex-direction: column; 
+    gap: 10px; 
+    margin-bottom: 10px
 }
 
-p {
-    margin-top: 7px;
-    margin-bottom: 7px;
+/* Stil för varje element i containrarna */
+.a-container div, .b-container div, .c-container div {
+    width: 100%;
+    height: 50px;
+    background-color: #605858;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* Hover-effekt för element */
+.a-container div:hover, .b-container div:hover, .c-container div:hover {
+    background-color: #000000;
 }
 
 /* Knappar */
@@ -112,14 +152,14 @@ button {
     padding: 10px 20px;
     border: none;
     transition: background-color 0.3s ease;
+    outline: none;
 }
 
 button:hover {
     background-color: rgb(199, 199, 199);
-    font-size: 15px;
 }
 
-/* korg container */
+/* Varukorg */
 #cart-container {
     margin-top: 60px;
     width: 80%;
@@ -130,71 +170,94 @@ button:hover {
     margin: 20px;
     padding: 20px;
 }
-.cart-button {
-    background-color: #ffffff;
-    margin: 5px;
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* eta container */
+.cart-total {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.cart-total p {
+    margin: 0;
+}
+
+#to-order-button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* ETA */
 #eta-container {
     margin-top: 20px;
     position: relative;
-    width: 80%;
-    height: 500px;
+    width: 90%;
+    height: 700px;
     background-color: #605858;
     color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    margin: 20px;
+    /* margin: 0; */
     padding: 20px;
     overflow: hidden;
-}
-
-.eta-img {
-    /* position: absolute; */
-    width: 80%;
+    justify-content: center;
+    gap: 20px;
 }
 
 .eta-img img {
-    width: 100%;
+    width: 40%;
     height: auto;
     border-radius: 5px;
-
+    justify-content: center;
 }
-
 
 .eta-button {
+    width: 100%;
     box-shadow: 1px 1px 5px #ffffff;
     background-color: #605858;
-    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 20px; 
     border-radius: 1px;
-    width: 100%;
+    gap: 10px;
 }
+
 .eta-button:hover {
     background-color: #a88080;
+}
+
+.to-new-order-button {
+    margin-top: 30px; 
+    margin-bottom: 20px;
+    justify-content: center;
 }
 
 /* Kvitto */
 #receipt-container {
     width: 80%;
-    height: 300px;
+    height: auto;
     margin-top: 20px;
     padding: 15px;
     background-color: #ffffff;
     color: #000000;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    margin: 20px;
-    padding: 15px;
 }
 
 .logo img {
-    align-items: center;
+    display: block;
+    margin: 0 auto;
     width: 20%;
-    margin-left: 40%;
     margin-top: 30px;
 }
 
+/* Visa och dölja sektioner */
 .hidden {
     display: none;
 }
@@ -207,18 +270,24 @@ button:hover {
     display: block;
 }
 
+/* Responsiv design */
 @media (max-width: 768px) {
+    .b-container, .c-container {
+        width: 100%; /* Full bredd för mindre skärmar */
+    }
+
     #menu {
-        max-width: ;
+        max-width: 90%;
     }
 }
 
-
 @media (max-width: 390px) {
-    
+    header .cart-bag-button img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .eta-img {
+        /* width: 90%; */
+    }
 }
-
-
-
-
-

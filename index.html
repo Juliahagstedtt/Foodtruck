@@ -16,36 +16,47 @@
 
 </head>
 <body>
-<header>
+<main>
+
+<!-- Korg -->
     <div class="cart-box">
-        <button class="cart-bag-button" data-view="cart-container">
+        <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
             <span class="total-item">0</span>
            <img src="svg/cart.svg" alt="Varukorgsikon">    
         </button>
     </div>
-</header>
-<main>
+
+
     <!-- Menyn -->
-    <section class="menu-continer">
+    <section id="menu" class="view active">
         <h2>MENY</h2>
-        <div id="menu" class="menu-section">
-            <div class="container">
-                <div id="menu-continer">
-                    <!-- MENY -->
-                </div> 
+        <div class="a-container">
+            <div class="container1" data-type="menu-items">
+                 <!-- Innehåll för menyn -->
             </div>
-        </div>
-    
-        <div class="menu-dip">
-            <div class="menu-dip" data-type="menu-dip">
-                <!-- <p>Text</p> -->
+            <div class="container2" data-type="menu-items">
+                <!-- Innehåll för dip -->
+            </div>
+            <div class="container3" data-type="menu-items">
+                <!-- Innehåll för dricka -->
+            </div>      
+            <div class="container4" data-type="menu-items">
+                <!-- Innehåll för dricka -->
+            </div> 
+            <div class="container5" data-type="menu-items">
+                <!-- Innehåll för dricka -->
             </div> 
         </div>
-    
-        <div class="menu-drink">
-            <div class="menu-items">
-                <div class="menu-drink" data-type="drink"></div>
-                <!-- <p>Text</p> -->
+
+        <div class="b-container">
+            <div class="container-6" data-type="menu-dip">
+                <!-- Innehåll för menyn -->
+           </div>
+        </div>
+
+        <div class="c-container">
+            <div class="container7" data-type="menu-drink">
+                <!-- Innehåll för menyn -->
             </div>
         </div>
     </section>
