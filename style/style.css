@@ -1,0 +1,414 @@
+* {
+    box-sizing: border-box;
+    /* margin: 0; */
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+/* Button */
+button {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 14px; 
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+button:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+#to-new-order-button,
+#to-order-button,
+#to-order-button-eta,
+#to-new-order-button-eta {
+    padding: 8px 16px; 
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;  
+}
+
+#to-new-order-button:hover,
+#to-order-button:hover,
+#to-order-button-eta:hover,
+#to-new-order-button-eta:hover {
+    background-color: #686868;
+}
+
+.view {
+    display: none; 
+}
+
+.view.active {
+    display: block; 
+}
+
+#menu, #cart-container, #eta-container, #receipt {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+h3 {
+    margin-top: 20px; 
+    font-size: 24px; 
+    color: black;
+    text-align: center;
+}
+
+/* -------------------------Menu------------------------------- */
+
+.item-name {
+    white-space: nowrap; 
+    font-weight: bold;
+}
+
+.dotted-divider {
+    flex-grow: 1; 
+    border-bottom: 1px dotted #000; 
+    margin: 0 10px; 
+}
+
+.item-price {
+    white-space: nowrap; 
+}
+
+
+
+
+#menu {
+    background-color: #489078;
+    padding: 16px; 
+    border-radius: 8px; 
+    margin: auto;
+    width: 100%;
+    max-width: 800px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#menu-items {
+    padding: 8px; 
+    height: 35%; 
+}
+
+
+
+.menu-item {
+    background-color: #5f5f5f;
+    padding: 8px; 
+    border-radius: 6px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    height: 35%; 
+    gap: 10px;
+    align-items: center;
+    display: flex;
+}
+
+.menu-item:hover {
+    background-color: #000000;
+}
+
+.side-menu-button {
+    all: unset;
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.menu-item h3 {
+    font-size: 1rem; 
+    color: #fff;
+    display: inline;
+}
+
+h3::after {
+    border-bottom: 2px dotted black;
+}
+
+.menu-item p {
+    font-size: 0.7rem; 
+    color: #ddd;
+    display: inline;
+}
+
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px; 
+}
+
+.side-container {
+    padding: 8px; 
+    background-color: #f0f0f0;
+    border-radius: 8px; 
+}
+
+.side-menu-selection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px; 
+}
+
+.side-menu-item {
+    background-color: #7c7b7b;
+    padding: 8px; 
+    border-radius: 4px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center; 
+}
+
+.side-menu-item:hover {
+    background-color: #635a5a;
+}
+
+/* -------------------------Menu------------------------------- */
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+#cart-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    gap: 16px; 
+    border-radius: 8px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding: 16px; 
+    flex-grow: 1;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    max-height: 250px; 
+    overflow-y: auto;
+}
+
+.cart-total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; 
+    background-color: rgb(169, 170, 170);
+    padding: 8px; 
+    border-radius: 6px; 
+}
+
+.cart-total p {
+    margin: 0;
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+#to-order-button {
+    width: 100%;
+    padding: 8px; 
+    background-color: #000000;
+    color: white;
+    font-size: 14px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#to-order-button:hover {
+    background-color: #a382a0;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+/* ---------------------------------Eta------------------------------------- */
+
+#eta-container {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: rgb(85, 85, 85);
+    flex-direction: column;
+    gap: 16px; 
+    border-radius: 8px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding: 16px; 
+    justify-content: space-between;
+}
+
+.cart-items {
+    gap: 8px; 
+    max-height: 250px; 
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.cart-total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; 
+    background-color: rgb(169, 170, 170);
+    padding: 8px; 
+    border-radius: 6px; 
+    margin-top: auto;
+}
+
+.cart-total p {
+    margin: 0;
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+#to-order-button {
+    width: 100%;
+    padding: 8px; 
+    background-color: #000000;
+    color: white;
+    font-size: 14px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#to-order-button:hover {
+    background-color: #a0a0a0;
+}
+
+/* ---------------------------------Eta------------------------------------- */
+
+/* oooooooooooooooooooooooooo   Receipt    oooooooooooooooooooooooooooooooo */
+
+ #receipt {
+    display: none;
+    color: #000000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.receipt-container {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 3rem; 
+    display: flex;
+    flex-direction: column;
+    padding: 0.8rem; 
+    max-width: 800px; 
+    align-items: center;
+    border-radius: 8px; 
+}
+
+.logo img {
+    margin-bottom: 20px; 
+    display: block;
+    margin: 0 auto;
+    width: 25%; 
+    margin-top: 20px; 
+}
+
+.new-order {
+    margin-top: 20px; 
+    margin-bottom: 16px; 
+    display: flex;
+    justify-content: center;
+    font-size: 18px; 
+}
+
+#to-new-order-button {
+    padding: 8px 16px; 
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#to-new-order-button:hover {
+    background-color: #686868;
+}
+
+/* oooooooooooooooooooooooooo   Receipt    oooooooooooooooooooooooooooooooo */
+
+/* -------------------------------- Cart Box Button ------------------------------- */
+
+.total-items {
+    color: white; 
+    background-color: red; 
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 12px; 
+    position: absolute; 
+    top: -8px; 
+    right: -8px; 
+    z-index: 10} 
+
+.cart-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.cart-box-button {
+    position: relative;  
+    top: 16px; 
+    right: 16px; 
+    background-color: transparent; 
+    border: none;     
+    padding: 8px; 
+    cursor: pointer; 
+    z-index: 1000;    
+}
+
+.cart-box-button img {
+    width: 32px; 
+    height: 32px; 
+}
+
+.cart-box-button:hover img {
+    transform: scale(1.05); 
+    transition: transform 0.3s ease; 
+}
+
+/* -------------- Responsiv design för skärmar upp till 390px ------------------ */
+
+@media (max-width: 390px) {
+    .cart-box-button {
+        top: 8px;    
+        right: 8px;  
+    }
+
+    .cart-box-button img {
+        width: 28px;  
+        height: 28px;  
+    }
+}

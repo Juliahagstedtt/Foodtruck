@@ -5,78 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodtruck: Yum yum gim me sum</title>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
-    <link rel="stylesheet" href="cart.css">
-    <link rel="stylesheet" href="eta.css">
-    <link rel="stylesheet" href="receipt.css">
+    <link rel="stylesheet" href="style/style.css">
+    <!-- <link rel="stylesheet" href="style/menu.css">
+    <link rel="stylesheet" href="style/cart.css">
+    <link rel="stylesheet" href="style/eta.css">
+    <link rel="stylesheet" href="style/receipt.css"> -->
 
 
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <script src="script.js" type="module"></script>
-    <script src="api.js"></script>
-    <script src="DOM.js"></script>
+    <script src="js/script.js" type="module"></script>
+    <!-- <script src="js/menu.js" type="module"></script>
+    <script src="js/cart.js" type="module"></script>
+    <script src="js/app.js" type="module"></script> -->
+    <script src="js/api.js" type="module"></script>
+    <!-- <script src="js/dom.js" type="module"></script> -->
+
+
 </head>
 <body>
 <main>
 
     <!-- Menyn -->
-    <section id="menu" class="view active">
+    <section id="menu" class="view">
         <!-- Korg -->
         <div class="cart-box">
             <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
-                <!-- <span class="total-item">0</span> -->
+                <span class="total-item">0</span>
                <img src="svg/cart.svg" alt="Varukorgsikon">    
             </button>
         </div>
         <h2>MENY</h2>
         <div class="menu-container" id="menu-items">
             <!-- Menyn -->
+             
         </div>
 
         <div class="side-menu">
             <div class="side-container">
-                <p>DIPSÅS</p>
                 <div class="dotted-divider"></div>
-                <p></p>
+                <p>Dip-såser</p>
             </div>
             <div class="side-menu-selection" data-type="dip">
+                <!-- Dipsåser kommer att fyllas här -->
             </div>
-        </div> <!-- Stängde side-menu här -->
-    
+        </div> <!-- dip-menu här -->
+        
         <div class="side-menu">
             <div class="side-container">
-                <p>DRICKA</p>
                 <div class="dotted-divider"></div>
-                <p></p>
+                <p>Drycker</p>
             </div>
             <div class="side-menu-selection" data-type="drink">
+                <!-- Drycker kommer att fyllas här -->
             </div>
-        </div> <!-- Stängde side-menu här -->
-    </section>
+        </div> <!-- drick-menu här -->
 
     <!-- Korg -->
-    <section id="cart-container" class="view hidden">
+    <section id="cart-container" class="view">
         <div class="cart-box">
-            <button class="cart-bag-button" data-view="menu" aria-label="Gå tillbaka till meny">
-                <img src="svg/cart.svg" alt="Varukorgsikon">
-            </button>
-        </div>
-        <div class="cart-items">
-            <!-- Varukorgens innehåll visas här -->
-        </div> 
-        <div class="cart-total">
-            <p class="receipt-total">Totalt</p>
-            <p>inkl 20% moms</p>
-            <p class="total">120 SEK</p>
+            <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
+                <span class="total-item">0</span>
+               <img src="svg/cart.svg" alt="Varukorgsikon">    
+            </button> 
         </div>
         <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
     </section>
 
 <!-- Eta -->
-<section id="eta-container" class="view hidden">
+<section id="eta-container" class="view">
     <h3>Dina wontons tillagas!</h3>
     <div class="eta-img">
         <img src="images/boxtop.png" alt="wonton-box">
@@ -91,8 +89,8 @@
 </section>
 
     <!-- Kvitto -->
-    <section id="receipt" class="view hidden">
-        <div class="receipt-container">
+    <section id="receipt" class="view">
+        <div id="receipt-container" class="view">
             <h2>Kvitto</h2>
             <div class="logo">
                 <img src="svg/logo.svg" alt="Yum yum gim me sum logo">
