@@ -10,6 +10,7 @@ export async function fetchMenu() {
             headers: { "x-zocom": apiKey }
         });
         const data = await response.json();
+        console.log("Menydatan:", data);  
         return data.items || [];
     } catch (error) {
         console.error("Fel vid hämtning av meny:", error);

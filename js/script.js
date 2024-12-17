@@ -1,22 +1,13 @@
 import { fetchMenu, placeOrder, fetchReceipt } from './api.js';
 
-
-const menuContainer = document.querySelector("#menu-container");
-const wonton = "wonton";
-const drink = "drink";
-const dip = "dip";
-let lastOrderData = null;
-
 let cart = [];
 
-// Hämta och visa meny när sidan är klar
 document.addEventListener("DOMContentLoaded", () => {
-    // Hämta och visa meny
+
     fetchMenu().then(menuItems => {
-        displayMenu(menuItems);
+        createMenu(menuItems);  // Skapa och visa menyn
     });
 
-    // Lägg till event listeners för navigering
     document.querySelector(".cart-bag-button").addEventListener("click", () => {
         switchView('cart-container');  
     });
@@ -38,10 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    showView("menu");  
+    showView("menu");
 });
 
-// Visa rätt vy baserat på ID
 function switchView(viewId) {
     const views = document.querySelectorAll(".view");
     views.forEach(view => {
@@ -54,18 +44,47 @@ function switchView(viewId) {
     }
 }
 
-// Visa menyn
-function displayMenu(menuItems) {
-    const menuContainer = document.getElementById("menu-items");
-    menuItems.forEach(item => {
-        const itemElement = document.createElement("div");
-        itemElement.classList.add("menu-item");
-        itemElement.innerHTML = `
-            <h3>${item.name}</h3>
-            <p class="price">${item.price} SEK</p>
-        `;
-        itemElement.addEventListener('click', () => addToCart(item));  // Lägg till varan i varukorgen
-        menuContainer.appendChild(itemElement);
+const menuContainer = document.querySelector("#menu-container");
+
+
+function createMenu(items) {
+    items.forEach(item => {
+        const menuItem = document.createElement("button");
+        menuItem.classList.add("menu-item");
+        menuItem.setAttribute("data-price", item.price);
+        menuItem.setAttribute("data-id", item.id);
+
+        const menuItemInner = document.createElement("div");
+        menuItemInner.classList.add("menu-item-inner");
+
+        const nameElement = document.createElement("span");
+        nameElement.classList.add("item-name");
+        nameElement.innerText = item.name;
+
+        const dottedDivider = document.createElement("div");
+        dottedDivider.classList.add("dotted-divider");
+
+        const priceElement = document.createElement("span");
+        priceElement.innerText = `${item.price} SEK`;
+        priceElement.classList.add("item-price");
+
+        menuItemInner.appendChild(nameElement);
+        menuItemInner.appendChild(dottedDivider);
+        menuItemInner.appendChild(priceElement);
+
+        const ingredientsElement = document.createElement("span");
+        ingredientsElement.classList.add("ingredients");
+        
+        if (Array.isArray(item.ingredients)) {
+            ingredientsElement.innerText = item.ingredients.join(", ");
+        } else {
+            ingredientsElement.innerText = ""; 
+        }
+
+        menuItem.appendChild(menuItemInner);
+        menuItem.appendChild(ingredientsElement);
+
+        menuContainer.appendChild(menuItem);
     });
 }
 
@@ -115,14 +134,13 @@ function showEta(eta) {
 
 // Visa kvitto
 async function showReceipt() {
-    const orderId = "1234";  // Detta skulle vara dynamiskt baserat på beställningen
+    const orderId = "1234";  
     const receipt = await fetchReceipt(orderId);
     if (receipt) {
         displayReceipt(receipt);
     }
 }
 
-// Visa kvitto på skärmen
 function displayReceipt(receipt) {
     const receiptContainer = document.querySelector("#receipt-details");
     receiptContainer.innerHTML = `

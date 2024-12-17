@@ -31,44 +31,49 @@
     <section id="menu" class="view">
         <!-- Korg -->
         <div class="cart-box">
-            <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
-                <span class="total-item">0</span>
-               <img src="svg/cart.svg" alt="Varukorgsikon">    
-            </button>
-        </div>
-        <h2>MENY</h2>
-        <div class="menu-container" id="menu-items">
-            <!-- Menyn -->
-             
-        </div>
+                    <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
+                        <span class="total-item">0</span>
+                        <img src="svg/cart.svg" alt="Varukorgsikon">    
+                    </button>
+                 </div>
+                <h2>MENY</h2>
+                <div id="menu-container" class="menu-items">
+                    <!-- Menyn -->
+                </div>
 
-        <div class="side-menu">
-            <div class="side-container">
-                <div class="dotted-divider"></div>
-                <p>Dip-såser</p>
-            </div>
-            <div class="side-menu-selection" data-type="dip">
-                <!-- Dipsåser kommer att fyllas här -->
-            </div>
-        </div> <!-- dip-menu här -->
+                <div class="side-menu">
+                    <div class="side-container">
+                        <div class="dotted-divider"></div>
+                            <p>Dip-såser</p>
+                        </div>
+                    <div class="side-menu-selection" data-type="dip">
+                         <!-- Dipsåser kommer att fyllas här -->
+                    </div>
+             <!-- dip-menu här -->
         
-        <div class="side-menu">
-            <div class="side-container">
-                <div class="dotted-divider"></div>
-                <p>Drycker</p>
-            </div>
+            <div class="side-menu">
+                <div class="side-container">
+                    <div class="dotted-divider"></div>
+                        <p>Drycker</p>
+                    </div>
+                </div>
             <div class="side-menu-selection" data-type="drink">
                 <!-- Drycker kommer att fyllas här -->
             </div>
         </div> <!-- drick-menu här -->
+    </section>
 
     <!-- Korg -->
     <section id="cart-container" class="view">
+        <h2>Cart</h2>
         <div class="cart-box">
             <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
                 <span class="total-item">0</span>
                <img src="svg/cart.svg" alt="Varukorgsikon">    
             </button> 
+            <div id="cart">
+                <!-- korg visas här -->
+            </div>
         </div>
         <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
     </section>

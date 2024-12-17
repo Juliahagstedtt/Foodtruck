@@ -57,8 +57,8 @@ button:hover {
 }
 
 #menu, #cart-container, #eta-container, #receipt {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     gap: 15px; 
 }
 
@@ -78,7 +78,7 @@ h3 {
 
 .dotted-divider {
     flex-grow: 1; 
-    border-bottom: 1px dotted #000; 
+    border-top: 2px dotted #ffffff; 
     margin: 0 10px; 
 }
 
@@ -92,11 +92,9 @@ h3 {
 #menu {
     background-color: #489078;
     padding: 16px; 
-    border-radius: 8px; 
     margin: auto;
-    width: 100%;
-    max-width: 800px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1);
 }
 
 #menu-items {
@@ -105,22 +103,27 @@ h3 {
 }
 
 
-
+#menu-container {
+    display: block;
+    visibility: visible;
+}
 .menu-item {
     background-color: #5f5f5f;
+    color: #fff;
     padding: 8px; 
-    border-radius: 6px; 
+    border-radius: 2px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     cursor: pointer;
     height: 35%; 
-    gap: 10px;
+    gap: 1px;
     align-items: center;
     display: flex;
 }
 
 .menu-item:hover {
     background-color: #000000;
+    color: #fff;
 }
 
 .side-menu-button {
@@ -140,7 +143,7 @@ h3 {
 }
 
 h3::after {
-    border-bottom: 2px dotted black;
+    border-bottom: 2px dotted rgb(255, 255, 255);
 }
 
 .menu-item p {
@@ -152,18 +155,21 @@ h3::after {
 .side-menu {
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px; 
+    /* gap: 10px; */
+    margin-top: 10%; 
+    width: 90%;
 }
 
 .side-container {
     padding: 8px; 
-    background-color: #f0f0f0;
+    background-color: #5f5f5f;
     border-radius: 8px; 
+    color: #ffffff;
 }
 
 .side-menu-selection {
+    margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 8px; 
 }
 
