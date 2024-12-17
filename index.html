@@ -4,110 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodtruck: Yum yum gim me sum</title>
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="eta.css">
+    <link rel="stylesheet" href="receipt.css">
+
+
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <script src="script.js" type="module"></script>
     <script src="api.js"></script>
     <script src="DOM.js"></script>
-
-
-
-
 </head>
 <body>
 <main>
 
-<!-- Korg -->
-    <div class="cart-box">
-        <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
-            <span class="total-item">0</span>
-           <img src="svg/cart.svg" alt="Varukorgsikon">    
-        </button>
-    </div>
-
-
     <!-- Menyn -->
     <section id="menu" class="view active">
+        <!-- Korg -->
+        <div class="cart-box">
+            <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
+                <!-- <span class="total-item">0</span> -->
+               <img src="svg/cart.svg" alt="Varukorgsikon">    
+            </button>
+        </div>
         <h2>MENY</h2>
-        <div class="a-container">
-            <div class="container1" data-type="menu-items">
-                 <!-- Innehåll för menyn -->
-            </div>
-            <div class="container2" data-type="menu-items">
-                <!-- Innehåll för dip -->
-            </div>
-            <div class="container3" data-type="menu-items">
-                <!-- Innehåll för dricka -->
-            </div>      
-            <div class="container4" data-type="menu-items">
-                <!-- Innehåll för dricka -->
-            </div> 
-            <div class="container5" data-type="menu-items">
-                <!-- Innehåll för dricka -->
-            </div> 
+        <div class="menu-container" id="menu-items">
+            <!-- Menyn -->
         </div>
 
-        <div class="b-container">
-            <div class="container-6" data-type="menu-dip">
-                <!-- Innehåll för menyn -->
-           </div>
-        </div>
-
-        <div class="c-container">
-            <div class="container7" data-type="menu-drink">
-                <!-- Innehåll för menyn -->
+        <div class="side-menu">
+            <div class="side-container">
+                <p>DIPSÅS</p>
+                <div class="dotted-divider"></div>
+                <p></p>
             </div>
-        </div>
+            <div class="side-menu-selection" data-type="dip">
+            </div>
+        </div> <!-- Stängde side-menu här -->
+    
+        <div class="side-menu">
+            <div class="side-container">
+                <p>DRICKA</p>
+                <div class="dotted-divider"></div>
+                <p></p>
+            </div>
+            <div class="side-menu-selection" data-type="drink">
+            </div>
+        </div> <!-- Stängde side-menu här -->
     </section>
 
     <!-- Korg -->
     <section id="cart-container" class="view hidden">
         <div class="cart-box">
-            <button class="cart-button" data-view="menu">
-                <span class="total-item">0</span>
-                <img src="svg/cart.svg" alt="Varukorgsikon">    
+            <button class="cart-bag-button" data-view="menu" aria-label="Gå tillbaka till meny">
+                <img src="svg/cart.svg" alt="Varukorgsikon">
             </button>
         </div>
-        <h2>Cart</h2>
         <div class="cart-items">
-            
+            <!-- Varukorgens innehåll visas här -->
         </div> 
         <div class="cart-total">
             <p class="receipt-total">Totalt</p>
             <p>inkl 20% moms</p>
+            <p class="total">120 SEK</p>
         </div>
-        <p class="total">120SEK</p>
         <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
     </section>
 
 <!-- Eta -->
-    <section id="eta-container" data-section="eta" class="view hidden">
-        <h2>Dina wontons Tillagas!</h2>
-        <div class="eta-img">
-            <img src="images/boxtop.png" alt="wonton-box">
-        </div>
-        <div class="eta"></div>
-
-    
-          <button class="eta-button" data-view="receipt-container">SE KVITTO</button>        
-
-
-        <div class="new-order-button">
-            <button id="to-new-order-button-eta" data-view="menu">GÖR EN NY BESTÄLLNING</button>
-        </div>
-    </section>
+<section id="eta-container" class="view hidden">
+    <h3>Dina wontons tillagas!</h3>
+    <div class="eta-img">
+        <img src="images/boxtop.png" alt="wonton-box">
+    </div>
+    <div class="eta">
+        <!-- Leveranstid visas här -->
+    </div>
+    <button class="eta-button" data-view="receipt-container">SE KVITTO</button>
+    <div class="new-order-button">
+        <button id="to-new-order-button-eta" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+    </div>
+</section>
 
     <!-- Kvitto -->
-    <section id="receipt-container" data-section="receipt" class="view hidden">
-        <h2>Kvitto</h2>
-        <div class="logo">
-            <img src="svg/logo.svg" alt="yum yum give me sum logo">
-        </div>
-
+    <section id="receipt" class="view hidden">
+        <div class="receipt-container">
+            <h2>Kvitto</h2>
+            <div class="logo">
+                <img src="svg/logo.svg" alt="Yum yum gim me sum logo">
+            </div>
             <div id="receipt-details">
+                <!-- Kvitto-information visas här -->
+            </div>
+            <div class="new-order">
+                <button id="to-new-order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+            </div>
         </div>
-        <button id="to-new-order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
     </section>
 </main>
 </body>

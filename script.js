@@ -6,25 +6,41 @@ async function fetchMenu() {
             "x-zocom": apiKey
         }
     });
+    
+    if (!response.ok) {
+        console.error("Fel vid hämtning av data från API:", response.statusText);
+        return;
+    }
+
     const data = await response.json();
-    console.log(data);
-    menuItems = data.menuItems; 
-    displayMenu(menuItems); 
+    console.log("API Data:", data);
+    
+    if (data && data.items && Array.isArray(data.items)) {
+        displayMenu(data.items);  
+    } else {
+        console.error("Ingen menydata hittades.");
+    }
 }
 
-let menuItems = [];
-function displayMenu(data) {
-    const menuItems = data.menuItems; 
+function displayMenu(menuItems) {
+    const menuContainer = document.getElementById("menu-items");
+    if (!menuContainer) {
+        console.error("Elementet med id 'menu-items' finns inte i HTML.");
+        return;
+    }
+
+    menuContainer.innerHTML = '';  
+
     menuItems.forEach(item => {
         const itemElement = document.createElement("div");
+        itemElement.classList.add("menu-item");
         itemElement.innerHTML = `
             <h3>${item.name}</h3>
             <p>${item.description}</p>
             <p>Pris: ${item.price} SEK</p>
             <button onclick="addToCart(${item.id})">Lägg till i varukorg</button>
         `;
-        document.getElementById("menu").appendChild(itemElement);
-        console.log(data); 
+        menuContainer.appendChild(itemElement);
     });
 }
 
@@ -32,51 +48,30 @@ let cart = [];
 
 function addToCart(itemId) {
     const item = menuItems.find(item => item.id === itemId);
-    cart.push(item);
-    updateCart();
+    if (item) {
+        cart.push(item);
+        updateCart();
+    }
 }
 
 function updateCart() {
-    const cartContainer = document.getElementById('cart-container');
-    cartContainer.innerHTML = '';
+    const cartContainer = document.querySelector(".cart-items");
+    cartContainer.innerHTML = "";
 
-    // cart.forEach(item => {
-    //     const cartItem = document.createElement('div');
-    //     cartItem.innerHTML = '
-    //     <h4>${item.name}</h4>
-    //     <p>Pris: ${item.price}SEK</p>
-    //     ';
-    //     cartContainer.appendChild(cartItem);
-    // });
+    cart.forEach(item => {
+        const cartItem = document.createElement("div");
+        cartItem.innerHTML = `
+            <h4>${item.name}</h4>
+            <p>Pris: ${item.price} SEK</p>
+        `;
+        cartContainer.appendChild(cartItem);
+    });
+
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    const totalElement = document.getElementById('order-summary');
-    totalElement.innerHTML = 'Total: ${total} SEK';
+    document.querySelector(".total").textContent = `${total} SEK`;
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-    function showSection(sectionId) {
-        document.querySelectorAll("section").forEach(section => {
-            section.classList.remove("active");
-        });
-        const targetSection = document.querySelector('[data-section="${sectionId}"]');
-        if (targetSection)  {
-            targetSection.classList.add("active");
-        }
-    }
-    document.getElementById("to-cart-button").addEventListener("click", () => {
-        showSection("cart");
-    })
-
-    document.getElementById("to-eta-button").addEventListener("click", () => {
-        showSection("eta");
-    });
-    document.getElementById("to-receipt-button").addEventListener("click", () => {
-        showSection("receipt");
-    });
-
-    document.getElementById("to-menu-button").addEventListener("click", () => {
-        showSection("menu");
-    });
-    showSection("menu");
+    console.log("DOMContentLoaded event lyssnare är aktiv.");
+    fetchMenu();
 });
