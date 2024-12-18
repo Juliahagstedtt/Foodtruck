@@ -108,6 +108,7 @@ function renderCart() {
         const cartItem = document.createElement("div");
         cartItem.innerHTML = `
             <h4>${item.name}</h4>
+            <div>${item.ingredients}</div>
             <p>Pris: ${item.price} SEK</p>
         `;
         cartContainer.appendChild(cartItem);
