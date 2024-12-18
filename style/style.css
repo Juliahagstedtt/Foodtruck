@@ -1,449 +1,235 @@
+/* Grundinställningar för alla element */
 * {
-    box-sizing: border-box;
-    /* margin: 0; */
-    padding: 0;
+    box-sizing: border-box; /* Säkerställer att padding och border ingår i elementets totala bredd och höjd */
+  /* Tar bort standard padding från alla element */
 }
 
+/* Standardinställningar för body */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-    text-transform: uppercase; /*Omvandlar till större bokstäver  */
+    font-family: Arial, sans-serif; /* Sätter standardfonten för sidan */
+    background-color: #f5f5f5; /* Ljusgrå bakgrundsfärg */
+    margin: 0; /* Tar bort standardmarginaler från body */
+    padding: 0; /* Tar bort padding från body */
+    align-items: center; /* Centerar innehållet horisontellt */
+    text-transform: uppercase; /* Gör all text i body till (stora bokstäver) */
 }
 
-/* Button */
+/* Styling för knappar */
 button {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-    border-radius: 2px;
-    font-size: 14px; 
-    transition: background-color 0.3s ease;
-    border: none;
+    background-color: rgb(255, 255, 255); /* Vit bakgrundsfärg */
+    color: rgb(0, 0, 0); /* Svart textfärg */
+    cursor: pointer; /* Visar pekaren när man hovrar över knappen */
+    border-radius: 2px; /* Rundade hörn på knappen */
+    font-size: 14px; /* Sätter en standard teckenstorlek */
+    transition: background-color 0.3s ease; /* Lägger till en smidig övergång när bakgrundsfärgen ändras */
+    border: none; /* Tar bort den standardmässiga knappramen */
 }
 
+/* Hover-effekt för knappar */
 button:hover {
-    background-color: rgb(199, 199, 199);
+    background-color: rgb(199, 199, 199); /* Ändrar bakgrundsfärg när man hovrar över knappen */
 }
 
+/* Stilmall för knappar som har specifika id:n */
 #to-new-order-button,
 #to-order-button,
 #to-order-button-eta,
 #to-new-order-button-eta {
-    padding: 8px 16px; 
-    background-color: #000000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;  
+    padding: 8px 16px; /* Lägg till padding runt knappen */
+    background-color: #000000; /* Svart bakgrundsfärg */
+    color: white; /* Vit textfärg */
+    border: none; /* Tar bort kanten */
+    border-radius: 5px; /* Rundade hörn */
+    cursor: pointer; /* Pekaren visas när man hovrar */
+    transition: background-color 0.3s ease; /* Gör en smidig övergång när bakgrundsfärgen ändras */
+    width: 100%; /* Gör knappen lika bred som dess förälder */
 }
 
+/* Hover-effekt för specifika knappar */
 #to-new-order-button:hover,
 #to-order-button:hover,
 #to-order-button-eta:hover,
 #to-new-order-button-eta:hover {
-    background-color: #686868;
+    background-color: #686868; /* Ljusare svart när man hovrar */
 }
 
+/* Visibilitet av element som har klassen "view" */
 .view {
-    display: none; 
+    display: none; /* Döljer element med klassen "view" */
 }
 
 .view.active {
-    display: block; 
+    display: block; /* Visar elementet om det har klassen "active" */
 }
 
+/* Styling för olika sektioner på sidan */
 #menu, #cart-container, #eta-container, #receipt {
-    /* display: flex;
-    flex-direction: column; */
-    gap: 15px; 
+    gap: 15px; /* Skapar ett avstånd mellan barnen i dessa sektioner */
 }
 
+/* Styling för rubriker */
 h3 {
-    margin-top: 20px; 
-    font-size: 24px; 
-    color: black;
-    text-align: center;
+    margin-top: 20px; /* Skapar ett mellanrum ovanför rubriken */
+    font-size: 24px; /* Större textstorlek för rubriken */
+    color: black; /* Svart textfärg */
+    text-align: center; /* Centrerar texten */
 }
 
-/* -------------------------Menu------------------------------- */
+/* ------------------------- Menu ------------------------------- */
 
+/* Menyitemnamn */
 .item-name {
-    white-space: nowrap; 
-    font-weight: bold;
-    text-transform: uppercase; /*Omvandlar till större bokstäver  */
-    font-family: "Fira Sans", sans-serif;
+    white-space: nowrap; /* Förhindrar att texten radbryts */
+    font-weight: bold; /* Gör texten fetstil */
+    text-transform: uppercase; /* Gör texten till versaler */
+    font-family: "Fira Sans", sans-serif; /* Sätter teckensnittet */
 }
 
+/* Dotted-divider: En linje med prickar */
 .dotted-divider {
-    flex-grow: 1; 
-    border-top: 2px dotted #ffffff; 
-    margin: 0 10px; 
+    flex-grow: 1; /* Låter linjen växa för att fylla utrymmet */
+    border-top: 2px dotted #ffffff; /* Sätter en 2px prickad vit linje */
+    margin: 0 10px; /* Lägger till marginaler på sidorna */
 }
 
+/* Pris för item */
 .item-price {
-    white-space: nowrap; 
+    white-space: nowrap; /* Förhindrar radbrytning */
 }
 
-.ingredients {
-    
-}
-
-.dip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-}
-
+/* Styling för menyn */
 #menu {
-    background-color: #489078;
-    padding: 16px; 
-    margin: auto;
-    min-height: 100vh;
-    box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1);
+    background-color: #489078; /* Grön bakgrundsfärg */
+    padding: 16px; /* Padding runt menyn */
+    margin: auto; /* Centrerar menyn */
+    min-height: 100vh; /* Gör menyn lika hög som viewporten */
+    box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1); /* Lägger till en svag skugga */
 }
 
+/* Styling för alla menyalternativ */
 #menu-items {
-    padding: 8px; 
-    height: 35%; 
+    padding: 8px; /* Padding för item-listan */
+    height: 35%; /* Sätter en höjdprocent */
 }
 
-
+/* Styling för menykontainern */
 #menu-container {
-    display: block;
-    visibility: visible;
-    background-color: #5f5f5f;
-
+    display: block; /* Gör denna container till en block-element */
+    visibility: visible; /* Gör den synlig */
+    background-color: #5f5f5f; /* Grå bakgrund */
 }
+
 .menu-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; 
-    margin-top: 20px; 
-    margin-bottom: 20px;
+    display: grid; /* Använder grid för layout */
+    grid-template-columns: repeat(3, 1fr); /* Dela upp menyn i tre lika stora kolumner */
+    gap: 20px; /* Lägger till mellanrum mellan grid-elementen */
+    margin-top: 20px; /* Lägger till toppmarginal */
+    margin-bottom: 20px; /* Lägger till bottenmarginal */
 }
 
+/* Styling för varje menyitem */
 .menu-item {
-    background-color: #5f5f5f;
-    color: white;
-    padding: 0.8rem;
-    background: 0;
-    border: none;
-    text-align: left;
-    width: 100%;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    cursor: pointer;
+    background-color: #5f5f5f; /* Grå bakgrund */
+    color: white; /* Vit textfärg */
+    padding: 0.8rem; /* Padding runt innehållet */
+    background: 0; /* Ingen bakgrund på knappen */
+    border: none; /* Ingen kantlinje */
+    text-align: left; /* Vänsterjustera texten */
+    width: 100%; /* Gör knappen lika bred som föräldern */
+    padding-bottom: 1rem; /* Lägger till bottenpadding */
+    padding-top: 1rem; /* Lägger till topppadding */
+    cursor: pointer; /* Visar en pekare när man hovrar */
 }
 
+/* Hover-effekt för menyitems */
 .menu-item:hover {
-    background-color: #000000;
-    color: #fff;
+    background-color: #000000; /* Svart bakgrund när man hovrar */
+    color: #fff; /* Vit textfärg när man hovrar */
 }
 
-.side-menu-selection {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
+/* ------------------------- Cart Box ------------------------------- */
 
-}
-
-.side-menu-button {
-    all: unset;
-    display: block;
-    width: 100%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-}
-
-.menu-item h3 {
-    font-size: 1rem; 
-    color: #fff;
-    display: inline;
-}
-
-h3::after {
-    border-bottom: 2px dotted rgb(255, 255, 255);
-}
-
-.menu-item p {
-    font-size: 0.7rem; 
-    color: #ddd;
-    display: inline;
-}
-
-.side-menu {
-    display: flex;
-    flex-direction: column;
-    /* gap: 10px; */
-    margin-top: 10%; 
-    width: 90%;
-}
-
-.side-container {
-    padding: 8px; 
-    background-color: #5f5f5f;
-    border-radius: 8px; 
-    color: #ffffff;
-}
-
-.side-menu-selection {
-    margin-top: 40px;
-    display: grid;
-    gap: 8px; 
-}
-
-.side-menu-item {
-    background-color: #7c7b7b;
-    padding: 8px; 
-    border-radius: 4px; 
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center; 
-}
-
-.side-menu-item:hover {
-    background-color: #635a5a;
-}
-
-/* -------------------------Menu------------------------------- */
-
-/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
-
+/* Cart box med flex-layout */
 #cart-container {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    background-color: white;
-    gap: 16px; 
-    border-radius: 8px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    padding: 16px; 
-    flex-grow: 1;
+    flex-direction: column; /* För att ordna innehållet vertikalt */
+    width: 100%; /* Gör cart-container lika bred som föräldern */
+    min-height: 100vh; /* Gör cart-container lika hög som viewporten */
+    background-color: white; /* Vit bakgrundsfärg */
+    gap: 16px; /* Lägger till mellanrum mellan element */
+    border-radius: 8px; /* Rundar hörnen */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Lägger till en liten skugga */
+    position: relative; /* Gör att den kan placeras över andra element */
+    padding: 16px; /* Lägger till padding */
+    flex-grow: 1; /* Låter den växa och fylla utrymmet */
 }
 
-.cart-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px; 
-    max-height: 250px; 
-    overflow-y: auto;
-}
-
+/* Cart-total-sektionen */
 .cart-total {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px; 
-    background-color: rgb(169, 170, 170);
-    padding: 8px; 
-    border-radius: 6px; 
+    flex-direction: column; /* Visar element vertikalt */
+    align-items: center; /* Centrerar innehållet horisontellt */
+    gap: 4px; /* Lägger till mellanrum mellan elementen */
+    background-color: rgb(169, 170, 170); /* Grå bakgrund */
+    padding: 8px; /* Lägger till padding */
+    border-radius: 6px; /* Rundar hörnen */
 }
 
+/* Styling för varje cart-item */
 .cart-total p {
-    margin: 0;
-    font-size: 16px; 
-    font-weight: bold;
+    margin: 0; /* Tar bort standardmarginaler */
+    font-size: 16px; /* Sätter textstorlek */
+    font-weight: bold; /* Gör texten fetstil */
 }
 
+/* Styling för orderknappen */
 #to-order-button {
-    width: 100%;
-    padding: 8px; 
-    background-color: #000000;
-    color: white;
-    font-size: 14px; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%; /* Gör knappen lika bred som föräldern */
+    padding: 8px; /* Padding på knappen */
+    background-color: #000000; /* Svart bakgrund */
+    color: white; /* Vit text */
+    font-size: 14px; /* Textstorlek */
+    border: none; /* Tar bort kanterna */
+    border-radius: 5px; /* Rundade hörn */
+    cursor: pointer; /* Visar pekare vid hovring */
+    transition: background-color 0.3s; /* Lägger till en smidig övergång på bakgrundsfärg */
 }
 
 #to-order-button:hover {
-    background-color: #a382a0;
+    background-color: #919191; /* Ljusare bakgrund vid hovring */
 }
 
-/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+/* --------------------------------- Eta ------------------------------------- */
 
-/* ---------------------------------Eta------------------------------------- */
-
+/* Eta container styling */
 #eta-container {
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    background-color: rgb(85, 85, 85);
-    flex-direction: column;
-    gap: 16px; 
-    border-radius: 8px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    padding: 16px; 
-    justify-content: space-between;
+    width: 100%; 
+    height: 100%; 
+    min-height: 100vh; 
+    background-color: rgb(85, 85, 85); /* Mörkgrå bakgrund */
+    flex-direction: column; /* Visar elementen vertikalt */
+    gap: 16px; /* Lägger till mellanrum */
+    border-radius: 8px; /* Rundade hörn */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Skugga för container */
+    position: relative; /* Gör att den kan placeras över andra element */
+    padding: 16px; /* Padding */
+    justify-content: space-between; /* Fördelar utrymmet jämnt mellan elementen */
 }
 
-.cart-items {
-    gap: 8px; 
-    max-height: 250px; 
-    overflow-y: auto;
-    flex-grow: 1;
-}
+/* ---------------------------- Cart Box Button ------------------------------- */
 
-.cart-total {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px; 
-    background-color: rgb(169, 170, 170);
-    padding: 8px; 
-    border-radius: 6px; 
-    margin-top: auto;
-}
-
-.cart-total p {
-    margin: 0;
-    font-size: 16px; 
-    font-weight: bold;
-}
-
-#to-order-button {
-    width: 100%;
-    padding: 8px; 
-    background-color: #000000;
-    color: white;
-    font-size: 14px; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#to-order-button:hover {
-    background-color: #a0a0a0;
-}
-
-/* ---------------------------------Eta------------------------------------- */
-
-/* oooooooooooooooooooooooooo   Receipt    oooooooooooooooooooooooooooooooo */
-
- #receipt {
-    display: none;
-    color: #000000;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.receipt-container {
-    background-color: #ffffff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 3rem; 
-    display: flex;
-    flex-direction: column;
-    padding: 0.8rem; 
-    max-width: 800px; 
-    align-items: center;
-    border-radius: 8px; 
-}
-
-.logo img {
-    margin-bottom: 20px; 
-    display: block;
-    margin: 0 auto;
-    width: 25%; 
-    margin-top: 20px; 
-}
-
-.new-order {
-    margin-top: 20px; 
-    margin-bottom: 16px; 
-    display: flex;
-    justify-content: center;
-    font-size: 18px; 
-}
-
-#to-new-order-button {
-    padding: 8px 16px; 
-    background-color: #000000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#to-new-order-button:hover {
-    background-color: #686868;
-}
-
-/* oooooooooooooooooooooooooo   Receipt    oooooooooooooooooooooooooooooooo */
-
-/* -------------------------------- Cart Box Button ------------------------------- */
-
+/* Styling för antal artiklar i kundvagnen */
 .total-items {
-    background-color: red;
-    color: white;
-    font-size: 0.8rem;
-    border-radius: 100%;
-    width: 1.5rem;
-    height: 1.5rem;
-    position: absolute;
-    display: flex
-;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    top: -0.5rem;
-    right: -0.5rem;
-}
-
-
-
-.cart-box {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-}
-
-.cart-box-button {
-    position: relative;  
-    top: 16px; 
-    right: 16px; 
-    background-color: transparent; 
-    border: none;     
-    padding: 8px; 
-    cursor: pointer; 
-    z-index: 1000;    
-}
-
-.cart-box-button img {
-    width: 32px; 
-    height: 32px; 
-}
-
-.cart-box-button:hover img {
-    transform: scale(1.05); 
-    transition: transform 0.3s ease; 
-}
-
-/* -------------- Responsiv design för skärmar upp till 390px ------------------ */
-
-@media (max-width: 390px) {
-    .cart-box-button {
-        top: 8px;    
-        right: 8px;  
-    }
-
-    .cart-box-button img {
-        width: 28px;  
-        height: 28px;  
-    }
+    color: rgb(0, 0, 0); /* Vit textfärg */
+    font-size: 0.8rem; /* Mindre textstorlek */
+    border-radius: 100%; /* Rund cirkel */
+    width: 1.5rem; /* Bredd */
+    height: 1.5rem; /* Höjd */
+    position: absolute; /* Absolut positionering */
+    display: flex; /* Flexbox för innehållet */
+    align-items: center; /* Centrerar texten vertikalt */
+    justify-content: center; /* Centrerar texten */
+    text-align: center; /* Centrerar texten */
+    top: -0.5rem; /* Placera uppåt */
+    right: -0.5rem; /* Placera till höger */
 }
