@@ -1,0 +1,137 @@
+/* ------------------------- Menu ------------------------------- */
+
+/* Menyitemnamn */
+.item-name {
+    white-space: nowrap;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Fira Sans", sans-serif;
+    font-size: 18px;
+    flex-grow: 1; /* Gör att namn tar så mycket utrymme som möjligt */
+}
+
+/* Dotted-divider: En linje med prickar */
+.dotted-divider {
+    border-bottom: 2px dotted rgba(214, 205, 205, 0.733); /* Färgen på den prickade linjen */
+    margin: 5px 0;
+}
+
+
+/* Styling för menyn */
+#menu {
+    background-color: #489078;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1);
+    font-size: x-large;
+}
+
+.cart-button {
+    height: 4rem;
+    width: 4rem;
+    border: none;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: scale 0.2s ease-in-out;
+}
+
+.cart-button:hover {
+    scale: 1.1;
+}
+
+/* Menyalternativ */
+#menu-sides {
+    color: white;
+    font-size: 2rem;
+    text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);
+}
+
+#menu-container, .menu-sides {
+    background-color: #868686;
+    margin: 0;
+}
+
+/* Styling för alla menyalternativ */
+#menu-items {
+    height: 35%;
+}
+
+.menu-item {
+    color: white;
+    border: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.1rem;
+}
+
+.menu-item:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+/* Menyobjektets container */
+.menu-item {
+    display: flex;
+    flex-direction: column; /* Lägger innehållet vertikalt */
+    border-radius: 5px;
+    background-color: #5f5f5f;
+}
+
+/* Container för namn och pris */
+.menu-content {
+    display: flex;
+    justify-content: space-between; /* Namn till vänster, pris till höger */
+    align-items: center; /* Vertikalt centrera namnet och priset */
+    width: 95%;
+}
+
+/* För menynamnet */
+.item-name {
+    font-weight: bold;
+    font-size: 25px; 
+    margin-right: 20px;
+}
+
+/* För priset */
+.item-price {
+    text-align: right; /* Gör så att priset ligger till höger */
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Fira Sans", sans-serif;
+}
+
+/* Dotted divider mellan namn och ingredienser */
+.dotted-divider {
+    border-bottom: 2px dotted solid white; /* Justerar till vit färg */
+    margin: 5px 0;
+}
+
+/* Ingredienser (under namn och pris) */
+.ingredients {
+    font-size: 1.2em;
+    color: #ffffff;
+    text-align: right; /* Justera texten till höger */
+    margin-bottom: 20px;
+}
+
+
+
+
+#menu-header{
+	color: var(--mainWhite);
+	font-size: 2rem;
+	text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);
+}
+
+#menu-container, .submenu-container{
+	border-radius: 0.3rem;
+	margin-bottom: 1rem;
+	background-color: var(--lightGray);
+}
+

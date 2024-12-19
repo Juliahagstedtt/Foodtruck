@@ -10,11 +10,61 @@ body {
     height: 100%;
     max-width: 600px;
     margin: auto;
-    align-items: center;
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
 }
+
+h2 {
+    color: #f5f5f5;
+    text-shadow: 2px 2px 3px #000000;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.hover-effect {
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+}
+.hover-effect:hover {
+    transform: scale(1.05);
+    background-color: #686868;
+}
+
+/* Visibilitet av element som har klassen "view" */
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.cart-box {
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 10px;
+}
+
+/* Styling för antal artiklar i kundvagnen */
+.total-items {
+    /* margin-top: -2px;
+    margin-right: -2px; */
+    color: rgb(0, 0, 0);
+    background-color: #ff2929;
+    font-size: 5px;
+    font-size: 0.8rem;
+    border-radius: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 0.5rem; 
+    right: 11rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 
 /* Stilmall för knappar som har specifika id:n */
 #to-new-order-button,
@@ -39,14 +89,6 @@ body {
     background-color: #686868;
 }
 
-/* Visibilitet av element som har klassen "view" */
-.view {
-    display: none;
-}
-
-.view.active {
-    display: block;
-}
 
 /* Styling för olika sektioner på sidan */
 #menu, #cart-container, #eta-container, #receipt {
@@ -61,108 +103,29 @@ h3 {
     text-align: center;
 }
 
-/* ------------------------- Menu ------------------------------- */
 
-/* Menyitemnamn */
-.item-name {
-    white-space: nowrap;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: "Fira Sans", sans-serif;
-}
-
-/* Dotted-divider: En linje med prickar */
-.dotted-divider {
-    flex-grow: 1;
-    border-top: 2px dotted #ffffff;
-    margin: 0 10px;
-}
-
-/* Pris för item */
-.item-price {
-    white-space: nowrap;
-}
-
-/* Styling för menyn */
-#menu {
-    background-color: #489078;
-    padding: 16px;
-    margin: auto;
-    box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1);
-}
-
-.cart-box {
-    display: flex;
-    height: 6rem;
-    justify-content: right;
-}
-
-.cart-button {
-    height: 4rem;
-    width: 4rem;
-    border: none;
-    border-radius: 0.4rem;
-    background-color: white;
-    position: relative;
-    cursor: pointer;
-    transition: scale 0.2s ease-in-out;
-}
-
-.cart-button:hover {
-    scale: 1.1;
-}
-
-/* Styling för antal artiklar i kundvagnen */
-.total-items {
-    color: rgb(0, 0, 0);
-    font-size: 0.8rem;
-    border-radius: 100%;
-    width: 1.5rem;
-    height: 1.5rem;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    top: -0.5rem;
-    right: -0.5rem;
-}
-
-/* Menyalternativ */
-#menu-sides {
-    color: white;
-    font-size: 2rem;
-    text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);
-}
-
-#menu-container, .menu-sides {
-    border-radius: 0.3rem;
-    margin-bottom: 1rem;
-    background-color: #5f5f5f;
-}
-
-/* Styling för alla menyalternativ */
-#menu-items {
-    padding: 8px;
-    height: 35%;
-}
-
-.menu-item {
-    color: white;
-    padding: 0.8rem;
-    background: 0;
-    border: none;
-    text-align: left;
+.menu-item,
+.order-button,
+.cart-total {
+    max-width: 600px;
     width: 100%;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    cursor: pointer;
 }
 
-.menu-item:hover {
-    background-color: #000000;
-    color: #fff;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ------------------------- Cart Box ------------------------------- */
 #cart {
@@ -174,15 +137,6 @@ h3 {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cart-total {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    background-color: rgb(169, 170, 170);
-    padding: 8px;
-    border-radius: 6px;
-}
 
 .cart-total p {
     margin: 0;
@@ -190,17 +144,6 @@ h3 {
     font-weight: bold;
 }
 
-.order-button {
-    width: 100%;
-    padding: 8px;
-    background-color: #000000;
-    color: white;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
 
 .order-button:hover {
     background-color: #919191;
@@ -222,18 +165,6 @@ h3 {
     justify-content: space-between;
 }
 
-.eta {
-    background-color: #5f5f5f;
-    display: none;
-    flex-direction: column;
-    padding: 1rem;
-    align-items: center;
-    color: White;
-    gap: 1rem;
-    height: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-}
 
 .eta-img-container {
     overflow: hidden;
@@ -244,15 +175,7 @@ h3 {
     margin-top: 5rem;
 }
 
-.order-id {
-    text-transform: uppercase;
-}
 
-.eta-header {
-    text-align: center;
-    font-size: 2rem;
-    max-width: 15rem;
-}
 
 .eta-button-container {
     display: flex;
@@ -342,6 +265,186 @@ h3 {
     flex-direction: column;
     width: 100%;
 }
+
+/* Styling för knappen som startar en ny beställning */
+.new-order {
+    text-align: center;
+}
+
+.order-button {
+    background-color: #000000;
+    color: white;
+    font-size: 16px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-button:hover {
+    background-color: #444;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------- Cart Box ------------------------------- */
+#cart-container {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.cart-item p {
+    margin: 0;
+}
+/* ------------------- Eta -------------------- */
+
+#eta {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: rgb(85, 85, 85);
+    flex-direction: column;
+    gap: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding: 16px;
+    justify-content: space-between;
+}
+
+.eta {
+    background-color: #5f5f5f;
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    color: White;
+    gap: 1rem;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.eta-img-container {
+    overflow: hidden;
+}
+
+.wonton-box {
+    max-width: 30rem;
+    margin-top: 5rem;
+}
+
+.order-id {
+    text-transform: uppercase;
+}
+
+.eta-header {
+    text-align: center;
+    font-size: 2rem;
+    max-width: 15rem;
+}
+
+.eta-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    gap: 1rem;
+    width: 100%;
+}
+
+.eta-buttons {
+    background-color: #5f5f5f;
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    padding: 1.5rem;
+    transition: scale 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.eta-buttons:hover {
+    scale: 1.05;
+}
+
+.eta-buttons.receipt {
+    background-color: #5f5f5f;
+    border: 2px solid white;
+    color: var(--mainWhite);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911);
+}
+
+/* ------------------- Cart Box Button ------------------------------- */
+
+#receipt-container {
+    border: 1px solid #28a745;
+    background-color: #e9f5ec;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+
+#receipt-container h2 {
+    color: #000000;
+}
+
+#receipt-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+#receipt-container li {
+    margin-bottom: 10px;
+}
+
+/* Responsiv design */
+@media (max-width: 768px) {
+    #menu-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-item {
+        width: 100%;
+    }
+} 
+
 
 /* Styling för knappen som startar en ny beställning */
 .new-order {

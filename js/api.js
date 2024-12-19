@@ -2,12 +2,16 @@
 const apiKey = "yum-BHRyCR5Lgznl28Tr";
 const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com";
 
-const tenantId = "your-tenant-id";
+
+
+
+const tenantId = "zocom";
 
 // Hämta menyn
 // Funktion för att hämta menyn från API:et
 export async function fetchMenu() {
     try {
+        
         // Skicka GET-förfrågan till API:et för att hämta menyn
         const response = await fetch(`${apiUrl}/menu`, {
             method: 'GET',
@@ -23,49 +27,62 @@ export async function fetchMenu() {
     }
 }
 
+async function loadMenu() {
+    console.log("Laddar menyn...");  // Kontrollera om loadMenu körs
+    await fetchMenuItems(foodType);
+    await fetchMenuItems(drinkType);
+    await fetchMenuItems(dipType);
+    handleMenuButtons();
+}
+
 // Funktion för att skicka en beställning till servern
-export async function placeOrder(cart) {
+export async function placeOrder(cart, tenantName) {
+    // Här säkerställer vi att "name" är med i orderData
     const orderData = { 
         items: cart, 
-        name: tenantName  // Lägg till "name" fältet
+        name: "zocom"  // Lägg till "name" här
     };
-    
+
     try {
-        // Skicka POST-förfrågan med beställningsdata till API:et
+        // Skicka POST-förfrågan till API:et för att skicka beställningen
         const response = await fetch(`${apiUrl}/tenants`, {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",  // Indikerar att vi skickar JSON-data
-                "x-zocom": apiKey  // Lägg till API-nyckel i header
+                "Content-Type": "application/json",  // Skicka som JSON
+                "x-zocom": apiKey  // API-nyckeln
             },
-            body: JSON.stringify(orderData) 
-             // Omvandlar orderdata till en JSON-sträng för att skicka
+            body: JSON.stringify(orderData)  // Omvandla orderdatan till JSON
         });
-        const result = await response.json();  // Väntar på att servern svarar och omvandlar svaret till JSON
-        return result;  // Returnerar resultatet från servern
+
+        const result = await response.json();  // Vänta på svaret och omvandla det till JSON
+        console.log("Beställningen skickades:", result);  // Logga resultatet för att se vad servern svarar
+
+        return result;  // Returnera resultatet från servern
     } catch (error) {
-        // Om ett fel uppstår vid att skicka beställningen, logga felet och returnera null
         console.error("Fel vid att skicka beställning:", error);
-        return null;
+        return null;  // Returnera null om något går fel
     }
 }
 
 // Funktion för att hämta kvitto från API:et baserat på order-ID
 export async function fetchReceipt(orderId) {
+    if (!orderId) {
+        console.error("OrderID är inte definierat");
+        return null;
+    }
+
     try {
         const response = await fetch(`${apiUrl}/order/${orderId}`, {
             method: 'GET',
-            headers: { "x-zocom": apiKey }  // Lägg till API-nyckel i header
+            headers: { "x-zocom": apiKey }
         });
 
         if (!response.ok) {
             throw new Error(`API-fel: ${response.status} - ${response.statusText}`);
         }
 
-        // Om anropet lyckas, returnera JSON-responsen
         return await response.json();
     } catch (error) {
-        // Logga felet och ge användaren ett meddelande
         console.error("Fel vid hämtning av kvitto:", error);
         return null;
     }
@@ -73,16 +90,16 @@ export async function fetchReceipt(orderId) {
 
 // Skapa en ny Tenant
 export async function createTenant(tenantName) {
-    const tenantData = { name: tenantName };  // JSON-objekt som innehåller namnet för den nya tenanten
+    const tenantData = { name: tenantName };  // Endast tenantens namn
 
     try {
-        const response = await fetch(`${apiUrl}/zocom`, {
+        const response = await fetch(`${apiUrl}/tenants`, {  // Använd korrekt endpoint för att skapa en tenant
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",  // Skicka som JSON
                 "x-zocom": apiKey  // API-nyckeln
             },
-            body: JSON.stringify(tenantData)  // Omvandla data till JSON
+            body: JSON.stringify(tenantData)  // Skicka namn på tenanten som JSON
         });
 
         if (!response.ok) {
@@ -99,18 +116,19 @@ export async function createTenant(tenantName) {
 }
 
 // Skicka en beställning till en tenant
-export async function placeOrderForTenant(tenantId, cart) {
-    const orderData = { items: cart };  // Varukorgen omvandlas till ett orderobjekt
+const corsProxy = "https://cors-anywhere.herokuapp.com/";  // Lägg till en proxy-server
 
-    
+export async function placeOrderForTenant(tenantId, cart) {
+    const orderData = { items: cart };
+
     try {
-        const response = await fetch(`${apiUrl}/tenants/${tenantId}/orders`, {
+        const response = await fetch(`${corsProxy}${apiUrl}/tenants/${tenantId}/orders`, {  // Använd proxy-server
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",  // Skicka som JSON
-                "x-zocom": apiKey  // API-nyckeln
+                "Content-Type": "application/json",
+                "x-zocom": apiKey
             },
-            body: JSON.stringify(orderData)  // Skicka orderdata som JSON
+            body: JSON.stringify(orderData)
         });
 
         if (!response.ok) {
@@ -118,11 +136,10 @@ export async function placeOrderForTenant(tenantId, cart) {
         }
 
         const result = await response.json();
-        console.log("Beställning skapad:", result);  // Logga resultatet
-        return result;  // Returnera resultatet från servern
+        console.log("Beställning skapad:", result);
+        return result;
     } catch (error) {
         console.error("Fel vid att skicka beställning:", error);
-        return null;  // Returnera null om fel uppstår
+        return null;
     }
 }
-

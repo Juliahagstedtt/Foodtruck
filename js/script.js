@@ -68,36 +68,36 @@ function createMenu(items) {
         menuItem.setAttribute("data-price", item.price);  // Lägg till prisattribut
         menuItem.setAttribute("data-id", item.id);  // Lägg till ID-attribut
 
-        const menuItemInner = document.createElement("div");
-        menuItemInner.classList.add("menu-item");
+        // Skapa en container för menyinnehållet
+        const menuContent = document.createElement("div");
+        menuContent.classList.add("menu-content");
 
-        // Lägg till namn på produkt
-        const nameElement = document.createElement("span");
+        // Lägg till namn på produkt i h4
+        const nameElement = document.createElement("h4");
         nameElement.classList.add("item-name");
         nameElement.innerText = item.name;
 
-        // Skapa en pricksprickad linje mellan namn och pris
+        // Lägg till pris på produkt i SEK
+        const priceElement = document.createElement("span");
+        priceElement.classList.add("item-price");
+        priceElement.innerText = `${item.price} SEK`; // Lägg till SEK här direkt
+
+        // Lägg till namn och pris i samma container
+        menuContent.appendChild(nameElement);
+        menuContent.appendChild(priceElement);
+
+        // Skapa en pricksprickad linje mellan namn och ingredienser
         const dottedDivider = document.createElement("div");
         dottedDivider.classList.add("dotted-divider");
-
-        // Lägg till pris på produkt
-        const priceElement = document.createElement("span");
-        priceElement.innerText = `${item.price} SEK`;
-        priceElement.classList.add("item-price");
-
-        // Lägg till namn, divider och pris i menyobjektet
-        menuItemInner.appendChild(nameElement);
-        menuItemInner.appendChild(dottedDivider);
-        menuItemInner.appendChild(priceElement);
 
         // Lägg till ingredienser om de finns
         const ingredientsElement = document.createElement("span");
         ingredientsElement.classList.add("ingredients");
-        ingredientsElement.innerText = (item.ingredients || []).join(", "); //Tack vare denna
+        ingredientsElement.innerText = (item.ingredients || []).join(", "); // Hanterar ingredienser
 
- 
         // Lägg till alla delar av menyobjektet i knappen
-        menuItem.appendChild(menuItemInner);
+        menuItem.appendChild(menuContent);
+        menuItem.appendChild(dottedDivider);
         menuItem.appendChild(ingredientsElement);
 
         // Lägg till menyobjektet i menyn

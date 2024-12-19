@@ -6,22 +6,17 @@
     <title>Foodtruck: Yum yum gim me sum</title>
 
     <link rel="stylesheet" href="style/style.css">
-    <!-- <link rel="stylesheet" href="style/menu.css">
-    <link rel="stylesheet" href="style/cart.css">
-    <link rel="stylesheet" href="style/eta.css">
-    <link rel="stylesheet" href="style/receipt.css"> -->
+    <link rel="stylesheet" href="style/menu.css">
 
-
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <script src="js/script.js" type="module"></script>
-    <!-- <script src="js/menu.js" type="module"></script>
-    <script src="js/cart.js" type="module"></script>
-    <script src="js/app.js" type="module"></script> -->
     <script src="js/api.js" type="module"></script>
-    <!-- <script src="js/dom.js" type="module"></script> -->
+    <script src="js/cart.js" type="module"></script>
 
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -29,102 +24,46 @@
 
 <!-- Menyn Sektion -->
 <section id="menu" class="view active">
-    <!-- Korg-knapp som visar varukorgen -->
     <div class="cart-box">
         <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
-            <span class="total-item">0</span> <!-- Visar antal objekt i varukorgen -->
-            <img src="svg/cart.svg" alt="Varukorgsikon"> <!-- Ikon för varukorgen -->
+            <span class="total-items">0</span>
+            <img src="svg/cart.svg" alt="Varukorgsikon">
         </button>
     </div>
     
-    <!-- Rubrik för menyn -->
     <h2>MENY</h2>
     
-    <!-- Här fylls menyobjekten på dynamiskt -->
-    <div id="menu-container" class="menu-items">
-        <!-- Menyobjekten kommer att renderas här -->
-    </div>
+    <div id="menu-container" class="menu-items"></div>
 
-    <div class="menu-sides">
-        <div class="sides">
-            <p class="menu-side-p">DIPSÅS</p>
-            <div class="dotted-divider"></div>
-            <p class="menu-side-price"></p>
-        </div>
-        <div class="menu-sides-section" data-type="dip">
-            <!-- Dip här -->
-        </div>
-    </div>
-    <div class="menu-sides">
-        <div class="sides">
-            <p class="menu-side-p">DRICKA</p>
-            <div class="dotted-divider"></div>
-            <p class="menu-sides-price"></p>
-        </div>
-        <div class="menu-side-section" data-type="drink">
-            <!-- Dricka här -->
-        </div>
+
+    
 </section>
 
 <!-- Varukorg Sektion -->
 <section id="cart" class="view">
-    <h2>Cart</h2>
-    
-    <div class="cart-box">
-        <!-- Varukorg-knapp som visas på varukorgssidan -->
-        <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
-            <span class="total-item">0</span> <!-- Visar antal objekt i varukorgen -->
-            <img src="svg/cart.svg" alt="Varukorgsikon"> <!-- Ikon för varukorgen -->
-        </button>
-        
-        <div id="cart">
-            <!-- Korgens innehåll visas här -->
-        </div>
-    </div>
+    <h2>Varukorg</h2>
+    <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
+        <span class="total-items">0</span>
+        <img src="svg/cart.svg" alt="Varukorgsikon">
+    </button>
 
-    <!-- Knapp för att gå vidare till beställning -->
-    <button class="order-button" data-view="eta-container">TAKE MY MONEY!</button>
+    <div id="cart"></div>
+
+    <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
 </section>
 
-<!-- ETA Sektion (Beräknad leveranstid) -->
+<!-- ETA Sektion -->
 <section id="eta-container" class="view">
     <h3>Dina wontons tillagas!</h3>
-    
-    <div class="eta-img">
-        <img src="images/boxtop.png" alt="wonton-box"> <!-- Bild på wontonbox -->
-    </div>
-
-    <div class="eta">
-        <!-- Här kommer den beräknade leveranstiden att visas -->
-    </div>
-    
-    <!-- Knapp för att visa kvitto -->
     <button class="eta-button" data-view="receipt">SE KVITTO</button>
-
-    <!-- Knapp för att skapa en ny beställning -->
-    <div class="new-order-button">
-        <button id="to-new-order-button-eta" data-view="menu">GÖR EN NY BESTÄLLNING</button>
-    </div>
+    <button id="to-new-order-button-eta" data-view="menu">GÖR EN NY BESTÄLLNING</button>
 </section>
 
 <!-- Kvitto Sektion -->
 <section id="receipt" class="view">
-    <div id="receipt-container" class="view">
-        <h2>Kvitto</h2>
-        <div class="logo">
-            <img src="svg/logo.svg" alt="Yum yum gim me sum logo">
-        </div>
-
-        <!-- Här kommer kvittoinformation att visas -->
-        <div id="receipt-details">
-            <!-- Kvittoinformation visas här -->
-        </div>
-
-        <!-- Knapp för att starta en ny beställning -->
-        <div class="order-button">
-            <button id="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
-        </div>
-    </div>
+    <h2>Kvitto</h2>
+    <div id="receipt-details"></div>
+    <button id="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
 </section>
 
 </main>
