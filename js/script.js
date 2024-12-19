@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // När användaren klickar på varukorgsikonen, visa varukorgen
     document.querySelector(".cart-bag-button").addEventListener("click", () => {
-        switchView('cart-container');  // Byt till varukorgsvy
+        switchView('menu');  // Byt till varukorgsvy
     });
 
     // När användaren klickar på knappen för att skapa en ny beställning, visa menyn
@@ -69,7 +69,7 @@ function createMenu(items) {
         menuItem.setAttribute("data-id", item.id);  // Lägg till ID-attribut
 
         const menuItemInner = document.createElement("div");
-        menuItemInner.classList.add("menu-item-inner");
+        menuItemInner.classList.add("menu-item");
 
         // Lägg till namn på produkt
         const nameElement = document.createElement("span");
@@ -93,20 +93,50 @@ function createMenu(items) {
         // Lägg till ingredienser om de finns
         const ingredientsElement = document.createElement("span");
         ingredientsElement.classList.add("ingredients");
+        ingredientsElement.innerText = (item.ingredients || []).join(", "); //Tack vare denna
 
-        if (Array.isArray(item.ingredients)) {
-            ingredientsElement.innerText = item.ingredients.join(", ");  // Om ingredienser finns, visa dem
-        } else {
-            ingredientsElement.innerText = "";  // Annars lämna tomt
-        }
-
+ 
         // Lägg till alla delar av menyobjektet i knappen
         menuItem.appendChild(menuItemInner);
         menuItem.appendChild(ingredientsElement);
 
         // Lägg till menyobjektet i menyn
         menuContainer.appendChild(menuItem);
+
+        // Lägg till eventlyssnare för att lägga till varan i varukorgen
+        menuItem.addEventListener("click", () => addToCart(item));
     });
+}
+
+
+function createMenuSides(items) {
+    items.forEach((item) => {
+        const menuSidesItem = document.createElement("button");
+        menuSidesItem.classList.add("menu-sides-item");
+        menuSidesItem.innerText = item.name;
+        menuSidesItem.setAttribute("data-price", item.price);
+        menuSidesItem.setAttribute("data-id", item.id);
+
+        menuSidesItem.addEventListener("click", () => addToCart(item));  
+
+        const menuSidesSelection = document.querySelector(`.menusides-selections[data-type="${item.type}"]`);
+        if (menuSidesSelection) {
+            menuSidesSelection.appendChild(menuSidesItem);
+        }
+    });
+
+    const dipItem = items.find(item => item.type === "dip");
+    const drinkItem = items.find(item => item.type === "drink");
+
+    if (dipItem) {
+        const dipPriceElement = document.querySelector(".dip-price");
+        dipPriceElement.innerText = `${dipItem.price} SEK`;
+    }
+
+    if (drinkItem) {
+        const drinkPriceElement = document.querySelector(".drink-price");
+        drinkPriceElement.innerText = `${drinkItem.price} SEK`;
+    }
 }
 
 // Lägg till objekt i varukorgen
@@ -124,30 +154,32 @@ function addToCart(item) {
 // Rendera varukorgen
 function renderCart() {
     const cartContainer = document.querySelector(".cart-items");
-    cartContainer.innerHTML = "";  // Rensa nuvarande innehåll
+    cartContainer.innerHTML = "";
 
-    // Lägg till varje objekt i varukorgen
     cart.forEach(item => {
         const cartItem = document.createElement("div");
         cartItem.innerHTML = `
             <h4>${item.name}</h4>
             <div>${item.ingredients}</div>
-            <p>Pris: ${item.price} SEK</p>
+            <p>Pris: ${item.price.toFixed(2)} SEK</p>
         `;
         cartContainer.appendChild(cartItem);
     });
 
-    // Beräkna totalen av varukorgen
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    document.querySelector(".total").textContent = `${total} SEK`;  // Uppdatera totalen
+    document.querySelector(".total").textContent = `${total.toFixed(2)} SEK`;
 }
 
 // Skicka beställningen
 async function submitOrder() {
-    const result = await placeOrder(cart);  // Skickar varukorgen till servern
-    if (result) {
-        console.log("Beställningen skickades:", result);
-        showEta(result.eta);  // Om beställningen lyckades, visa beräknad leveranstid
+    try {
+        const result = await placeOrder(cart);
+        if (result) {
+            console.log("Beställningen skickades:", result);
+            showEta(result.eta);
+        }
+    } catch (error) {
+        console.error("Beställningen misslyckades:", error);
     }
 }
 
@@ -163,10 +195,10 @@ async function showReceipt() {
     const receipt = await fetchReceipt(orderId);  // Hämtar kvittot från servern
     if (receipt) {
         displayReceipt(receipt);  // Om kvittot finns, visa det
+        switchView('receipt');  // Byt till kvittosidan
     }
 }
 
-// Visa kvittodetaljer på sidan
 function displayReceipt(receipt) {
     const receiptContainer = document.querySelector("#receipt-details");
     receiptContainer.innerHTML = `
@@ -195,3 +227,7 @@ function showView(viewId) {
 
 // Visar menyn när sidan först laddas
 showView('menu');  // Visa menyvyn vid laddning
+
+
+
+

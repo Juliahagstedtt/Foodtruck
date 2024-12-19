@@ -2,6 +2,8 @@
 const apiKey = "yum-BHRyCR5Lgznl28Tr";
 const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com";
 
+const tenantId = "your-tenant-id";
+
 // Hämta menyn
 // Funktion för att hämta menyn från API:et
 export async function fetchMenu() {
@@ -23,8 +25,11 @@ export async function fetchMenu() {
 
 // Funktion för att skicka en beställning till servern
 export async function placeOrder(cart) {
-    const orderData = { items: cart };  // ÄNDRA HÄR!!! Skapar en orderdataobjekt med varukorgen
-
+    const orderData = { 
+        items: cart, 
+        name: tenantName  // Lägg till "name" fältet
+    };
+    
     try {
         // Skicka POST-förfrågan med beställningsdata till API:et
         const response = await fetch(`${apiUrl}/tenants`, {
@@ -48,15 +53,76 @@ export async function placeOrder(cart) {
 // Funktion för att hämta kvitto från API:et baserat på order-ID
 export async function fetchReceipt(orderId) {
     try {
-        // Skicka GET-förfrågan för att hämta kvitto baserat på order-ID
         const response = await fetch(`${apiUrl}/order/${orderId}`, {
             method: 'GET',
             headers: { "x-zocom": apiKey }  // Lägg till API-nyckel i header
         });
-        return await response.json();  // Omvandlar svaret från servern till JSON och returnerar det
+
+        if (!response.ok) {
+            throw new Error(`API-fel: ${response.status} - ${response.statusText}`);
+        }
+
+        // Om anropet lyckas, returnera JSON-responsen
+        return await response.json();
     } catch (error) {
-        // Om ett fel uppstår vid att hämta kvittot, logga felet och returnera null
+        // Logga felet och ge användaren ett meddelande
         console.error("Fel vid hämtning av kvitto:", error);
         return null;
     }
 }
+
+// Skapa en ny Tenant
+export async function createTenant(tenantName) {
+    const tenantData = { name: tenantName };  // JSON-objekt som innehåller namnet för den nya tenanten
+
+    try {
+        const response = await fetch(`${apiUrl}/zocom`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",  // Skicka som JSON
+                "x-zocom": apiKey  // API-nyckeln
+            },
+            body: JSON.stringify(tenantData)  // Omvandla data till JSON
+        });
+
+        if (!response.ok) {
+            throw new Error(`Fel vid skapande av tenant: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log("Tenant skapad:", result);  // Logga den skapade tenanten
+        return result;  // Returnera resultatet
+    } catch (error) {
+        console.error("Fel vid skapande av tenant:", error);
+        return null;  // Returnera null om fel uppstår
+    }
+}
+
+// Skicka en beställning till en tenant
+export async function placeOrderForTenant(tenantId, cart) {
+    const orderData = { items: cart };  // Varukorgen omvandlas till ett orderobjekt
+
+    
+    try {
+        const response = await fetch(`${apiUrl}/tenants/${tenantId}/orders`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",  // Skicka som JSON
+                "x-zocom": apiKey  // API-nyckeln
+            },
+            body: JSON.stringify(orderData)  // Skicka orderdata som JSON
+        });
+
+        if (!response.ok) {
+            throw new Error(`Fel vid att skicka beställning: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log("Beställning skapad:", result);  // Logga resultatet
+        return result;  // Returnera resultatet från servern
+    } catch (error) {
+        console.error("Fel vid att skicka beställning:", error);
+        return null;  // Returnera null om fel uppstår
+    }
+}
+

@@ -28,10 +28,10 @@
 <main>
 
 <!-- Menyn Sektion -->
-<section id="menu" class="view">
+<section id="menu" class="view active">
     <!-- Korg-knapp som visar varukorgen -->
     <div class="cart-box">
-        <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
+        <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
             <span class="total-item">0</span> <!-- Visar antal objekt i varukorgen -->
             <img src="svg/cart.svg" alt="Varukorgsikon"> <!-- Ikon för varukorgen -->
         </button>
@@ -45,24 +45,34 @@
         <!-- Menyobjekten kommer att renderas här -->
     </div>
 
-    <!-- Sektion för Dipsåser (om sådana finns) -->
-    <div class="side-menu-selection" data-type="dip">
-        <!-- Dipsåser kommer att fyllas här -->
+    <div class="menu-sides">
+        <div class="sides">
+            <p class="menu-side-p">DIPSÅS</p>
+            <div class="dotted-divider"></div>
+            <p class="menu-side-price"></p>
+        </div>
+        <div class="menu-sides-section" data-type="dip">
+            <!-- Dip här -->
+        </div>
     </div>
-
-    <!-- Sektion för Drycker -->
-    <div class="side-menu-selection" data-type="drink">
-        <!-- Drycker kommer att fyllas här -->
-    </div>
+    <div class="menu-sides">
+        <div class="sides">
+            <p class="menu-side-p">DRICKA</p>
+            <div class="dotted-divider"></div>
+            <p class="menu-sides-price"></p>
+        </div>
+        <div class="menu-side-section" data-type="drink">
+            <!-- Dricka här -->
+        </div>
 </section>
 
 <!-- Varukorg Sektion -->
-<section id="cart-container" class="view">
+<section id="cart" class="view">
     <h2>Cart</h2>
     
     <div class="cart-box">
         <!-- Varukorg-knapp som visas på varukorgssidan -->
-        <button class="cart-bag-button" data-view="cart-container" aria-label="Visa varukorg">
+        <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
             <span class="total-item">0</span> <!-- Visar antal objekt i varukorgen -->
             <img src="svg/cart.svg" alt="Varukorgsikon"> <!-- Ikon för varukorgen -->
         </button>
@@ -73,7 +83,7 @@
     </div>
 
     <!-- Knapp för att gå vidare till beställning -->
-    <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
+    <button class="order-button" data-view="eta-container">TAKE MY MONEY!</button>
 </section>
 
 <!-- ETA Sektion (Beräknad leveranstid) -->
@@ -89,7 +99,7 @@
     </div>
     
     <!-- Knapp för att visa kvitto -->
-    <button class="eta-button" data-view="receipt-container">SE KVITTO</button>
+    <button class="eta-button" data-view="receipt">SE KVITTO</button>
 
     <!-- Knapp för att skapa en ny beställning -->
     <div class="new-order-button">
@@ -101,8 +111,6 @@
 <section id="receipt" class="view">
     <div id="receipt-container" class="view">
         <h2>Kvitto</h2>
-
-        <!-- Logotyp för restaurangen -->
         <div class="logo">
             <img src="svg/logo.svg" alt="Yum yum gim me sum logo">
         </div>
@@ -113,8 +121,8 @@
         </div>
 
         <!-- Knapp för att starta en ny beställning -->
-        <div class="new-order">
-            <button id="to-new-order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+        <div class="order-button">
+            <button id="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
         </div>
     </div>
 </section>
