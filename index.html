@@ -12,6 +12,7 @@
     <script src="js/script.js" type="module"></script>
     <script src="js/api.js" type="module"></script>
     <script src="js/cart.js" type="module"></script>
+    <script src="js/order.js" type="module"></script>
 
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +24,7 @@
 <main>
 
 <!-- Menyn Sektion -->
-<section id="menu" class="view active">
+<section id="menu-view" class="view">
     <div class="cart-box">
         <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
             <span class="total-items">0</span>
@@ -37,7 +38,7 @@
 
     <div id="menu">
         <div class="menu-item">
-            <h2>Dipsåser</h2>
+            <h2>DIPSÅS</h2>
             <div class="side-options side-options-dips">
                 <div class="product-box">
                     <button class="item-button"></button>
@@ -60,7 +61,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <h2>Drycker</h2>
+            <h2>DRICKA</h2>
             <div class="side-options side-options-drinks">
                 <div class="product-box">
                     <button class="item-button"></button>
@@ -83,26 +84,27 @@
             </div>
         </div>
     </div>
-
 </section>
 
 <!-- Varukorg Sektion -->
-<section id="cart" class="view">
+<section id="cart-view" class="view-hidden">
     <h2>Varukorg</h2>
-    <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
+    <button class="cart-bag-button" data-view="menu" aria-label="Visa varukorg">
         <span class="total-items">0</span>
         <img src="svg/cart.svg" alt="Varukorgsikon">
     </button>
 
-    <div id="cart"></div>
+    <div id="order-view" class="view hidden">
+        <!-- Innehåll för order -->
+    </div>
 
-    <button id="to-order-button" data-view="eta-container">TAKE MY MONEY!</button>
+    <button id="eta-button" data-view="eta-container">TAKE MY MONEY!</button>
 </section>
 
 <!-- ETA Sektion -->
 <section id="eta-container" class="view">
     <h3>Dina wontons tillagas!</h3>
-    <button class="eta-button" data-view="receipt">SE KVITTO</button>
+    <button class="receipt-button" data-view="receipt">SE KVITTO</button>
     <button id="to-new-order-button-eta" data-view="menu">GÖR EN NY BESTÄLLNING</button>
 </section>
 
