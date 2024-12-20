@@ -2,8 +2,8 @@
 const apiKey = "yum-BHRyCR5Lgznl28Tr";
 const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com";
 
-
-
+const apiUrlDrinks = 'https://din-api-url.com/drinks'; 
+const apiUrlDips = 'https://din-api-url.com/dips';
 
 const tenantId = "zocom";
 
@@ -27,6 +27,31 @@ export async function fetchMenu() {
     }
 }
 
+
+async function fetchMenuItems(type) {
+    try {
+        const response = await fetch(`${apiUrl}/menu?type=${type}`);
+        const data = await response.json();
+        console.log('Menydatan för', type, data); // Kontrollera vad som hämtas
+
+        // Lägg till produkterna i rätt container beroende på typ
+        const container = document.querySelector(`.side-options[data-type="${type}"]`);
+        data.items.forEach(item => {
+            const box = document.createElement('div');
+            box.className = 'product-box';
+            box.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <p>${item.name}</p>
+                <p>${item.price} SEK</p>
+            `;
+            container.appendChild(box);
+        });
+
+    } catch (error) {
+        console.error('Fel vid hämtning av produkter:', error);
+    }
+}
+
 async function loadMenu() {
     console.log("Laddar menyn...");  // Kontrollera om loadMenu körs
     await fetchMenuItems(foodType);
@@ -34,6 +59,61 @@ async function loadMenu() {
     await fetchMenuItems(dipType);
     handleMenuButtons();
 }
+
+
+// Exempel på datahämtning och rendering
+async function renderProducts() {
+    const drinksContainer = document.querySelector('#drinks-container');
+    const dipsContainer = document.querySelector('#dips-container');
+
+    try {
+        // Hämta drycker från API:et
+        const responseDrinks = await fetch('https://din-api-url.com/drinks'); // Ändra URL till din API
+        const drinksData = await responseDrinks.json();
+
+        // Rendera de 6 första dryckerna
+        drinksData.slice(0, 6).forEach(drink => {
+            const button = document.createElement('button');
+            button.className = 'product-box';
+            button.innerHTML = `
+                <img src="${drink.image}" alt="${drink.name}">
+                <p class="item-name">${drink.name}</p>
+                <p class="item-price">${drink.price} SEK</p>
+            `;
+            button.addEventListener('click', () => {
+                console.log(`Vald dryck: ${drink.name}`);
+                // Lägg till ytterligare funktionalitet här, t.ex. lägga till i kundvagn
+            });
+            drinksContainer.appendChild(button);
+        });
+
+        // Hämta dipsåser från API:et
+        const responseDips = await fetch('https://din-api-url.com/dips'); // Ändra URL till din API
+        const dipsData = await responseDips.json();
+
+        // Rendera de 6 första dipsåserna
+        dipsData.slice(0, 6).forEach(dip => {
+            const button = document.createElement('button');
+            button.className = 'product-box';
+            button.innerHTML = `
+                <img src="${dip.image}" alt="${dip.name}">
+                <p class="item-name">${dip.name}</p>
+                <p class="item-price">${dip.price} SEK</p>
+            `;
+            button.addEventListener('click', () => {
+                console.log(`Vald dipsås: ${dip.name}`);
+                // Lägg till ytterligare funktionalitet här, t.ex. lägga till i kundvagn
+            });
+            dipsContainer.appendChild(button);
+        });
+
+    } catch (error) {
+        console.error('Kunde inte hämta produkter:', error);
+    }
+}
+
+renderProducts();
+
 
 // Funktion för att skicka en beställning till servern
 export async function placeOrder(cart, tenantName) {

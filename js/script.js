@@ -108,6 +108,16 @@ function createMenu(items) {
     });
 }
 
+async function loadMenu() {
+    console.log("Laddar menyn...");  // Kontrollera om loadMenu körs
+    const foodType = 'food';  // Ersätt med (dryck, dippsås etc.)
+    await fetchMenuItems('wonton');
+    await fetchMenuItems('dip');
+    await fetchMenuItems('drink');
+    handleMenuButtons();
+}
+
+
 
 function createMenuSides(items) {
     items.forEach((item) => {
