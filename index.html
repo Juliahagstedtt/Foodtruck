@@ -11,8 +11,7 @@
 
     <script src="js/script.js" type="module"></script>
     <script src="js/api.js" type="module"></script>
-    <!-- <script src="js/cart.js" type="module"></script>
-    <script src="js/app.js" type="module"></script> -->
+
 
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,17 +23,18 @@
 <!-- Menyn Sektion -->
 <section id="menu" class="view">
     <div class="cart-box">
-        <button class="cart-bag-button" data-view="cart" aria-label="Visa varukorg">
+        <button id="cart-button" class="cart-bag-button" aria-label="Visa varukorg">
             <span class="total-items">0</span>
             <img src="svg/cart.svg" alt="Varukorgsikon">
         </button>
     </div>
-    
     <h2>MENY</h2>
-    
-    <div id="menu-container"></div>
+    <div id="menu-container"></div> <!-- Här kommer menyalternativen att visas -->
 
-    <div id="dip-container"> 
+    
+    
+
+    <!-- <div id="dip-container"> 
         <h2>DIPSÅS</h2>
         <div class="menu-item dip">
             <div class="side-options side-options-dips">
@@ -60,8 +60,8 @@
         </div>
         <div class="menu-item drink">
             <h2>DRICKA</h2>
-            <div class="side-options side-options-drinks">
-                <div class="product-box">
+            <div class="side-options side-options-drinks"> -->
+                <!-- <div class="product-box">
                     <button class="item-button"></button>
                 </div>
                 <div class="product-box">
@@ -78,33 +78,26 @@
                 </div>
                 <div class="product-box">
                     <button class="item-button"></button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 </section>
 
 <!-- Varukorg Sektion -->
-<section id="cart" class="view-hidden">
-    <button class="cart-bag-button" data-view="menu" aria-label="Visa varukorg">
+<section id="cart" class="view" style="display: none;">
+    <button class="back-to-menu-button" data-view="menu" aria-label="Visa varukorg">
         <span class="total-items">0</span>
         <img src="svg/cart.svg" alt="Varukorgsikon">
     </button>
 
-    <div id="order-view" class="view hidden">
-        <!-- Innehåll för order -->
-    </div>
-
-    <div class="price">
-        <h2 class="total-text">TOTALT</h2>
-        <p>inkl 20% moms</p>
-    </div>
-
-    <button id="eta-button" data-view="eta-container">TAKE MY MONEY!</button>
-</section>
+        <div id="cart-container"></div> <!-- Här kommer varukorgens innehåll att visas -->
+        <div class="total-text">TOTALT: 0 SEK</div>
+            <p>inkl 20% moms</p>
+            <button id="take-my-money-button" data-view="eta">TAKE MY MONEY!</button></section>
 
 <!-- ETA Sektion -->
-<section id="eta" class="view">
+<section id="eta" class="view" style="display: none;">
     <div class="eta-img-container">
         <img src="svg/boxtop.svg" alt="wonton box" class="wonton-box">
     </div>
@@ -119,9 +112,11 @@
 
 <section id="receipt" class="view" style="display: none;">
     <h2>Kvitto</h2>
-    <img src="svg/logo.svg" alt="logo">
+    <div class="logo">
+        <img src="svg/logo.svg" alt="logo">
+    </div>
     <div id="receipt-details">
-        <!-- Här kan du dynamiskt lägga till kvittoinformation -->
+        <!--  kvittoinformation -->
     </div>
     <button id="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
 </section>

@@ -577,7 +577,12 @@ Hover-effekt
 }
 
 
-
+.logo img {
+    width: 60px;
+    margin-top: 20px;
+    margin-right: 50px;
+    justify-content: center;
+}
 
 
 
@@ -614,7 +619,6 @@ Hover-effekt
 .cart-item {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ddd;
     padding: 10px 0;
 }
 

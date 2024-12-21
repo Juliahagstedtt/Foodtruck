@@ -1,13 +1,21 @@
 import { fetchMenu } from './api.js';
 
 let cart = [];
-let orderId = 'ef3ip';  // Simulerad order-ID
+let orderId = 'ef3up';  // Simulerad order-ID
+let wontonData;
+let dipData;
+let drinkData;
+
+const tenant = {
+    id: "ef3up",
+    name: "Julia"
+}
 
 // Lägg till varor i kundvagnen
 function addToCart({ type, name, price }) {
     console.log(`Lägger till i kundvagnen: ${name}, Typ: ${type}, Pris: ${price} SEK`);
     
-    // Kontrollera om produkten redan finns i kundvagnen, annars lägg till den
+    // Kontrollera om produkten redan finns i kundvagnen
     const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
         existingItem.quantity += 1;  // Om produkten finns, öka mängden
@@ -76,7 +84,7 @@ async function renderMenu() {
                 <p class="item-price">${item.price ? item.price + ' SEK' : 'Pris ej tillgängligt'}</p>
             `;
 
-            // Lägg till eventlyssnare för att lägga till varor i kundvagnen när knappen klickas
+            // Lägg till eventlyssnare för att lägga till varor i kundvagnen
             itemButton.addEventListener("click", () => {
                 const name = itemButton.getAttribute('data-name');
                 const price = parseFloat(itemButton.getAttribute('data-price'));
@@ -110,6 +118,11 @@ function goToCartPage() {
     changeView('cart'); // Visa varukorgssidan
 }
 
+// Funktion för att navigera till eta-sidan
+function goToEtaPage() {
+    changeView('eta'); // Visa ETA-sidan
+}
+
 // Funktion för att återgå till menyn
 function goToMenuPage() {
     changeView('menu'); // Visa menyn
@@ -121,6 +134,12 @@ function setupViewSwitchers() {
     const cartButton = document.getElementById("cart-button");
     if (cartButton) {
         cartButton.addEventListener("click", goToCartPage);
+    }
+
+    // För Take My Money-knappen på varukorgsidan (gå till eta)
+    const backToEtaButton = document.getElementById("take-my-money-button");
+    if (backToEtaButton) {
+        backToEtaButton.addEventListener("click", goToEtaPage);
     }
 
     // För ny beställning-knappen på varukorgsidan
