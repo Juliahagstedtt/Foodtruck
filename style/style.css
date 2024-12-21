@@ -7,9 +7,10 @@
 /* Standardinställningar för body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #489078;
+    /* background-color: transparent; */
     height: 100%;
     max-width: 600px;
+    width: 100%;
     margin: auto;
     text-transform: uppercase;
     display: flex;
@@ -48,12 +49,11 @@ h4 {
 }
 
 /* Visibilitet av element som har klassen "view" */
-.hidden {
-    display: none;
-}
-
-.active {
+.view {
     display: block;
+}
+.view-hidden {
+    display: none;
 }
 
 .cart-box {
@@ -128,21 +128,262 @@ h3 {
 
 
 
+/* _____________________Menu_______________________ */
+
+/* Menu */
+#menu {
+    background-color: #489078;
+    color: white;
+    max-width: 600px;
+    padding: 30px;
+    /* box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1); */
+    font-size: x-large;
+}
+
+.cart-box {
+    display: flex;
+    height: 5rem;
+    justify-content: right;
+}
+
+.cart-button {
+    height: 4rem;
+    width: 4rem;
+    border: none;
+    border-radius: 0.4rem;
+    position: relative;
+    cursor: pointer;
+    transition: scale 0.2s ease-in-out;
+}
+
+.cart-button:hover {
+    scale: 1.1;
+}
+
+#menu-header {
+    font-size: 2rem;
+    text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);
+}
+
+#menu-container {
+    border-radius: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.menu-item {
+    padding: 0.8rem;
+    /* border: none; */
+    text-align: left;
+    padding-bottom: 1rem;
+    /* padding-top: 1rem; */
+    padding: 30px50px;
+    cursor: pointer;
+    background-color: #585454;
+    color: white;
+    border: double 2px 4px 6px rgb(231, 225, 225);
+
+}
+
+/* Förhindrar bakgrundsfärgen från att försvinna vid aktiva tillstånd */
+.menu-item:active,
+.menu-item:focus {
+    background-color: #000000;
+}
+
+Hover-effekt
+.menu-item:hover, .sides-container:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+/* Första och sista menyobjektet */
+.menu-item:first-child {
+    border-radius: 0.3rem 0.3rem 0 0;
+}
+
+.menu-item:last-child {
+    border-radius: 0 0 0.3rem 0.3rem;
+}
+
+/* Dotted divider mellan objekten */
+.menu-item:not(:last-child) {
+    border-bottom: none;
+}
+
+
+
+.ingredients {
+    font-size: 12px;
+    color: white;
+}
+
+.dotted-divider {
+    border-bottom: dotted 2px rgba(255, 255, 255, 0.623);
+    flex-grow: 1;
+}
+
+/* Side options (Drinks & Dips) */
+.side-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Sektion för drycker och dipsåser */
+.side-options-drinks, .side-options-dips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* Tre kolumner för större skärmar */
+    gap: 10px;
+    background-color: #585454;
+    border-radius: 15px;
+}
+
+.side-options h2 {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Styling för varje produkt */
+.product-box {
+    width: 100%; /* Anpassar sig till föräldrakontainerns bredd */
+    margin: 15px 0; /* Skapar vertikalt mellanrum */
+    padding: 25px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #a09c9c46;
+    color: #333;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.2s ease;
+}
+
+.product-box:hover {
+    background-color: #000000;  /* Hover-färg på boxarna */
+}
+
+/* För att ge varje produkt en knapp i boxarna */
+.product-box button {
+    background-color: #77767648;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    font-size: 40px;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+.product-box button:hover {
+    background-color: #000000;  /* Hover-färg på knappar */
+}
+
+/* Bild i produktbox */
+.product-box img {
+    width: 70%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-box p {
+    margin: 5px 0;
+    word-wrap: break-word; /* Bryt texten vid behov */
+    overflow-wrap: break-word; /* Förhindrar text från att gå utanför boxen */
+    text-overflow: ellipsis; /* Kortformar texten om den blir för lång */
+}
+
+.product-box .item-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.product-box .item-price {
+    font-size: 14px;
+    color: #f9f9f9;
+}
+
+/* Responsiv design */
+@media (max-width: 768px) {
+    .side-options-drinks, .side-options-dips {
+        grid-template-columns: repeat(3, 1fr); /* En kolumn vid små skärmar */
+        width: 100%;
+    }
+
+    .product-box {
+        font-size: 12px;
+        padding: 15px;
+}
+}
+
+
+
+
+
+.menu-item {
+    /* margin-bottom: 15px; */
+}
+
+.menu-item-button {
+    background: none;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    display: block;
+    background-color: #f8f8f800;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.menu-item-button:hover {
+    background-color: #000000;
+    width: 100%;
+}
+
+.menu-item-button h3 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.menu-item-button .item-price {
+    font-size: 1em;
+    color: #ffffff;
+}
+
+.menu-item-button .ingredients {
+    font-size: 0.9em;
+    color: #ffffff;
+}
+
+
+
+/* _____________________Menu_______________________ */
+
+
+
 
 
 
 
 /* Cart sektion */
-#cart-view {
-    padding: 20px;
+#cart {
     background-color: #fff;
-    border-radius: 10px;
+	flex-direction: column;
+	padding: 1rem;
+	height: 100vh;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #cart-view h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 24px; 
+    color: #000000;
+
 }
 
 .cart-total {
@@ -167,23 +408,22 @@ h3 {
 .cart-total p {
     margin: 0;
 }
-/* ------------------- Eta -------------------- */
+/* _________________________ Eta _____________________________ */
 
 #eta {
-    width: 100%;
+    background-color: rgb(255, 255, 255);  
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    color: white;  
+    gap: 1rem;
     height: 100%;
     min-height: 100vh;
-    background-color: rgb(85, 85, 85);
-    flex-direction: column;
-    gap: 16px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    padding: 16px;
-    justify-content: space-between;
+    overflow: hidden;
 }
 
-
+/* För innehåll och bilder */
 .eta-img-container {
     overflow: hidden;
 }
@@ -193,8 +433,15 @@ h3 {
     margin-top: 5rem;
 }
 
+/* Styling för header */
+.eta-header {
+    text-align: center;
+    font-size: 2rem;
+    max-width: 15rem;
+    text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);  /* Lägger till skugga för bättre läsbarhet */
+}
 
-
+/* För knapparna och deras container */
 .eta-button-container {
     display: flex;
     flex-direction: column;
@@ -204,28 +451,53 @@ h3 {
 }
 
 .eta-buttons {
-    background-color: #5f5f5f;
+    background-color: darkgray;  /* Använd samma mörka grå som på menyn */
     border: none;
     border-radius: 0.3rem;
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
-    padding: 1.5rem;
+    padding: 1rem;
     transition: scale 0.2s ease-in-out;
     cursor: pointer;
+    text-align: center;  /* Justerar texten i knappen */
 }
 
 .eta-buttons:hover {
-    scale: 1.05;
+    scale: 1.05;  /* Gör knappen lite större vid hover för att ge interaktiv effekt */
 }
 
 .eta-buttons.receipt {
-    background-color: #5f5f5f;
+    background-color: darkgray;  /* Samma mörka grå färg */
     border: 2px solid white;
-    color: var(--mainWhite);
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911);
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911);  /* Lägger till textskugga */
 }
 
+/* Styling för ETA-tid och order-ID */
+.time-estimate {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px black;
+}
+
+.order-id {
+    font-size: 1.2rem;
+    color: #c2c0c0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Justering av container för ETA och knappar */
+#eta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
 /* ------------------- Cart Box Button ------------------------------- */
 
 #receipt {
@@ -460,6 +732,25 @@ h3 {
 
     .menu-item {
         width: 100%;
+    }
+
+    .total-items {
+        .total-items {
+            color: rgb(0, 0, 0);
+            background-color: #ff2929;
+            font-size: 5px;
+            font-size: 0.8rem;
+            border-radius: 100%;
+            width: 1.5rem;
+            height: 1.5rem;
+            position: absolute;
+            top: 0.5rem; 
+            right: 0.5rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
     }
 } 
 
