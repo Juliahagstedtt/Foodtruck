@@ -64,16 +64,111 @@ h4 {
 
 /* Styling för antal artiklar i kundvagnen */
 .total-items {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     background-color: #ff2929;
     font-size: 5px;
     font-size: 0.8rem;
     border-radius: 100%;
     width: 1.5rem;
     height: 1.5rem;
-    position: absolute;
-    top: 0.5rem; 
-    right: 0.5rem; 
+    position: relative;
+    top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Grundinställningar för alla element */
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+/* Standardinställningar för body */
+body {
+    font-family: Arial, sans-serif;
+    /* background-color: transparent; */
+    height: 100%;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Visibilitet av element som har klassen "view" */
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+h2 {
+    color: #f5f5f5;
+    text-shadow: 2px 2px 3px #000000;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+
+h4 {
+    color: #ffffff;
+    text-transform: uppercase;
+
+}
+
+.hover-effect {
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+}
+.hover-effect:hover {
+    transform: scale(1.05);
+    background-color: #686868;
+}
+
+/* Visibilitet av element som har klassen "view" */
+.view {
+    display: block;
+}
+.view-hidden {
+    display: none;
+}
+
+.cart-box {
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 10px;
+}
+
+/* Styling för antal artiklar i kundvagnen */
+.total-items {
+    color: rgb(255, 255, 255);
+    background-color: #ff2929;
+    font-size: 5px;
+    font-size: 0.8rem;
+    border-radius: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    top: 1.5rem;
+    bottom: 0.2rem;
+    left: 2.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -135,10 +230,40 @@ h3 {
     background-color: #489078;
     color: white;
     max-width: 600px;
-    padding: 30px;
+    padding: 20px;
     /* box-shadow: 0 4px 6px rgba(252, 252, 252, 0.1); */
     font-size: x-large;
 }
+
+
+/* Menu - Justering för namn och pris på samma rad med en prickad linje */
+.menu-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Gör så att de sprids till kanterna */
+}
+
+/* Namnet på produkten */
+.item-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px; /* Avstånd mellan namn och pricklinje */
+    flex-grow: 1; /* Gör så att namn fyller upp utrymmet */
+}
+
+/* Priset på produkten */
+.item-price {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Prickad linje mellan namn och pris */
+.dot-line {
+    flex-grow: 35; /* Gör så att pricklinjen fyller mellanrum */
+    border-bottom: 2px dotted #ffffff; /* Skapar den prickade linjen */
+    margin: 0 10px; /* Marginal för linjen */
+}
+
 
 .cart-box {
     display: flex;
@@ -198,15 +323,19 @@ Hover-effekt
 /* Första och sista menyobjektet */
 .menu-item:first-child {
     border-radius: 0.3rem 0.3rem 0 0;
+    border: double 2px 4px 6px rgb(231, 225, 225);
+
 }
 
 .menu-item:last-child {
     border-radius: 0 0 0.3rem 0.3rem;
+    border: double 2px 4px 6px rgb(231, 225, 225);
+
 }
 
 /* Dotted divider mellan objekten */
 .menu-item:not(:last-child) {
-    border-bottom: none;
+    border: double 2px 4px 6px rgb(231, 225, 225);
 }
 
 
@@ -229,81 +358,12 @@ Hover-effekt
     margin-top: 10px;
 }
 
-/* Sektion för drycker och dipsåser */
-.side-options-drinks, .side-options-dips {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* Tre kolumner för större skärmar */
-    gap: 10px;
-    background-color: #585454;
-    border-radius: 15px;
-}
 
-.side-options h2 {
-    font-size: 20px;
-    color: white;
-    margin-bottom: 10px;
-}
 
-/* Styling för varje produkt */
-.product-box {
-    width: 100%; /* Anpassar sig till föräldrakontainerns bredd */
-    margin: 15px 0; /* Skapar vertikalt mellanrum */
-    padding: 25px;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #a09c9c46;
-    color: #333;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background-color 0.2s ease;
-}
 
-.product-box:hover {
-    background-color: #000000;  /* Hover-färg på boxarna */
-}
 
-/* För att ge varje produkt en knapp i boxarna */
-.product-box button {
-    background-color: #77767648;
-    color: rgb(255, 255, 255);
-    border: none;
-    cursor: pointer;
-    font-size: 40px;
-    width: 100%;
-    transition: background-color 0.2s ease;
-}
 
-.product-box button:hover {
-    background-color: #000000;  /* Hover-färg på knappar */
-}
 
-/* Bild i produktbox */
-.product-box img {
-    width: 70%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.product-box p {
-    margin: 5px 0;
-    word-wrap: break-word; /* Bryt texten vid behov */
-    overflow-wrap: break-word; /* Förhindrar text från att gå utanför boxen */
-    text-overflow: ellipsis; /* Kortformar texten om den blir för lång */
-}
-
-.product-box .item-name {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.product-box .item-price {
-    font-size: 14px;
-    color: #f9f9f9;
-}
 
 /* Responsiv design */
 @media (max-width: 768px) {
@@ -329,25 +389,31 @@ Hover-effekt
 .menu-item-button {
     background: none;
     border: none;
-    padding: 10px;
-    width: 100%;
+    padding: 1px;
+    width: 310px;
     text-align: left;
     cursor: pointer;
     display: block;
     background-color: #f8f8f800;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     transition: background-color 0.3s;
+    text-transform: uppercase;
 }
 
 .menu-item-button:hover {
     background-color: #000000;
-    width: 100%;
+    width: 310px;
+}
+
+.menu-item:hover {
+    background-color: #000000;
 }
 
 .menu-item-button h3 {
     margin: 0;
     font-size: 1.2em;
     font-weight: bold;
+
 }
 
 .menu-item-button .item-price {
@@ -472,6 +538,7 @@ Hover-effekt
     border: 2px solid white;
     color: white;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911);  /* Lägger till textskugga */
+    text-align: center;
 }
 
 /* Styling för ETA-tid och order-ID */
@@ -480,6 +547,7 @@ Hover-effekt
     font-weight: bold;
     color: #fff;
     text-shadow: 1px 1px 2px black;
+    text-align: center;
 }
 
 .order-id {
@@ -487,6 +555,8 @@ Hover-effekt
     color: #c2c0c0;
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-align: center;
+
 }
 
 /* Justering av container för ETA och knappar */
@@ -540,8 +610,8 @@ Hover-effekt
 }
 
 .logo img {
-    max-width: 200px;
-    height: auto;
+    /* max-width: 200px;
+    height: auto; */
 }
 
 /* Styling för kvittoinformation */
@@ -554,6 +624,7 @@ Hover-effekt
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 500px;
 }
 
 /* Styling för knappen som startar en ny beställning */
