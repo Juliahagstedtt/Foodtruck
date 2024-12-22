@@ -5,75 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodtruck: Yum yum gim me sum</title>
 
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/menu.css">
+    <!-- Länka till externa CSS-filer -->
+    <link rel="stylesheet" href="style.css">
 
-
+    <!-- Länka till JavaScript-filer (moduler) -->
     <script src="js/script.js" type="module"></script>
     <script src="js/api.js" type="module"></script>
 
-
-
-	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Länka till Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
 </head>
 <body>
+
 <!-- Menyn Sektion -->
 <section id="menu" class="view">
+    <!-- Varukorgsikon -->
     <div class="cart-box">
         <button id="cart-button" class="cart-bag-button" aria-label="Visa varukorg">
-            <span class="total-items">0</span>
+            <span class="total-items">0</span> <!-- Visar antal artiklar i varukorgen -->
             <img src="svg/cart.svg" alt="Varukorgsikon">
         </button>
     </div>
+
     <h2>MENY</h2>
-    <div id="menu-container"></div> <!-- Här kommer menyalternativen att visas -->
-
-
+    <div id="menu-container"></div> <!-- Här ska menyn renderas -->
 </section>
 
 <!-- Varukorg Sektion -->
 <section id="cart" class="view" style="display: none;">
-    <button class="back-to-menu-button" data-view="menu" aria-label="Visa varukorg">
-        <span class="total-items">0</span>
+    <button class="cart-bag-button" data-view="menu" aria-label="Visa varukorg">
         <img src="svg/cart.svg" alt="Varukorgsikon">
     </button>
-
-        <div id="cart-container"></div> <!-- Här kommer varukorgens innehåll att visas -->
-        <div class="total-text">TOTALT: 0 SEK</div>
-            <p>inkl 20% moms</p>
-            <button id="take-my-money-button" data-view="eta">TAKE MY MONEY!</button></section>
+    <div id="cart-container"></div> <!-- Här ska kundvagnens innehåll visas -->
+    <div class="total-box">
+        <div><h1 class="total-text">TOTALT</h1></div>
+        <span id="total-text"></span>
+        <span id="total-price"></span>
+        <div><p>inkl 20% moms</p></div>
+    </div>
+    <button id="take-my-money-button" class="take-my-money-button" data-view="eta">TAKE MY MONEY!</button>
+</section>
 
 <!-- ETA Sektion -->
 <section id="eta" class="view" style="display: none;">
     <div class="eta-img-container">
         <img src="svg/boxtop.svg" alt="wonton box" class="wonton-box">
     </div>
-    <h2 class="eta-header">DINA WONTON TILLAGAS!</h2>
-    <p class="time-estimate">ETA 5 MIN</p>
-    <p class="order-id"> #ef3ip</p> <!-- Exempel på order-ID -->
+    <div><h1 class="eta-header">DINA WONTON TILLAGAS!</h1></div>
+    <div id="order-info">
+        <p><span id="order-id">#Ft7nj</span></p> <!-- Order-ID -->
+        <p><span id="eta-time"></span></p> <!-- ETA (Beräknad leveranstid) -->
+    </div>
     <div class="eta-button-container">
         <button class="eta-buttons receipt" data-view="receipt">SE KVITTO</button>
-        <button id="to-new-order-button-eta" class="eta-buttons" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+        <button class="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
     </div>
 </section>
 
+<!-- Kvittosida -->
 <section id="receipt" class="view" style="display: none;">
     <h2>Kvitto</h2>
     <div class="logo">
         <img src="svg/logo.svg" alt="logo">
     </div>
-    <div id="receipt-details">
-        <!-- Här kommer kvittoinformationen (varor, priser etc.) att visas -->
-    </div>
-
-    <!-- Totalbelopp och moms -->
+    <div id="receipt-details"></div> <!-- Här ska kvittodetaljer visas -->
     <p id="receipt-tax"></p>
     <p id="receipt-total"></p>
-    
-    <button id="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+    <button class="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
 </section>
+
 </body>
 </html>

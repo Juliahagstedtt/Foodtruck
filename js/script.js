@@ -1,66 +1,67 @@
 import { fetchMenu } from './api.js';
 
-let cart = []; // Varukorgsvariabel
-let orderId = 'ef3up';  // Simulerad order-ID
+let cart = []; // Varukorgsvariabel som lagrar alla valda produkter
+let orderId = `#${Date.now()}`; // Skapa ett unikt order-ID baserat på den aktuella tiden
 
 const tenant = {
-    id: "ef3up",
-    name: "Julia"
-}
+    id: "ef3up", // Identifierar användaren eller hyresgästen
+    name: "Julia" // Namnet på hyresgästen
+};
 
-const sauceButton = document.querySelector(".sauce-buttons");
-const drinksButton = document.querySelector(".drinks-buttons");
+const sauceButton = document.querySelector(".sauce-buttons"); // Hämtar elementet för såsknapparna
+const drinksButton = document.querySelector(".drinks-buttons"); // Hämtar elementet för dryckesknapparna
 
 // Lägg till varor i kundvagnen
 function addToCart({ type, name, price }) {
     console.log(`Lägger till i kundvagnen: ${name}, Typ: ${type}, Pris: ${price} SEK`);
-    
+
     // Kontrollera om produkten redan finns i kundvagnen
     const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
         existingItem.quantity += 1;  // Om produkten finns, öka mängden
     } else {
-        cart.push({ type, name, price, quantity: 1 });
+        cart.push({ type, name, price, quantity: 1 }); // Lägg till ny produkt i varukorgen
     }
 
     // Uppdatera localStorage med den aktuella varukorgen
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    updateCartUI();
-    updateCartBadge();
+    updateCartUI(); // Uppdatera varukorgens gränssnitt
+    updateCartBadge(); // Uppdatera varukorgens ikon med antal varor
 }
 
 // Uppdatera användargränssnittet för varukorgen
 function updateCartUI() {
-    const cartContainer = document.getElementById("cart-container");
-    const totalText = document.querySelector(".total-text");
+    const cartContainer = document.getElementById("cart-container"); // Hämtar elementet för varukorgens innehåll
+    const totalText = document.querySelector(".total-text"); // Hämtar elementet för att visa totalbeloppet
 
     cartContainer.innerHTML = "";  // Töm varukorgen
     cart.forEach(item => {
         const cartItem = document.createElement("div");
-        cartItem.classList.add("cart-item");
-        cartItem.innerHTML = `
+        cartItem.classList.add("cart-item"); // Lägg till CSS-klass för varje varukorgsprodukt
+        cartItem.innerHTML = `  
             <p>${item.name}</p>
+            <span class="dot-line"></span>
             <p>${item.price} SEK</p>
-            <p>Antal: ${item.quantity}</p>
             <button class="increase" data-name="${item.name}">+</button>
+            <p>&nbsp;${item.quantity}&nbsp;&nbsp;stycken</p>
             <button class="decrease" data-name="${item.name}">-</button>
         `;
 
-        cartContainer.appendChild(cartItem);
+        cartContainer.appendChild(cartItem); // Lägg till produktens HTML i varukorgen
     });
 
-    // Uppdatera totalpris
-    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    // Uppdatera totalpris för varukorgen
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0); 
     totalText.innerText = `TOTALT: ${totalPrice} SEK`;
 
-    // Lägg till eventlyssnare på knapparna för att öka/minska mängden
+    // Lägg till eventlyssnare på knapparna för att öka eller minska mängden
     document.querySelectorAll(".increase").forEach(button => {
-        button.addEventListener("click", () => changeQuantity(button, 1));
+        button.addEventListener("click", () => changeQuantity(button, 1)); // Öka mängden på produkt
     });
 
     document.querySelectorAll(".decrease").forEach(button => {
-        button.addEventListener("click", () => changeQuantity(button, -1));
+        button.addEventListener("click", () => changeQuantity(button, -1)); // Minska mängden på produkt
     });
 
     // Uppdatera ETA-tid när varukorgen ändras
@@ -69,30 +70,30 @@ function updateCartUI() {
 
 // Funktion för att ändra kvantiteten av en vara
 function changeQuantity(button, change) {
-    const itemName = button.getAttribute("data-name");
-    const item = cart.find(item => item.name === itemName);
+    const itemName = button.getAttribute("data-name"); // Hämta namnet på produkten från knappen
+    const item = cart.find(item => item.name === itemName); // Hitta produkten i varukorgen
     
     if (item) {
-        item.quantity += change;
+        item.quantity += change; // Ändra kvantiteten
 
         // Om mängden blir 0 eller mindre, ta bort varan från varukorgen
         if (item.quantity <= 0) {
-            cart = cart.filter(item => item.name !== itemName);
+            cart = cart.filter(item => item.name !== itemName); // Ta bort produkten från varukorgen
         }
 
         // Uppdatera localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        // Uppdatera UI och badge
+        // Uppdatera varukorgens UI och badge (antal artiklar)
         updateCartUI();
         updateCartBadge();
     }
 }
 
-// Uppdatera antalet varor i kundvagnen (den lilla ringen)
+// Uppdatera antalet varor i kundvagnen (det lilla numret bredvid varukorgsikonen)
 function updateCartBadge() {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.querySelector(".total-items").innerText = totalItems;
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0); // Beräkna total antal artiklar i varukorgen
+    document.querySelector(".total-items").innerText = totalItems; // Uppdatera badge med total antal artiklar
 }
 
 // Ladda varukorgen från localStorage om den finns
@@ -103,38 +104,36 @@ function loadCartFromLocalStorage() {
     }
 }
 
-// Funktion för att rendera menyn
-// Funktion för att rendera menyn
 async function renderMenu() {
-    const menuContainer = document.getElementById("menu-container");
-    const menu = await fetchMenu();
+    const menuContainer = document.getElementById("menu-container"); // Hämta elementet där menyn ska renderas
+    const menu = await fetchMenu(); // Hämta menyn via API
 
     if (menu.length > 0) {
-        // Filtrera bort "wonton" produkter från menyn (case-insensitiv)
-        const filteredMenu = menu.filter(item => !item.name.toLowerCase().includes('wonton'));
+        // Filtrera bort "wonton" produkter och dip/drink från huvudmenyn
+        const filteredMenu = menu.filter(item => !item.name.toLowerCase().includes('wonton') && item.category !== 'drink' && item.category !== 'dip');
 
         menuContainer.innerHTML = ''; // Töm menyn
 
         if (filteredMenu.length === 0) {
-            menuContainer.innerHTML = '<p>Inga produkter tillgängliga.</p>';
+            menuContainer.innerHTML = '<p>Inga produkter tillgängliga.</p>'; // Visa meddelande om ingen produkt finns
         } else {
             filteredMenu.forEach(item => {
                 const menuItem = document.createElement('div');
-                menuItem.classList.add('menu-item');
+                menuItem.classList.add('menu-item'); // Lägg till CSS-klass för varje menyprodukt
                 
                 // Skapa en knapp som omsluter hela menyraden
                 const itemButton = document.createElement('button');
                 itemButton.classList.add('menu-item-button');
-                itemButton.setAttribute('data-name', item.name);
-                itemButton.setAttribute('data-price', item.price);
+                itemButton.setAttribute('data-name', item.name); // Lägg till produktens namn som data-attribut
+                itemButton.setAttribute('data-price', item.price); // Lägg till produktens pris som data-attribut
 
-                itemButton.innerHTML = `
+                itemButton.innerHTML = `  
                     <div class="menu-item-content">
                         <h3 class="item-name">${item.name}</h3>
                         <span class="dot-line"></span>
                         <p class="item-price">${item.price ? item.price + ' SEK' : 'Pris ej tillgängligt'}</p>
                     </div>
-                    ${item.ingredients ? `<p class="ingredients">${item.ingredients.join(', ')}</p>` : ''}
+                    ${item.ingredients ? `<p class="ingredients">${item.ingredients.join(', ')}</p>` : ''} <!-- Visa ingredienser om tillgängliga -->
                 `;
 
                 // Lägg till eventlyssnare för att lägga till varor i kundvagnen
@@ -143,47 +142,48 @@ async function renderMenu() {
                     const price = parseFloat(itemButton.getAttribute('data-price'));
 
                     if (!isNaN(price)) {
-                        addToCart({ type: 'item', name, price });
+                        addToCart({ type: 'item', name, price }); // Lägg till produkt i varukorg
                     } else {
                         console.error("Pris ej tillgängligt för denna produkt.");
                     }
                 });
 
                 menuItem.appendChild(itemButton);  // Lägg till knappen i menyraden
-                menuContainer.appendChild(menuItem);
+                menuContainer.appendChild(menuItem); // Lägg till produktmenyn i container
             });
         }
+
+        // Lägg till dip- och dryckesknappar (SMÅ knappar)
+        renderDips(menu);  // Rendera dips separat för små knappar
+        renderDrinks(menu);  // Rendera drycker separat för små knappar
     } else {
-        menuContainer.innerHTML = '<p>Det gick inte att hämta menyn just nu.</p>';
+        menuContainer.innerHTML = '<p>Det gick inte att hämta menyn just nu.</p>'; // Visa felmeddelande om menyn inte kan hämtas
     }
 }
 
 // Funktion för att beräkna och uppdatera ETA baserat på varukorgen
 function updateEtaTime() {
-    // Grundläggande tid (i minuter)
-    let baseTime = 30;  // Grundläggande tid (30 minuter)
-
-    // Öka tiden baserat på antalet artiklar i varukorgen
-    const additionalTimePerItem = 5; // 5 minuter per artikel
+    let baseTime = 1;  // Grundläggande tid (i minuter)
+    const additionalTimePerItem = 1; // 5 minuter per artikel
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);  // Total antal artiklar
 
     // Beräkna total leveranstid
     const totalTime = baseTime + totalItems * additionalTimePerItem; 
 
-    // Hitta ETA-tiden på sidan och uppdatera den
+    // Uppdatera ETA-tid på sidan
     const etaContainer = document.getElementById("eta-time");
     if (etaContainer) {
-        etaContainer.innerText = `Beräknad leveranstid: ${totalTime} minuter`;
+        etaContainer.innerText = ` ${totalTime} minuter`;
     }
 }
 
 // Hantera sidbyten (meny, varukorg, eta, kvitto)
 function changeView(viewId) {
-    const views = document.querySelectorAll('.view');
-    views.forEach(view => view.style.display = 'none');
+    const views = document.querySelectorAll('.view'); // Hämta alla vyer på sidan
+    views.forEach(view => view.style.display = 'none'); // Dölj alla vyer
     
-    const view = document.getElementById(viewId);
-    if (view) view.style.display = 'block';
+    const view = document.getElementById(viewId); // Hämta den vy som ska visas
+    if (view) view.style.display = 'block'; // Visa vald vy
 }
 
 // Funktion för att navigera till varukorgsidan
@@ -207,115 +207,97 @@ function setupViewSwitchers() {
     // För Cart-knappen
     const cartButton = document.getElementById("cart-button");
     if (cartButton) {
-        cartButton.addEventListener("click", goToCartPage);
+        cartButton.addEventListener("click", goToCartPage); // Gå till varukorg
     }
 
     // För Take My Money-knappen på varukorgsidan (gå till eta)
     const takeMyMoneyButton = document.getElementById("take-my-money-button");
     if (takeMyMoneyButton) {
-        takeMyMoneyButton.addEventListener("click", handleTakeMyMoney);
+        takeMyMoneyButton.addEventListener("click", handleTakeMyMoney); // Gå till betalning
     }
 
     // För ny beställning-knappen på kvittosidan
-    const newOrderButton = document.getElementById("order-button");
-    if (newOrderButton) {
-        newOrderButton.addEventListener("click", goToMenuPage); // Återgå till menyn
-    }
+    const newOrderButtons = document.querySelectorAll(".order-button");
+    newOrderButtons.forEach(button => {
+        button.addEventListener("click", resetOrder); // Ny beställning
+    });
 
     // För kvitto och andra sidor
     document.querySelectorAll("[data-view]").forEach(button => {
         button.addEventListener("click", (event) => {
             const viewId = event.target.getAttribute('data-view');
-            changeView(viewId);
+            changeView(viewId); // Byt vy baserat på knapptryckning
         });
     });
 }
 
 // Funktion för att tömma varukorgen och slutföra beställningen
 async function handleTakeMyMoney() {
-    // Förbered orderdata
-    const orderData = prepareOrderData();
+    const orderData = prepareOrderData(); // Förbered orderdata
 
     // Beräkna moms
-    const taxAmount = orderData.totalPrice * 0.25;  // Moms är 25%
+    const taxAmount = orderData.totalPrice * 0.20;
     const totalWithTax = orderData.totalPrice + taxAmount;
 
-    // Lägg till moms och totalbelopp i orderdata
-    orderData.taxAmount = taxAmount;
-    orderData.totalWithTax = totalWithTax;
+    // Skriv ut kvitto
+    showReceipt(orderData, taxAmount, totalWithTax);
 
-    // Skicka beställningen till API
-    await sendOrderToApi(orderData);  // Skicka orderdata till API
-
-    // Töm varukorgen efter att beställningen är skickad
+    // Töm varukorgen
     cart = [];
-    localStorage.removeItem('cart');  // Töm varukorgen från localStorage
-
-    // Uppdatera UI
+    localStorage.removeItem('cart');
     updateCartUI();
     updateCartBadge();
-
-    // Gå vidare till kvittosidan och visa kvittot
-    goToReceiptPage(orderData);
 }
 
-// Förbered orderdata
+// Förbered orderdata för kvitto
 function prepareOrderData() {
-    const orderItems = cart.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-    }));
-
-    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-    // Skapa orderdata
-    return {
-        orderId: orderId,  // Genererat order-ID
-        tenant: tenant.name,
-        items: orderItems,
-        totalPrice: totalPrice,
-        timestamp: new Date().toISOString(),
+    const orderData = {
+        items: cart, // Alla produkter i varukorgen
+        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) // Totalpris för beställningen
     };
+    return orderData;
 }
 
-// Funktion för att visa kvittot på kvittosidan
-function showReceipt(orderData) {
-    const receiptDetails = document.getElementById("receipt-details");
-    const receiptTax = document.getElementById("receipt-tax");
-    const receiptTotal = document.getElementById("receipt-total");
-
-    // Töm kvittoinformationen
-    receiptDetails.innerHTML = '';
-
-    // Lägg till varje vara på kvittot
-    orderData.items.forEach(item => {
-        const itemElement = document.createElement("div");
-        itemElement.classList.add("receipt-item");
-        itemElement.innerHTML = `
-            <p><strong>${item.name}</strong></p>
-            <p>${item.quantity} x ${item.price} SEK</p>
-            <p>Totalt: ${item.quantity * item.price} SEK</p>
-        `;
-        receiptDetails.appendChild(itemElement);
-    });
-
-    // Beräkna och visa moms och totalbelopp
-    const taxAmount = orderData.taxAmount;
-    const totalWithTax = orderData.totalWithTax;
-    receiptTax.innerText = `Moms (20%): ${taxAmount} SEK`;
-    receiptTotal.innerText = `Total att betala: ${totalWithTax} SEK`;
+// Visa kvitto
+function showReceipt(orderData, taxAmount, totalWithTax) {
+    const receiptContainer = document.getElementById("receipt-container");
+    receiptContainer.innerHTML = `  
+        <h2>Beställning bekräftad</h2>
+        <h3>Order-ID: ${orderId}</h3>
+        <h4>Beställda varor:</h4>
+        ${orderData.items.map(item => `
+            <p>${item.name} (${item.quantity} st) - ${item.price * item.quantity} SEK</p>
+        `).join('')}
+        <p>-----------------------------</p>
+        <p>Total: ${orderData.totalPrice} SEK</p>
+        <p>Moms (25%): ${taxAmount.toFixed(2)} SEK</p>
+        <p>Totalt med moms: ${totalWithTax.toFixed(2)} SEK</p>
+        <button class="order-button">Ny Beställning</button> <!-- Ny beställning-knapp -->
+    `;
 }
 
-// Funktion för att visa kvittosidan
-function goToReceiptPage(orderData) {
-    changeView('receipt');  // Byt till kvittosidan
-    showReceipt(orderData);  // Visa kvittot med informationen
+// Reset order - töm varukorg och återställ till menyn
+function resetOrder() {
+    cart = []; // Töm varukorgen
+    localStorage.removeItem('cart');  // Ta bort varukorgen från localStorage
+    localStorage.removeItem('menu');  // Ta bort menyn från localStorage om den är sparad
+
+    orderId = `#${Date.now()}`; // Återställ orderId till ett nytt för nästa beställning
+
+    updateCartUI(); // Uppdatera UI med tom varukorg
+    updateCartBadge(); // Uppdatera varukorgens badge
+
+    const etaContainer = document.getElementById("eta-time");
+    if (etaContainer) {
+        etaContainer.innerText = '5 minuter'; // Återställ ETA-tiden
+    }
+
+    goToMenuPage(); // Gå tillbaka till menyn
+
+    renderMenu(); // Ladda om menyn från API
 }
 
-// Ladda och visa menyn när sidan laddas
-document.addEventListener("DOMContentLoaded", () => {
-    loadCartFromLocalStorage();
-    renderMenu();
-    setupViewSwitchers();  // Sätt upp alla knappar och eventlyssnare
-});
+// Anrop för att ladda varukorgen och rendera menyn vid sidladdning
+loadCartFromLocalStorage(); // Ladda varukorgen från localStorage
+renderMenu(); // Rendera menyn
+setupViewSwitchers(); // Förbered sidan för att byta mellan vyer

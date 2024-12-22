@@ -1,0 +1,796 @@
+/* Grundinställningar för alla element */
+* {
+    box-sizing: border-box; /* Ser till att padding och border inkluderas i elementets totala bredd och höjd */
+    padding: 0; /* Tar bort standardpadding för alla element */
+}
+
+/* Standardinställningar för body */
+body {
+    font-family: Arial, sans-serif; /* Anger typsnitt för hela body */
+    height: 100%; /* Sätter höjden på body till 100% */
+    max-width: 600px; /* Maximal bredd på body */
+    width: 100%; /* Full bredd på body */
+    margin: auto; /* Centrerar body horisontellt */
+    text-transform: uppercase; /* Gör all text i body till versaler */
+    display: flex; /* Använder flexbox för layout */
+    flex-direction: column; /* Arrangerar innehållet i body vertikalt */
+}
+
+/* Visibilitet av element som har klassen "view" */
+.hidden {
+    display: none; /* Döljer element som har klassen "hidden" */
+}
+
+.active {
+    display: block; /* Visar element som har klassen "active" */
+}
+
+/* Rubriker */
+h1 {
+    color: #000; /* Sätter textfärgen för h1 till svart */
+    font-size: 30px; /* Sätter fontstorlek för h1 */
+    margin-bottom: 5px; /* Lägger till marginal under h1 */
+}
+
+h2 {
+    color: #f5f5f5; /* Ljusgrå färg för h2 */
+    text-shadow: 2px 2px 3px #000; /* Lägger till textskugga för bättre kontrast */
+    font-size: 30px; /* Sätter fontstorlek för h2 */
+    margin-bottom: 5px; /* Lägger till marginal under h2 */
+}
+
+h3 {
+    margin-top: 20px; /* Lägger till avstånd ovanför h3 */
+    font-size: 24px; /* Sätter fontstorlek för h3 */
+    color: rgb(255, 255, 255); /* Sätter färgen på texten till vit */
+}
+
+h4 {
+    color: #ffffff; /* Vit färg på texten */
+    text-transform: uppercase; /* Gör all text i h4 versaler */
+}
+
+/* Visibilitet av element som har klassen "view" */
+.view {
+    display: block; /* Gör element synliga om de har klassen "view" */
+}
+
+.view-hidden {
+    display: none; /* Döljer element om de har klassen "view-hidden" */
+}
+
+/* Container för varukorgen (cart-box) */
+.cart-box {
+    display: flex; /* Använder flexbox för att organisera innehållet */
+    justify-content: flex-end; /* Justerar innehållet så att det är till höger */
+    align-items: center; /* Centrerar innehållet vertikalt */
+    position: relative; /* Relativ positionering för att placera andra element (t.ex. total-items) */
+    border-radius: 10px; /* Rundar hörnen på containern */
+    padding-right: 1rem; /* Lägger till padding på höger sida */
+}
+
+/* Den röda ringen för antal artiklar */
+.total-items {
+    position: absolute; /* Absolut positionering relativt föräldern (cart-box) */
+    top: -0.5rem;  /* Flyttar ringen lite upp från botten av knappen */
+    right: 0.1rem; /* Flyttar ringen lite åt höger */
+    background-color: #ff2929; /* Röd bakgrundsfärg */
+    color: white; /* Vit textfärg för siffrorna */
+    font-size: 0.8rem; /* Liten textstorlek för att passa i ringen */
+    border-radius: 100%; /* Gör ringen rund */
+    width: 1.5rem; /* Sätter bredden på ringen */
+    height: 1.5rem; /* Sätter höjden på ringen */
+    display: flex; /* Flexbox för att centrera texten i ringen */
+    align-items: center; /* Vertikalt centrera innehållet */
+    justify-content: center; /* Horisontellt centrera innehållet */
+    text-align: center; /* Textcentrering */
+}
+
+/* Cart-knappen */
+.cart-button {
+    height: 4rem; /* Höjd på varukorgs-knappen */
+    width: 4rem; /* Bredd på varukorgs-knappen */
+    border: none; /* Tar bort border från knappen */
+    border-radius: 0.4rem; /* Rundar hörnen på knappen */
+    position: relative; /* För att knappen ska vara inom sin container */
+    cursor: pointer; /* Ändrar muspekaren till en hand vid hover */
+    background-color: #000; /* Svart bakgrundsfärg på knappen */
+}
+
+/* För att hålla varukorgs-knappen och ringen på plats i mobilen */
+@media (max-width: 768px) {
+    .cart-box {
+        padding-right: 1rem; /* Padding på höger sida för att hålla knappen inom */
+    }
+
+    .cart-button {
+        width: 3.5rem; /* Minskar storleken på knappen på mindre skärmar */
+        height: 3.5rem;
+    }
+
+    .total-items {
+        width: 1.3rem; /* Minskar storleken på den röda ringen */
+        height: 1.3rem;
+        font-size: 0.7rem; /* Mindre textstorlek för siffrorna i ringen */
+        top: -0.3rem; /* Justerar positionen för ringen */
+        right: 0.3rem; /* Justerar positionen för ringen */
+    }
+}
+
+/* Stilmall för knappar som har specifika id:n */
+#to-new-order-button,
+#to-order-button,
+#to-order-button-eta,
+#to-new-order-button-eta {
+    padding: 30px 30px; /* Padding för att göra knapparna större */
+    background-color: #000000; /* Svart bakgrundsfärg på knapparna */
+    color: white; /* Vit textfärg på knapparna */
+    border: none; /* Tar bort standard border */
+    border-radius: 5px; /* Rundar hörnen på knapparna */
+    cursor: pointer; /* Handpekare vid hover */
+    transition: background-color 0.3s ease; /* Smidig övergång vid ändring av bakgrundsfärg */
+    width: 100%; /* Gör att knapparna fyller hela bredden */
+}
+
+/* Hover-effekt för specifika knappar */
+#to-new-order-button:hover,
+#to-order-button:hover,
+#to-order-button-eta:hover,
+#to-new-order-button-eta:hover {
+    background-color: #383434; /* Ändrar bakgrundsfärgen på knapparna vid hover */
+}
+
+/* Styling för olika sektioner på sidan */
+#menu, #cart-container, #eta-container, #receipt {
+    gap: 15px; /* Lägger till 15px mellan elementen i dessa sektioner */
+}
+
+.menu-item,
+.order-button,
+.cart-total {
+    max-width: 600px; /* Maximal bredd på dessa element */
+    width: 100%; /* Gör att dessa element fyller hela bredden */
+}
+
+/* __________________________________Menu________________________________________ */
+
+/* Styling för menyn */
+#menu {
+    background-color: #489078; /* Grön bakgrundsfärg för menyn */
+    color: white; /* Vit textfärg för menyn */
+    max-width: 600px; /* Maximal bredd på menyn */
+    padding: 30px; /* Padding runt hela menyn */
+    font-size: x-large; /* Stor textstorlek för menyn */
+}
+
+/* Meny - Justering för namn och pris på samma rad med en prickad linje */
+.menu-item-content {
+    display: flex; /* Flexbox layout för att arrangera innehållet horisontellt */
+    align-items: center; /* Centrerar innehållet vertikalt */
+    justify-content: space-between; /* Gör så att elementen sprids till kanterna */
+}
+
+/* Namnet på produkten */
+.item-name {
+    font-size: 18px; /* Textstorlek för produktnamn */
+    font-weight: bold; /* Fett format på produktnamnet */
+    margin-right: 10px; /* Avstånd mellan namn och pricklinje */
+    flex-grow: 1; /* Gör så att produktnamnet växer och fyller utrymmet */
+}
+
+/* Priset på produkten */
+.item-price {
+    font-size: 16px; /* Mindre textstorlek för priset */
+    color: #ffffff; /* Vit textfärg för priset */
+}
+
+/* Prickad linje i menyn */
+#menu .dot-line {
+    flex-grow: 35; /* Gör så att linjen växer och fyller utrymmet */
+    border-bottom: 2px dotted #ffffff; /* Vit prickad linje för menyn */
+    margin: 0 10px; /* Lägg till marginal så att linjen inte är för nära andra element */
+}
+
+/* Varukorg - Prickad linje med svart färg */
+#cart-container .dot-line {
+    flex-grow: 1; /* Gör så att linjen växer och fyller utrymmet */
+    border-bottom: 2px dotted #000000; /* Svart prickad linje för varukorgen */
+    margin: 0 10px; /* Lägg till marginal så att linjen inte är för nära andra element */
+}
+
+/* Anpassa för varukorgen */
+#cart-container .menu-item-content {
+    display: flex; /* Använd flexbox för varukorgen */
+    flex-direction: column; /* Arrangera innehållet vertikalt i varukorgen */
+    justify-content: space-between; /* Sprid innehållet jämnt */
+    width: 100%; /* Full bredd för innehållet i varukorgen */
+}
+
+/* Första och sista menyobjektet */
+.menu-item:first-child {
+    border-radius: 0.3rem 0.3rem 0 0; /* Rundar hörnen på det första menyalternativet */
+}
+
+.menu-item:last-child {
+    border-radius: 0 0 0.3rem 0.3rem; /* Rundar hörnen på det sista menyalternativet */
+}
+
+/* Dotted divider mellan objekten */
+.menu-item:not(:last-child) {
+    border-bottom: none; /* Tar bort linjen mellan det sista objektet och andra objekt */
+}
+
+/* Hover-effekt på menyobjekt */
+.menu-item:hover, .sides-container:hover {
+    background-color: rgb(0, 0, 0); /* Ändrar bakgrundsfärg vid hover */
+}
+
+/* Styling för knappar inom meny */
+.menu-item-button {
+    display: block; /* Gör knappen till ett blockelement */
+    width: 100%; /* Fyll hela bredden på knappen */
+    padding: 15px; /* Lägg till padding runt knappen */
+    background-color: #575757; /* Grå bakgrundsfärg för knappen */
+    border: dotted 1px solid #8f8f8f; /* Prickad kantlinje runt knappen */
+    text-align: center; /* Centrera texten i knappen */
+    font-size: 16px; /* Textstorlek på knappen */
+    cursor: pointer; /* Handpekare vid hover */
+    border-radius: 5px; /* Rundade hörn på knappen */
+    transition: background-color 0.3s; /* Smidig övergång för bakgrundsfärg vid hover */
+}
+
+.menu-item-button:hover {
+    background-color: #000; /* Svart bakgrundsfärg på knappen vid hover */
+}
+
+/* Förhindrar bakgrundsfärgen från att försvinna vid aktiva tillstånd */
+.menu-item:active,
+.menu-item:focus {
+    background-color: #000000; /* Håller bakgrundsfärgen svart vid aktivt tillstånd */
+}
+
+/* Styling för ingredienser i meny */
+.ingredients {
+    color: white; /* Vit textfärg för ingredienser */
+}
+
+/* Side options (Drinks & Dips) */
+.side-options {
+    display: flex; /* Använder flexbox för layout */
+    flex-direction: column; /* Arrangerar alternativen vertikalt */
+    gap: 10px; /* Lägger till mellanrum mellan varje alternativ */
+    margin-top: 10px; /* Lägger till marginal ovanför sidosektionerna */
+}
+
+/* Sektion för drycker och dipsåser */
+.side-options-drinks, .side-options-dips {
+    display: grid; /* Använder grid-layout för att arrangera drycker och dipsåser */
+    grid-template-columns: repeat(3, 1fr);  /* Tre kolumner för större skärmar */
+    gap: 10px; /* Lägger till mellanrum mellan produkterna */
+    background-color: #585454; /* Grå bakgrundsfärg för sektionerna */
+    border-radius: 15px; /* Rundar hörnen på sektionerna */
+}
+
+/* Titel för side options */
+.side-options h2 {
+    font-size: 20px; /* Textstorlek för rubriker i sidosektionerna */
+    color: white; /* Vit textfärg för rubriker */
+    margin-bottom: 10px; /* Marginal under rubriken */
+}
+
+/* Styling för varje produkt i sidosektionerna */
+.product-box {
+    width: 100%; /* Full bredd på produktboxen */
+    margin: 15px 0; /* Vertikalt avstånd mellan produkterna */
+    padding: 25px; /* Padding runt produkten */
+    border-radius: 3px; /* Rundade hörn på produktboxarna */
+    display: flex; /* Flexbox för att arrangera innehållet i boxen */
+    flex-direction: column; /* Arrangera innehållet vertikalt */
+    justify-content: center; /* Centrerar innehållet vertikalt */
+    align-items: center; /* Centrerar innehållet horisontellt */
+    text-align: center; /* Centrera texten i boxen */
+    background-color: #a09c9c46; /* Transparent bakgrundsfärg för boxarna */
+    color: #333; /* Mörk textfärg för boxarna */
+    cursor: pointer; /* Handpekare när du hovrar över boxen */
+    overflow: hidden; /* Döljer overflow om innehållet är för stort */
+    transition: background-color 0.2s ease; /* Smidig övergång av bakgrundsfärg vid hover */
+}
+
+.product-box:hover {
+    background-color: #000000;  /* Svart bakgrundsfärg på produktboxen vid hover */
+}
+
+/* För att ge varje produkt en knapp i boxarna */
+.product-box button {
+    background-color: #77767648; /* Transparent bakgrundsfärg för knappen */
+    color: rgb(255, 255, 255); /* Vit textfärg för knappen */
+    border: none; /* Tar bort border på knappen */
+    cursor: pointer; /* Handpekare vid hover */
+    font-size: 40px; /* Större textstorlek för knappen */
+    width: 100%; /* Fyll hela bredden av boxen */
+    transition: background-color 0.2s ease; /* Smidig övergång för bakgrundsfärg vid hover */
+}
+
+.product-box button:hover {
+    background-color: #000000;  /* Svart bakgrundsfärg på knappen vid hover */
+}
+
+/* Styling för bilder i produktbox */
+.product-box img {
+    width: 70%; /* Begränsar bildens bredd */
+    height: auto; /* Låter höjden anpassas för att bibehålla bildens proportioner */
+    border-radius: 5px; /* Rundade hörn på bilden */
+}
+
+/* Text i produktboxarna */
+.product-box p {
+    margin: 5px 0; /* Vertikalt avstånd mellan texten */
+    word-wrap: break-word; /* Bryt ord vid behov för att förhindra overflow */
+    overflow-wrap: break-word; /* Förhindrar text från att gå utanför boxen */
+    text-overflow: ellipsis; /* Visa ellips om texten är för lång */
+}
+
+/* Namn och pris i produktbox */
+.product-box .item-name {
+    font-weight: bold; /* Fett format för produktnamnet */
+    font-size: 16px; /* Textstorlek för produktnamnet */
+}
+
+.product-box .item-price {
+    font-size: 14px; /* Mindre textstorlek för priset */
+    color: #f9f9f9; /* Ljus textfärg för priset */
+}
+
+/* ------------------------- Cart Box ------------------------------- */
+
+/* Container för hela varukorgen */
+#cart-container {
+    background-color: transparent; /* Transparent bakgrund för varukorgen */
+    border-radius: 5px; /* Rundade hörn på varukorgen */
+    padding: 20px; /* Padding runt hela varukorgen */
+    width: 100%; /* Full bredd på varukorgen */
+    margin-bottom: 40px; /* Marginal under varukorgen */
+    position: relative; /* Gör det möjligt att placera andra element relativt till varukorgen */
+    overflow: hidden; /* Döljer overflowande innehåll */
+    color: #000; /* Svart textfärg */
+}
+
+/* Varje enskild produkt i varukorgen */
+.cart-item {
+    display: flex; /* Flexbox för att arrangera produktens innehåll horisontellt */
+    justify-content: space-between; /* Gör så att innehållet sprids till kanterna */
+    padding: 10px 0; /* Vertikal padding mellan varje produkt */
+    border-bottom: 1px solid #ddd; /* Ljusgrå linje under varje produkt */
+    color: grey; /* Grå textfärg */
+}
+
+/* Styling för text i varje varukorgsobjekt */
+.cart-item p {
+    margin: 0; /* Tar bort marginalen runt texten */
+    color: #000; /* Svart textfärg för texten */
+}
+
+/* Flexbox-container för inre element (pris och mängd) */
+.cart-item-inner, .cart-item-counter {
+    display: flex; /* Flexbox för att arrangera elementen horisontellt */
+}
+
+/* Dotted divider mellan varukorgens objekt */
+.dotted-cart-divider {
+    flex-grow: 1; /* Gör så att linjen växer och fyller utrymmet */
+    border-bottom: 2px dotted var(--darkGray); /* Dotted linje med mörkgrå färg */
+}
+
+/* Container för att visa och justera mängden av varje produkt */
+.cart-item-counter {
+    gap: 0.5rem; /* Lägg till mellanrum mellan element inom räknaren */
+    align-items: center; /* Vertikal centrering av innehållet */
+    margin-top: 0.5rem; /* Lägger till marginal ovanför räknaren */
+}
+
+/* Styling för mängdtexten i varukorgen */
+.amount {
+    font-size: 1.2rem; /* Textstorlek för mängden */
+    font-weight: normal; /* Normal vikt på mängdtexten */
+}
+
+/* Knappar för att lägga till och ta bort produkter */
+.add-button, .remove-button {
+    background-color: #a7a7a7; /* Grå bakgrundsfärg på knapparna */
+    border: none; /* Tar bort kantlinje från knapparna */
+    border-radius: 100%; /* Gör knapparna runda */
+    height: 1em; /* Höjd på knapparna */
+    width: 1em; /* Bredd på knapparna */
+    font-weight: 200; /* Lättare vikt på siffran i knapparna */
+    font-size: 1.8rem; /* Stor textstorlek för siffrorna */
+    display: flex; /* Flexbox för att centrera siffrorna */
+    justify-content: center; /* Centrerar innehållet horisontellt */
+    align-items: center; /* Centrerar innehållet vertikalt */
+    cursor: pointer; /* Handpekare vid hover */
+}
+
+/* Hover-effekt för knapparna "lägg till" och "ta bort" */
+.add-button:hover, .remove-button:hover {
+    background-color: #898888; /* Mörkare grå färg vid hover */
+}
+
+/* Container för information om priset i botten av varukorgen */
+.cart-bottom-container {
+    display: flex; /* Flexbox för att arrangera elementen vertikalt */
+    flex-direction: column; /* Arrangera elementen i en kolumn */
+    margin-top: auto; /* Får container att tryckas till botten av varukorgen */
+    gap: 1rem; /* Lägg till mellanrum mellan elementen */
+}
+
+/* Styling för sektionen som visar totalpris och sammanfattning */
+.price-info {
+    background-color: lightgray; /* Ljusgrå bakgrundsfärg för prisinfo */
+    display: flex; /* Flexbox för att arrangera priset och texten horisontellt */
+    justify-content: space-between; /* Sprid elementen till kanterna */
+    border-radius: 0.5rem; /* Rundade hörn för sektionen */
+    padding: 1rem; /* Padding runt prisinfo-sektionen */
+    align-items: center; /* Vertikal centrering av innehållet */
+}
+
+/* Stil för texter inom price-info */
+.total-text, .total-price {
+    font-weight: bold; /* Fet stil på texten */
+}
+
+/* Textstorlek för totaltexten */
+.total-text {
+    font-size: 1.5rem; /* Större textstorlek för totaltexten */
+}
+
+/* Textstorlek för totalpriset */
+.total-price {
+    font-size: 2rem; /* Större textstorlek för totalpriset */
+}
+
+/* Pay-button - betalningsknapp */
+.pay-button {
+    background-color: grey; /* Grå bakgrundsfärg för betalningsknappen */
+    border: none; /* Tar bort kantlinje från knappen */
+    border-radius: 0.5rem; /* Rundade hörn på knappen */
+    font-size: 1.5rem; /* Stor textstorlek på knappen */
+    font-weight: bold; /* Fet stil på texten på knappen */
+    color: white; /* Vit textfärg för knappen */
+    padding: 1.8rem; /* Padding runt knappen */
+    cursor: pointer; /* Handpekare vid hover */
+}
+
+/* Hover-effekt för betalningsknappen */
+.pay-button:hover {
+    background-color: grey; /* Färgen ändras inte, men kan ändras om man vill */
+}
+
+/* För att markera aktiva tillstånd för knappar */
+.active {
+    cursor: pointer; /* Handpekare vid hover på aktiva element */
+}
+
+/* Total box - visar sammanfattning av varukorgens innehåll */
+.total-box {
+    position: relative; /* Gör det möjligt att placera element relativt till total-boxen */
+    width: 90%; /* Sätter bredden till 90% av containerens bredd */
+    background-color: rgb(190, 188, 188); /* Ljusgrå bakgrundsfärg */
+    border-radius: 10px; /* Rundade hörn på total-boxen */
+    border-bottom: 1px solid #ddd; /* Ljusgrå linje längst ner */
+    padding: 10px; /* Padding runt hela boxen */
+    margin: 0 auto; /* Centrerar boxen horisontellt */
+    text-align: start; /* Textjustering till vänster */
+    box-sizing: border-box; /* Inkluderar padding i total storlek */
+    justify-content: space-between; /* Sprider innehållet till kanterna */
+}
+
+/* "Take my money"-knapp */
+.take-my-money-button {
+    background-color: #000; /* Svart bakgrundsfärg på knappen */
+    color: white; /* Vit textfärg på knappen */
+    border: none; /* Tar bort kantlinje från knappen */
+    border-radius: 5px; /* Rundade hörn på knappen */
+    padding: 20px 30px; /* Padding runt knappen */
+    font-size: 18px; /* Textstorlek för knappen */
+    font-weight: bold; /* Fet stil på texten */
+    text-align: center; /* Centrerad text på knappen */
+    cursor: pointer; /* Handpekare vid hover */
+    display: block; /* Gör knappen till ett blockelement */
+    width: 100%; /* Fyller hela bredden på container */
+    max-width: 300px; /* Maximal bredd på knappen */
+    margin: 20px auto; /* Centrerad med marginal ovanför och under */
+    transition: background-color 0.3s ease; /* Smidig övergång för bakgrundsfärg */
+    box-sizing: border-box; /* Inkluderar padding i total storlek */
+}
+
+/* Hover-effekt för "Take my money"-knappen */
+.take-my-money-button:hover {
+    background-color: #000; /* Färgen ändras inte, men kan ändras om man vill */
+}
+
+/* Styling för pris i varje varukorgsobjekt */
+.cart-item .item-price {
+    display: flex; /* Flexbox för att arrangera priset vertikalt */
+    flex-direction: column; /* Arrangerar priset i en kolumn */
+    font-size: 16px; /* Textstorlek för priset */
+}
+
+/* För att ge priset en mindre textstorlek för eventuell beskrivning */
+.cart-item .item-price span {
+    font-size: 12px; /* Mindre textstorlek för beskrivningen */
+    color: #666; /* Mörkgrå färg för beskrivningen */
+}
+
+/* Knapp för att öka eller minska antalet produkter */
+.increase, .decrease {
+    background-color: #d3d3d3; /* Ljusgrå bakgrundsfärg för knapparna */
+    border: none; /* Ingen kantlinje på knapparna */
+    border-radius: 50%; /* Gör knapparna runda */
+    height: 1.5em; /* Höjd på knapparna */
+    width: 1.5em; /* Bredd på knapparna */
+    font-weight: bold; /* Fet stil på texten i knapparna */
+    font-size: 1.2rem; /* Textstorlek på siffrorna */
+    display: flex; /* Flexbox för att centrera siffrorna i knappen */
+    justify-content: center; /* Centrerar siffrorna horisontellt */
+    align-items: center; /* Centrerar siffrorna vertikalt */
+    cursor: pointer; /* Handpekare vid hover */
+    transition: background-color 0.3s ease; /* Smidig övergång för bakgrundsfärg */
+}
+
+/* Hover-effekt för öka- och minska-knappar */
+.increase:hover, .decrease:hover {
+    background-color: #b0b0b0; /* Mörkare grå färg vid hover */
+}
+
+/* Ta bort den sista gränsen för varukorgens sista objekt */
+.cart-item:last-child {
+    margin-bottom: 0; /* Tar bort marginalen under sista varukorgsobjektet */
+    border-bottom: none; /* Tar bort den sista gränsen */
+}
+
+/* Totalbelopp för varukorgen */
+.cart-total {
+    display: flex; /* Flexbox för att arrangera totalen horisontellt */
+    justify-content: center; /* Centrerar totalen */
+    font-size: 18px; /* Textstorlek för totalen */
+    font-weight: bold; /* Fet stil på totalen */
+    padding: 15px 0; /* Vertikal padding på totalen */
+}
+
+/* _________________________ Eta _____________________________ */
+
+/* Container för hela ETA-sektionen */
+#eta {
+    background-color: rgb(85, 85, 85); /* Grå bakgrundsfärg för hela container */
+    display: flex; /* Använder flexbox för layout */
+    flex-direction: column; /* Arrangerar innehåll i en vertikal kolumn */
+    padding: 16px; /* Padding runt hela container */
+    align-items: center; /* Centrerar innehållet horisontellt */
+    justify-content: space-between; /* Sprider innehållet från topp till botten */
+    height: 100%; /* Full höjd på container */
+    min-height: 100vh; /* Sätter minsta höjd till 100% av viewportens höjd */
+    gap: 16px; /* Mellanrum mellan flex-element */
+    border-radius: 8px; /* Rundade hörn på container */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ljus skugga runt container */
+    position: relative; /* Gör att positionerade element inom kan placeras relativt till denna container */
+}
+
+/* Textformat för alla p-taggar inom #eta */
+#eta p {
+    color: white; /* Vit textfärg */
+    text-align: center; /* Centrerar texten */
+}
+
+/* Container för bilder, här används overflow: hidden för att hantera bildstorlek */
+.eta-img-container {
+    overflow: hidden; /* Döljer delar av bilden som går utanför containern */
+}
+
+/* Styling för Wonton-boxen */
+.wonton-box {
+    max-width: 30rem; /* Maximal bredd på boxen */
+    margin-top: 5rem; /* Lägger till stort avstånd ovanför */
+    text-align: center; /* Centrerar texten i boxen */
+}
+
+/* Styling för headern inom #eta */
+.eta-header {
+    text-align: center; /* Centrerar rubriken */
+    font-size: 1.5rem; /* Sätter textstorleken för rubriken */
+    max-width: 15rem; /* Maximal bredd för rubriken */
+    text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911); /* Lägger till textskugga för bättre läsbarhet */
+    color: #ffffff; /* Vit textfärg */
+}
+
+/* Container för ETA-knappar och deras layout */
+.eta-button-container {
+    display: flex; /* Flexbox för att arrangera knapparna */
+    flex-direction: column; /* Arrangerar knapparna vertikalt */
+    margin-top: auto; /* Får knapparna att tryckas ner till botten */
+    gap: 1rem; /* Mellanrum mellan knappar */
+    width: 100%; /* Fyller hela container-bredden */
+}
+
+/* Allmän styling för knappar inom ETA */
+.eta-buttons {
+    background-color: #5f5f5f; /* Grå bakgrundsfärg på knapparna */
+    border: none; /* Tar bort kantlinje från knapparna */
+    border-radius: 0.3rem; /* Rundade hörn på knapparna */
+    font-size: 1.5rem; /* Textstorlek för knappar */
+    font-weight: bold; /* Fet stil på texten i knapparna */
+    color: white; /* Vit textfärg på knappar */
+    padding: 1.5rem; /* Padding på knapparna */
+    cursor: pointer; /* Handpekare vid hover */
+    text-align: center; /* Centrerad text i knappen */
+}
+
+/* Hover-effekt för knappar */
+.eta-buttons:hover {
+    background-color: #000000; /* Byter bakgrund till svart vid hover */
+}
+
+/* Styling för "receipt"-knappen (t.ex. kvittoknappen) */
+.eta-buttons.receipt {
+    background-color: #5f5f5f; /* Samma grå bakgrundsfärg som vanliga knappar */
+    border: 2px solid white; /* Vit kantlinje runt kvitto-knappen */
+    color: white; /* Vit textfärg */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911); /* Lägger till textskugga för kvitto-knappen */
+}
+
+/* ETA-tidens styling */
+.time-estimate {
+    font-size: 1.5rem; /* Större textstorlek för ETA-tid */
+    font-weight: bold; /* Fet stil på ETA-tiden */
+    color: #fff; /* Vit textfärg */
+    text-shadow: 1px 1px 2px black; /* Lägger till textskugga för att förbättra läsbarheten */
+    text-align: center; /* Centrerad text */
+}
+
+/* Styling för order-ID */
+.order-id {
+    font-size: 1.2rem; /* Liten textstorlek för order-ID */
+    color: #c2c0c0; /* Ljusgrå färg för order-ID */
+    text-transform: uppercase; /* Gör texten versaler */
+    letter-spacing: 2px; /* Lägger till mellanrum mellan bokstäverna */
+    text-align: center; /* Centrerad text */
+}
+
+/* Container för hela ETA-sidan */
+#eta-container {
+    display: flex; /* Flexbox för att arrangera innehåll vertikalt */
+    flex-direction: column; /* Arrangerar innehållet i en kolumn */
+    align-items: center; /* Centrerar allt horisontellt */
+    justify-content: center; /* Centrerar allt vertikalt */
+    width: 100%; /* Full bredd på container */
+    text-align: center; /* Centrerar texten */
+}
+
+/* -------------------------- Receipts ------------------------------- */
+
+/* Container för hela kvittosektionen */
+#receipt {
+    background-color: #fafafa; /* Ljus bakgrundsfärg för kvitto-sektionen */
+    display: none; /* Standard är att dölja kvittosektionen */
+    flex-direction: column; /* Organiserar innehåll vertikalt */
+    padding: 1rem; /* Padding runt hela sektionen */
+    align-items: center; /* Centrerar alla element horisontellt */
+    height: 100%; /* Full höjd för sektionen */
+    min-height: 100vh; /* Minsta höjd är 100% av viewportens höjd */
+    overflow: hidden; /* Döljer allt som går utanför container */
+}
+
+/* Container för kvittoinnehåll */
+.receipt-container {
+    margin-top: 5rem; /* Skapar avstånd från toppen */
+    background-color: white; /* Vit bakgrund för kvitto-container */
+    color: black; /* Svart textfärg */
+    display: flex; /* Flexbox för layout */
+    flex-direction: column; /* Organiserar innehåll i en kolumn */
+    min-height: 30rem; /* Minsta höjd på kvitto-container */
+    padding: 1rem; /* Padding runt innehållet i containern */
+    width: 100%; /* Fyller hela bredden */
+    border-radius: 0.3rem 0.3rem 0 0; /* Rundade hörn på toppen av containern */
+    align-items: center; /* Centrerar alla element horisontellt */
+}
+
+/* Styling för den första rubriken (Kvitto) */
+#receipt h2 {
+    text-align: center; /* Centrerar rubriken */
+    font-size: 32px; /* Stor textstorlek för rubriken */
+    font-weight: 700; /* Fet stil på rubriken */
+    color: #333; /* Mörkgrå färg på texten */
+    margin-bottom: 20px; /* Avstånd nedanför rubriken */
+}
+
+/* Styling för logotypen (t.ex. företagslogotyp) */
+.logo {
+    text-align: center; /* Centrerar logotypen */
+    margin-bottom: 30px; /* Lägger till avstånd under logotypen */
+    max-width: 4rem; /* Maximal bredd på logotypen */
+}
+
+/* Styling för logotypbilden */
+.logo img {
+    max-width: 200px; /* Maximal bredd på logotypbilden */
+    height: auto; /* Automatisk höjd för att bibehålla bildförhållandet */
+}
+
+/* Styling för kvittoinformation (t.ex. orderdetaljer) */
+#receipt-details {
+    background-color: #fff; /* Vit bakgrund för kvittoinformation */
+    padding: 20px; /* Padding runt innehållet i kvittoinformationen */
+    border-radius: 8px; /* Rundade hörn på kvittoinformationen */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lätt skugga för att ge djup */
+    margin-bottom: 30px; /* Avstånd nedanför kvittoinformationen */
+    display: flex; /* Flexbox för layout */
+    flex-direction: column; /* Arrangerar innehållet i en kolumn */
+    width: 100%; /* Fyller hela bredden */
+    height: 500px; /* Sätter en fast höjd på kvittoinformationen */
+}
+
+/* Container för knappen som startar en ny beställning */
+.new-order {
+    text-align: center; /* Centrerar knappen */
+}
+
+/* Styling för knappen som startar en ny beställning */
+.order-button {
+    background-color: #000000; /* Svart bakgrundsfärg på knappen */
+    color: white; /* Vit textfärg */
+    font-size: 16px; /* Textstorlek för knappen */
+    padding: 12px 30px; /* Padding för knappen */
+    border: none; /* Ingen kantlinje */
+    border-radius: 5px; /* Rundade hörn på knappen */
+    cursor: pointer; /* Handpekare vid hover */
+    transition: background-color 0.3s ease; /* Mjuk övergång för bakgrundsfärg */
+}
+
+/* Hover-effekt för knappen */
+.order-button:hover {
+    background-color: #444; /* Ändrar bakgrund till mörkgrå vid hover */
+}
+
+/* Styling för logotypbilden */
+.logo img {
+    width: 60px; /* Sätter bredden på logotypen */
+    margin-top: 20px; /* Avstånd från toppen */
+    margin-right: 50px; /* Avstånd till höger */
+    justify-content: center; /* Centrerar logotypen horisontellt */
+}
+
+/* ------------------- Cart Box Button ------------------------------- */
+
+/* Container för kvittosektionen */
+#receipt-container {
+    border: 1px solid #b3b3b3; /* Ljusgrå kantlinje runt kvitto-container */
+    background-color: #ffffff; /* Vit bakgrund på kvitto-container */
+    border-radius: 5px; /* Rundade hörn på kvitto-container */
+    padding: 20px; /* Padding runt innehållet */
+}
+
+/* Rubrik i kvitto-container */
+#receipt-container h2 {
+    color: #000000; /* Svart färg på rubriken */
+}
+
+/* Styling för lista med kvittoartiklar */
+#receipt-container ul {
+    list-style: none; /* Tar bort punktlistor */
+    padding: 0; /* Tar bort padding */
+}
+
+/* Styling för varje lista-item i kvittolistan */
+#receipt-container li {
+    margin-bottom: 10px; /* Lägg till mellanrum mellan lista-items */
+}
+
+/* Responsiv design för små skärmar */
+@media (max-width: 768px) {
+    #menu-container {
+        flex-direction: column; /* Ändrar layouten till kolumn på små skärmar */
+        align-items: center; /* Centrerar menyn på små skärmar */
+    }
+
+    .menu-item {
+        width: 100%; /* Gör menyalternativen 100% bredd */
+    }
+} 
