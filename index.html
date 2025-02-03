@@ -35,9 +35,11 @@
 
 <!-- Varukorg Sektion -->
 <section id="cart" class="view" style="display: none;">
-    <button class="cart-bag-button" data-view="menu" aria-label="Visa varukorg">
-        <img src="svg/cart.svg" alt="Varukorgsikon">
-    </button>
+    <div class="cart-box">
+        <button data-view="menu" disabled id="go-to-menu-button" aria-label="Visa varukorg">
+            <img src="svg/cart.svg" alt="Varukorgsikon">
+        </button>
+    </div>
     <div id="cart-container"></div> <!-- Här ska kundvagnens innehåll visas -->
     <div class="total-box">
         <div><h1 class="total-text">TOTALT</h1></div>
@@ -45,7 +47,7 @@
         <span id="total-price"></span>
         <div><p>inkl 20% moms</p></div>
     </div>
-    <button id="take-my-money-button" class="take-my-money-button" data-view="eta">TAKE MY MONEY!</button>
+    <button id="take-my-money-button" data-view="eta" class="pay-button" data-view="eta">TAKE MY MONEY!</button>
 </section>
 
 <!-- ETA Sektion -->
@@ -55,26 +57,34 @@
     </div>
     <div><h1 class="eta-header">DINA WONTON TILLAGAS!</h1></div>
     <div id="order-info">
-        <p><span id="order-id">#Ft7nj</span></p> <!-- Order-ID -->
-        <p><span id="eta-time"></span></p> <!-- ETA (Beräknad leveranstid) -->
+        <p><span id="eta-time"></span></p> <!-- ETA (Beräknad leveranstid) -->        
+        <p><span id="eta-order-id"></span></p> <!-- Order-ID -->
     </div>
     <div class="eta-button-container">
-        <button class="eta-buttons receipt" data-view="receipt">SE KVITTO</button>
-        <button class="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
-    </div>
-</section>
-
-<!-- Kvittosida -->
-<section id="receipt" class="view" style="display: none;">
-    <h2>Kvitto</h2>
-    <div class="logo">
-        <img src="svg/logo.svg" alt="logo">
-    </div>
-    <div id="receipt-details"></div> <!-- Här ska kvittodetaljer visas -->
-    <p id="receipt-tax"></p>
-    <p id="receipt-total"></p>
-    <button class="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
-</section>
-
+        <div class="eta-button-container">
+            <button data-view="receipt" disabled class="eta-buttons receipt" >SE KVITTO</button>
+            <button class="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+        </div>
+    </section>
+    
+    <!-- Kvittosida -->
+    <section id="receipt" class="view" style="display: none;" disabled>
+        <div class="receipt-background">
+            <div class="logo">
+                <img src="svg/logo.svg" alt="logo">
+            </div>    
+            <h2>Kvitto</h2>
+            <div id="receipt-container">
+                <!-- Kvittot kommer att visas här -->
+            </div>
+            <div class="total-box">
+                <div><h1 class="total-text">TOTALT</h1></div>
+                <span id="total-text"></span>
+                <span id="total-price"></span>
+                <div><p>inkl 20% moms</p></div>
+            </div>
+            <button class="order-button" data-view="menu">GÖR EN NY BESTÄLLNING</button>
+        </div>
+    </section>
 </body>
 </html>
