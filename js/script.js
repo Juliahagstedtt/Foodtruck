@@ -436,6 +436,10 @@ async function handleTakeMyMoney() {
     updateCartBadge();
 }
 
+function sendOrderToApi(orderdata) {
+    // Skicka order till API
+}
+
 function prepareOrderData() {
     const orderId = `#${Date.now()}`;  // Skapar ett unikt orderId baserat på tiden
 

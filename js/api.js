@@ -26,9 +26,9 @@ export async function fetchMenu() {
     }
 }
 
-async function sendOrderToApi(orderData) {
+export async function sendOrderToApi(orderData) {
     try {
-        const response = await fetch('https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/api/order', {
+        fetch('https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/api/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,16 +37,16 @@ async function sendOrderToApi(orderData) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to send order');
+            throw new Error('Fel vid beställning');
         }
 
         const responseData = await response.json();
-        console.log('Order submitted successfully:', responseData);
+        console.log('Order skickad:', responseData);
+        return responseData;  // Se till att skicka tillbaka responseData
     } catch (error) {
-        console.error('Error submitting order:', error);
+        console.error('Något gick fel:', error);
     }
 }
-
 
 // Skapa en funktion för att generera ett unikt orderId
 function generateOrderId() {
@@ -60,8 +60,17 @@ function generateOrderId() {
 }
 
 // Förbered beställningsdata
+let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Läs in cart från localStorage eller en tom array
+
+
 function prepareOrderData() {
     const orderId = generateOrderId(); // Skapar ett unikt orderId
+
+    // Säkerställ att cart är en array innan vi använder .reduce()
+    if (!Array.isArray(cart)) {
+        console.error("Cart is not an array:", cart);
+        return;
+    }
 
     // Beräkna totalpriset för beställningen
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -70,7 +79,7 @@ function prepareOrderData() {
     return {
         orderId: orderId,       // Unikt orderId
         tenant: tenant.name,    // Namn på användaren (tenant)
-        items: orderItems,      // Lista med beställningsartiklar
+        items: cart,            // Lista med beställningsartiklar
         totalPrice: totalPrice, // Totalpris för beställningen
         timestamp: new Date().toISOString(), // Tidpunkt då beställningen skapades
     };
@@ -84,6 +93,11 @@ document.querySelector(".pay-button").addEventListener("click", handleTakeMyMone
 // Hantera när användaren slutför beställningen
 async function handleTakeMyMoney() {
     const orderData = prepareOrderData(); // Förbered orderdata
+
+    if (!orderData) {
+        console.error('Orderdata kunde inte skapas');
+        return;
+    }
 
     try {
         // Skicka orderdata till API
