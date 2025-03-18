@@ -33,7 +33,7 @@ function addToCart({ type, name, price }) {
 }
 
 // Uppdatera användargränssnittet för varukorgen
-function updateCartUI() {
+export function updateCartUI() {
     const cartContainer = document.getElementById("cart-container"); // Hämtar elementet för varukorgens innehåll
     const totalText = document.querySelector(".total-text"); // Hämtar elementet för att visa totalbeloppet
 

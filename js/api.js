@@ -26,9 +26,48 @@ export async function fetchMenu() {
     }
 }
 
+export async function getTenantId(name) {
+    try {
+        const response = await fetch(`${apiUrl}/tenants`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'yum-BHRyCR5Lgznl28Tr': apiKey // Lägg till API-nyckeln här om det behövs
+            },
+            body: JSON.stringify({ name }),
+        });
+
+        const responseText = await response.text();
+        console.log("API-respons (tenant):", responseText);
+
+        if (!response.ok) {
+            throw new Error(`Fel vid hämtning av tenantId: ${response.status} - ${responseText}`);
+        }
+
+        const data = JSON.parse(responseText);
+        console.log('Hämtat tenantId:', data.tenantId);
+
+        if (!data.tenantId) throw new Error("API returnerade inget tenantId!");
+
+        localStorage.setItem("tenantId", data.tenantId); //Sparar korrekt
+        return data.tenantId;
+    } catch (error) {
+        console.error('Något gick fel vid hämtning av tenantId:', error);
+    }
+}
+
+
+
 export async function sendOrderToApi(orderData) {
     try {
-        fetch('https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/api/order', {
+        // Hämta tenantId från localStorage
+        const tenantId = localStorage.getItem("tenantId");
+
+        if (!tenantId) {
+            throw new Error("TenantId saknas! Hämta först genom att registrera dig.");
+        }
+
+        const response = await fetch(`https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/${tenantId}/order`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,9 +81,9 @@ export async function sendOrderToApi(orderData) {
 
         const responseData = await response.json();
         console.log('Order skickad:', responseData);
-        return responseData;  // Se till att skicka tillbaka responseData
+        return responseData;
     } catch (error) {
-        console.error('Något gick fel:', error);
+        console.error('Något gick fel vid orderläggning:', error);
     }
 }
 
@@ -65,7 +104,8 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Läs in cart frå
 
 function prepareOrderData() {
     const orderId = generateOrderId(); // Skapar ett unikt orderId
-
+    const tenant = getTenant();
+    
     // Säkerställ att cart är en array innan vi använder .reduce()
     if (!Array.isArray(cart)) {
         console.error("Cart is not an array:", cart);
@@ -88,11 +128,16 @@ function prepareOrderData() {
 // Lägg till eventlyssnare på knappen för att slutföra beställningen
 document.querySelector(".pay-button").addEventListener("click", handleTakeMyMoney);
 
-
+function getTenant() {
+    return localStorage.getItem('tenant') || "Julia";
+}
 
 // Hantera när användaren slutför beställningen
 async function handleTakeMyMoney() {
-    const orderData = prepareOrderData(); // Förbered orderdata
+     const orderData = prepareOrderData(); // Förbered orderdata  
+    await sendOrderToApi(orderData);
+
+
 
     if (!orderData) {
         console.error('Orderdata kunde inte skapas');
@@ -107,14 +152,11 @@ async function handleTakeMyMoney() {
         // Töm varukorgen och uppdatera UI
         cart = [];
         localStorage.removeItem('cart');
-        updateCartUI();
-        updateCartBadge();
 
         // Byt till kvittosidan (eta)
         console.log("Byter vy till eta");
         changeView('eta');
     } catch (error) {
-        console.error('Fel vid beställning:', error);
     }
 }
 
