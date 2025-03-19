@@ -4,9 +4,8 @@ let cart = []; // Varukorgsvariabel som lagrar alla valda produkter
 let orderId = `#${Date.now()}`; // Skapa ett unikt order-ID baserat på den aktuella tiden
 console.log("cart:", cart);
 
-
 const tenant = {
-    id: "ef3up", // Identifierar användaren 
+    id: "07zc", // Din tenantId här
     name: "Julia" // Namnet på användaren
 };
 
@@ -325,9 +324,9 @@ function renderMenuItem(item) {
 
 // Uppdaterar ETA-tiden och order-ID på ETA-sidan
 function updateEtaTime() {
-    let baseTime = 1;  // Grundläggande tid (i minuter)
+    let baseTime = 2;  // Grundläggande tid (i minuter)
     const additionalTimePerItem = 1; // 1 minut per artikel
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);  // Total antal artiklar
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 1);  // Total antal artiklar
 
     // Beräknar total leveranstid
     const totalTime = baseTime + totalItems * additionalTimePerItem;

@@ -3,13 +3,15 @@
 const apiKey = "yum-BHRyCR5Lgznl28Tr"; 
 const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com"; 
 
+let tenant = {
+    id: "07zc", // Identifierar användaren 
+    name: "Julia" // Namnet på användaren
+};
+
 /// Exportera båda funktionerna korrekt
 export async function fetchMenu() {
-    const apiKey = "yum-BHRyCR5Lgznl28Tr"; 
-    const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com";
-    
     try {
-        const response = await fetch(`${apiUrl}/menu`, {
+        const response = await fetch(`https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu`, {
             method: 'GET',
             headers: { "x-zocom": apiKey }
         });
@@ -26,64 +28,43 @@ export async function fetchMenu() {
     }
 }
 
-export async function getTenantId(name) {
-    try {
-        const response = await fetch(`${apiUrl}/tenants`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'yum-BHRyCR5Lgznl28Tr': apiKey // Lägg till API-nyckeln här om det behövs
-            },
-            body: JSON.stringify({ name }),
-        });
+async function sendOrderToApi(cart) {
+    const apiUrl = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/07zc/order';
+    const apiKey = 'yum-BHRyCR5Lgznl28Tr';  
+    const tenantId = '07zc';  // Tenant ID
 
-        const responseText = await response.text();
-        console.log("API-respons (tenant):", responseText);
+    // Skapa requestOptions
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-zocom': apiKey  
+        },
+        body: JSON.stringify({
+            tenantId: '07zc',
+            items: cart  // cart är en array
+        })
+    };
+      
+      const response = await fetch(apiUrl, requestOptions);
+
+    try {
+        const response = await fetch(apiUrl, requestOptions);
 
         if (!response.ok) {
-            throw new Error(`Fel vid hämtning av tenantId: ${response.status} - ${responseText}`);
+            console.error(`API Error: ${response.status} - ${response.statusText}`);
+            return;
         }
 
-        const data = JSON.parse(responseText);
-        console.log('Hämtat tenantId:', data.tenantId);
+        const data = await response.json();
+        if (!data) {
+            console.error("API returned empty or invalid response");
+            return;
+        }
 
-        if (!data.tenantId) throw new Error("API returnerade inget tenantId!");
-
-        localStorage.setItem("tenantId", data.tenantId); //Sparar korrekt
-        return data.tenantId;
+        console.log("API Response:", data);
     } catch (error) {
-        console.error('Något gick fel vid hämtning av tenantId:', error);
-    }
-}
-
-
-
-export async function sendOrderToApi(orderData) {
-    try {
-        // Hämta tenantId från localStorage
-        const tenantId = localStorage.getItem("tenantId");
-
-        if (!tenantId) {
-            throw new Error("TenantId saknas! Hämta först genom att registrera dig.");
-        }
-
-        const response = await fetch(`https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/${tenantId}/order`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orderData),
-        });
-
-        if (!response.ok) {
-            throw new Error('Fel vid beställning');
-        }
-
-        const responseData = await response.json();
-        console.log('Order skickad:', responseData);
-        return responseData;
-    } catch (error) {
-        console.error('Något gick fel vid orderläggning:', error);
+        console.error("Något gick fel vid API-anropet:", error);
     }
 }
 
@@ -104,9 +85,11 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Läs in cart frå
 
 function prepareOrderData() {
     const orderId = generateOrderId(); // Skapar ett unikt orderId
-    const tenant = getTenant();
+    const tenant = "Julia";  
     
-    // Säkerställ att cart är en array innan vi använder .reduce()
+    console.log("Förbered beställning för tenant:", tenant); // Bekräftar vilken tenant som används
+    
+    // Säkerställ att cart är en array innan användning av .reduce()
     if (!Array.isArray(cart)) {
         console.error("Cart is not an array:", cart);
         return;
@@ -118,7 +101,7 @@ function prepareOrderData() {
     // Skapar objekt med all information för beställningen
     return {
         orderId: orderId,       // Unikt orderId
-        tenant: tenant.name,    // Namn på användaren (tenant)
+        tenant: tenant,         // Namn på användaren (tenant)
         items: cart,            // Lista med beställningsartiklar
         totalPrice: totalPrice, // Totalpris för beställningen
         timestamp: new Date().toISOString(), // Tidpunkt då beställningen skapades
@@ -133,31 +116,15 @@ function getTenant() {
 }
 
 // Hantera när användaren slutför beställningen
-async function handleTakeMyMoney() {
-     const orderData = prepareOrderData(); // Förbered orderdata  
-    await sendOrderToApi(orderData);
+function handleTakeMyMoney() {
+    const orderData = {
+        items: cart, // Skickar varukorgen
+        tenantId: "07zc"
+    };
 
+    console.log("Orderdata innan API-anrop:", orderData); // Kontrollera att den har data!
 
-
-    if (!orderData) {
-        console.error('Orderdata kunde inte skapas');
-        return;
-    }
-
-    try {
-        // Skicka orderdata till API
-        const apiResponse = await sendOrderToApi(orderData);
-        console.log('Order skickad till API:', apiResponse);
-
-        // Töm varukorgen och uppdatera UI
-        cart = [];
-        localStorage.removeItem('cart');
-
-        // Byt till kvittosidan (eta)
-        console.log("Byter vy till eta");
-        changeView('eta');
-    } catch (error) {
-    }
+    sendOrderToApi(cart);  // Skicka kundvagnen till API:et
 }
 
 // Funktion för att gå till kvittosidan (när beställningen är slutförd)
