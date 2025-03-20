@@ -1,23 +1,27 @@
 // api.js
+import { updateCartUI } from './script.js';
 
 const apiKey = "yum-BHRyCR5Lgznl28Tr"; 
-const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com"; 
+const apiUrl = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/"; 
 
 let tenant = {
     id: "07zc", // Identifierar användaren 
     name: "Julia" // Namnet på användaren
 };
 
+
+
 /// Exportera båda funktionerna korrekt
 export async function fetchMenu() {
     try {
         const response = await fetch(`https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu`, {
             method: 'GET',
-            headers: { "x-zocom": apiKey }
+            headers: { 
+            "x-zocom": "yum-BHRyCR5Lgznl28Tr" }
         });
 
         if (!response.ok) {
-            throw new Error(`API-fel: ${response.status} - ${response.statusText}`);
+            throw new Error('Error fetching menu data:', error);
         }
 
         const data = await response.json();
@@ -29,82 +33,55 @@ export async function fetchMenu() {
 }
 
 async function sendOrderToApi(cart) {
-    const apiUrl = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/07zc/order';
-    const apiKey = 'yum-BHRyCR5Lgznl28Tr';  
-    const tenantId = '07zc';  // Tenant ID
+    const formattedCart = cart.items.map(item => ({
+        id: item.id,
+        quantity: item.quantity
+    }));
 
-    // Skapa requestOptions
+    const requestBody = {
+        tenantId: '07zc',
+        items: formattedCart
+    };
+
     const requestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'x-zocom': apiKey  
+            'Accept': 'application/json',
+            'x-zocom': apiKey
         },
-        body: JSON.stringify({
-            tenantId: '07zc',
-            items: cart  // cart är en array
-        })
+        body: JSON.stringify(requestBody)
     };
-      
-      const response = await fetch(apiUrl, requestOptions);
 
     try {
         const response = await fetch(apiUrl, requestOptions);
-
+        const responseData = await response.json();
         if (!response.ok) {
-            console.error(`API Error: ${response.status} - ${response.statusText}`);
-            return;
+            throw new Error(`API Error: ${response.status} - ${responseData}`);
         }
-
-        const data = await response.json();
-        if (!data) {
-            console.error("API returned empty or invalid response");
-            return;
-        }
-
-        console.log("API Response:", data);
+        console.log("Order sent successfully:", responseData);
+        return responseData;
     } catch (error) {
         console.error("Något gick fel vid API-anropet:", error);
     }
-}
-
-// Skapa en funktion för att generera ett unikt orderId
-function generateOrderId() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; // Endast bokstäver
-    let orderId = '';
-    for (let i = 0; i < 5; i++) {  // Generera en ID-längd
-        const randomIndex = Math.floor(Math.random() * characters.length); // Slumpmässigt tecken
-        orderId += characters[randomIndex]; // Lägger till tecknet i ID:t
-    }
-    return orderId;
 }
 
 // Förbered beställningsdata
 let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Läs in cart från localStorage eller en tom array
 
 
-function prepareOrderData() {
-    const orderId = generateOrderId(); // Skapar ett unikt orderId
-    const tenant = "Julia";  
-    
-    console.log("Förbered beställning för tenant:", tenant); // Bekräftar vilken tenant som används
-    
-    // Säkerställ att cart är en array innan användning av .reduce()
-    if (!Array.isArray(cart)) {
-        console.error("Cart is not an array:", cart);
-        return;
+function prepareOrderData(cart) {
+    if (!Array.isArray(cart) || cart.length === 0) {
+        console.error("Cart is empty or not an array:", cart);
+        return null; // Returnera null så vi kan hantera felet
     }
 
-    // Beräkna totalpriset för beställningen
-    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-    // Skapar objekt med all information för beställningen
     return {
-        orderId: orderId,       // Unikt orderId
-        tenant: tenant,         // Namn på användaren (tenant)
-        items: cart,            // Lista med beställningsartiklar
-        totalPrice: totalPrice, // Totalpris för beställningen
-        timestamp: new Date().toISOString(), // Tidpunkt då beställningen skapades
+        orderId: generateOrderId(),
+        tenant: "Julia",
+        items: cart,
+        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        timestamp: new Date().toISOString(),
     };
 }
 
@@ -115,16 +92,49 @@ function getTenant() {
     return localStorage.getItem('tenant') || "Julia";
 }
 
+function generateOrderId() {
+    return `#${Date.now()}`; // Skapar unikt order-ID baserat på tid
+}
+
+
+function getCartFromLocalStorage() {
+    if (typeof localStorage === 'undefined') {
+        console.warn("localStorage är inte tillgängligt.");
+        return [];
+    }
+
+    const cartData = localStorage.getItem('cart');
+    console.log('Hämtad varukorg från localStorage:', cartData);
+    
+    if (cartData) {
+        return JSON.parse(cartData);
+    } else {
+        console.warn('Ingen varukorg hittades i localStorage.');
+        return [];
+    }
+}
+
+function saveCartToLocalStorage(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
 // Hantera när användaren slutför beställningen
-function handleTakeMyMoney() {
-    const orderData = {
-        items: cart, // Skickar varukorgen
-        tenantId: "07zc"
-    };
+async function handleTakeMyMoney() {
+    const cart = getCartFromLocalStorage(); // Hämta varukorgen från localStorage
+    console.log("Cart innan betalning:", cart);
 
-    console.log("Orderdata innan API-anrop:", orderData); // Kontrollera att den har data!
+    if (cart.length === 0) {
+        console.warn("Varukorgen är tom! Lägg till varor innan du fortsätter.");
+        return;  // Stoppa om varukorgen är tom
+    }
 
-    sendOrderToApi(cart);  // Skicka kundvagnen till API:et
+    // Förbered och skicka beställning
+    const orderData = prepareOrderData(cart);
+    await sendOrderToApi(orderData);
+
+    // Töm varukorgen efter beställning
+    // localStorage.removeItem('cart'); <-- Ta bort denna rad om du inte vill rensa varukorgen här
+    updateCartUI();  // Uppdatera UI
+    updateCartBadge();  // Uppdatera badge
 }
 
 // Funktion för att gå till kvittosidan (när beställningen är slutförd)

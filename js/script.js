@@ -1,6 +1,9 @@
 import { fetchMenu } from './api.js';
 
-let cart = []; // Varukorgsvariabel som lagrar alla valda produkter
+
+let cart = getCartFromLocalStorage();
+console.log("Hämtad varukorg:", cart);
+
 let orderId = `#${Date.now()}`; // Skapa ett unikt order-ID baserat på den aktuella tiden
 console.log("cart:", cart);
 
@@ -12,23 +15,33 @@ const tenant = {
 const sauceButton = document.querySelector(".sauce-buttons"); // Hämtar elementet för såsknapparna
 const drinksButton = document.querySelector(".drinks-buttons"); // Hämtar elementet för dryckesknapparna
 
+function getCartFromLocalStorage() {
+    // Försök hämta och parsa varukorgen från localStorage
+    const storedCart = localStorage.getItem('cart');
+    
+    // Om det finns en varukorg lagrad, parsa den, annars returnera en tom array
+    return storedCart ? JSON.parse(storedCart) : [];
+}
+
 // Lägg till varor i kundvagnen
 function addToCart({ type, name, price }) {
     console.log(`Lägger till i kundvagnen: ${name}, Typ: ${type}, Pris: ${price} SEK`);
 
-    // Kontrollera om produkten redan finns i kundvagnen
     const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
-        existingItem.quantity += 1;  // Om produkten finns, öka mängden
+        existingItem.quantity += 1;
     } else {
-        cart.push({ type, name, price, quantity: 1 }); // Lägg till ny produkt i varukorgen
+        cart.push({ type, name, price, quantity: 1 });
     }
 
-    // Uppdatera localStorage med den aktuella varukorgen
+    // Skriv ut varukorgen innan den sparas
+    console.log('Sparar varukorg i localStorage:', cart);
+    
+    // Spara varukorgen i localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    updateCartUI(); // Uppdatera varukorgens gränssnitt
-    updateCartBadge(); // Uppdatera varukorgens ikon med antal varor
+    updateCartUI();  // Uppdatera UI
+    updateCartBadge();  // Uppdatera badge
 }
 
 // Uppdatera användargränssnittet för varukorgen
@@ -41,18 +54,18 @@ export function updateCartUI() {
     cart.forEach(item => {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item"); 
-        cartItem.innerHTML = `  
-            <div class="cart-item-info">
-                <div class="cart-item-name">${item.name}</div>
-                <span class="dot-line"></span>
-                <div class="cart-item-price">${item.price} SEK</div>
-            </div>
-            <div class="cart-item-actions">
-                <button class="increase" data-name="${item.name}">+</button>
-                <p class="amount">&nbsp;${item.quantity}&nbsp;&nbsp;stycken</p>
-                <button class="decrease" data-name="${item.name}">-</button>
-            </div>
-        `;
+        cartItem.innerHTML = `
+        <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <span class="dot-line"></span>
+            <div class="cart-item-price">${item.price} SEK</div>
+        </div>
+        <div class="cart-item-actions">
+            <button class="increase" data-name="${item.name}">+</button>
+            <p class="amount">&nbsp;${item.quantity}&nbsp;&nbsp;stycken</p>
+            <button class="decrease" data-name="${item.name}">-</button>
+        </div>
+    `;
 
         cartContainer.appendChild(cartItem); 
     });
@@ -105,8 +118,10 @@ function updateCartBadge() {
 // Laddar varukorgen från localStorage om den finns
 function loadCartFromLocalStorage() {
     const savedCart = localStorage.getItem('cart');
+    console.log("Laddad varukorg från localStorage:", savedCart);
+
     if (savedCart) {
-        cart = JSON.parse(savedCart); // Återställer varukorgen från localStorage
+        cart = JSON.parse(savedCart);
     }
 }
 
