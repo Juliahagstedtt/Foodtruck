@@ -1,26 +1,32 @@
 import { fetchMenu } from './api.js';
+import { sendOrderToApi } from "./api.js";
+
 
 
 let cart = getCartFromLocalStorage();
 console.log("Hämtad varukorg:", cart);
 
-let orderId = `#${Date.now()}`; // Skapa ett unikt order-ID baserat på den aktuella tiden
+let orderId = `#${Date.now()}`; // Skapar ett unikt order-ID baserat på den aktuella tiden
 console.log("cart:", cart);
 
 const tenant = {
-    id: "07zc", // Din tenantId här
-    name: "Julia" // Namnet på användaren
+    id: "07zc", // TenantId 
+    name: "Julia" // Användaren
 };
 
 const sauceButton = document.querySelector(".sauce-buttons"); // Hämtar elementet för såsknapparna
 const drinksButton = document.querySelector(".drinks-buttons"); // Hämtar elementet för dryckesknapparna
 
 function getCartFromLocalStorage() {
-    // Försök hämta och parsa varukorgen från localStorage
+    // Försök hämta varukorgen från localStorage
     const storedCart = localStorage.getItem('cart');
     
-    // Om det finns en varukorg lagrad, parsa den, annars returnera en tom array
+    // Om det finns en varukorg lagrad, annars returnera en tom array
     return storedCart ? JSON.parse(storedCart) : [];
+}
+
+function generateOrderId() {
+    return `#${Date.now()}`; // Skapar ett unikt order-ID baserat på tid
 }
 
 // Lägg till varor i kundvagnen
@@ -118,10 +124,13 @@ function updateCartBadge() {
 // Laddar varukorgen från localStorage om den finns
 function loadCartFromLocalStorage() {
     const savedCart = localStorage.getItem('cart');
-    console.log("Laddad varukorg från localStorage:", savedCart);
-
+    let cart = [];
+    
     if (savedCart) {
-        cart = JSON.parse(savedCart);
+      // Om det finns en varukorg sparad, ladda den
+      cart = JSON.parse(savedCart);
+    } else {
+      console.log("Ingen varukorg sparad i localStorage.");
     }
 }
 
@@ -436,44 +445,37 @@ setupViewSwitchers();
 
 // Funktion för att tömma varukorgen och slutföra beställningen
 async function handleTakeMyMoney() {
-    const orderData = prepareOrderData(); // Förbereder orderdata
+    const cart = getCartFromLocalStorage();
+    console.log("Cart innan betalning:", cart);
 
-    // Skickar orderdata till servern (API)
+    if (!cart || cart.length === 0) {
+        console.warn("Varukorgen är tom! Lägg till varor innan du fortsätter.");
+        return;
+    }
+
+    const orderData = prepareOrderData(cart);
+    if (!orderData) {  // Kontrollera att orderData skapas
+        console.error("Fel: orderData kunde inte skapas!");
+        return;
+    }
+
     await sendOrderToApi(orderData);
 
-    // Tömmer varukorgen
-    cart = [];
-    localStorage.removeItem('cart');
-    
-    // Uppdaterar användargränssnittet
     updateCartUI();
-    updateCartBadge();
 }
 
-function sendOrderToApi(orderdata) {
-    // Skicka order till API
-}
+function prepareOrderData(cart) {
+    if (!Array.isArray(cart) || cart.length === 0) {
+        console.error("Cart is empty or not an array:", cart);
+        return null;  
+    }
 
-function prepareOrderData() {
-    const orderId = `#${Date.now()}`;  // Skapar ett unikt orderId baserat på tiden
-
-    // Skapar en lista med beställningsartiklar (namn, kvantitet och pris)
-    const orderItems = cart.map(item => ({
-        name: item.name,       // Namn på produkten
-        quantity: item.quantity, // Antal av produkten
-        price: item.price,      // Pris per enhet
-    }));
-
-    // Beräknar totalpriset för beställningen
-    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-    // Skapar objekt med all information för beställningen
     return {
-        orderId: orderId,  // Unikt orderId
-        tenant: tenant.name,  // Namn på användaren (tenant)
-        items: orderItems,  // Lista med beställningsartiklar
-        totalPrice: totalPrice, // Totalpris för beställningen
-        timestamp: new Date().toISOString(), // Tidpunkt 
+        orderId: generateOrderId(),
+        tenant: "Julia",
+        items: cart,
+        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        timestamp: new Date().toISOString(),
     };
 }
 
@@ -481,7 +483,6 @@ function prepareOrderData() {
 // Resetar ordern - tömmer varukorg och återställer till menyn
 function resetOrder() {
     cart = []; // Tömmer varukorgen
-    localStorage.removeItem('cart');  // Tar bort varukorgen från localStorage
     localStorage.removeItem('menu');  // Tar bort menyn från localStorage om den är sparad
 
     orderId = `#${Date.now()}`; // Återställer orderId till ett nytt för nästa beställning
